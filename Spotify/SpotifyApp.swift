@@ -13,5 +13,6 @@ struct SpotifyApp: App {
         WindowGroup {
             ContentView()
         }
+        
     }
 }
