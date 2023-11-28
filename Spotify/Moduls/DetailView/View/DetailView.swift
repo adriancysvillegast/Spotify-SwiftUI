@@ -31,7 +31,7 @@ struct DetailView: View {
                         Group {
                             TrackListView(tracks: viewModel.tracks)
                         }
-                        .frame(height: 500)
+                        .frame(height: CGFloat(viewModel.tracks.count) * 68)
                         
                         
                     }

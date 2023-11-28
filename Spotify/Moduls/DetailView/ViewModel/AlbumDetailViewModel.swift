@@ -25,7 +25,6 @@ class AlbumDetailViewModel: ObservableObject {
             switch result {
             case .success(let value):
                 DispatchQueue.main.async {
-                    
                     let data = AlbumDetailModelCell(
                         id: value.id,
                         image: URL(string: value.images.first?.url ?? "-"),

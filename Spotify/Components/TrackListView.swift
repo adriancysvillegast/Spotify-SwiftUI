@@ -23,6 +23,7 @@ struct TrackListView: View {
                             Text(track.name )
                                 .font(.title3)
                                 .foregroundColor(.primary)
+                                .lineLimit(1)
                             if track.explicit {
                                 Image(systemName: "e.square.fill")
                             }
