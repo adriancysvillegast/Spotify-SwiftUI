@@ -28,7 +28,7 @@
 		093DD8602B0A6ACF0017C83D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093DD85F2B0A6ACF0017C83D /* Constants.swift */; };
 		093DD8622B0A7B610017C83D /* CustomButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093DD8612B0A7B610017C83D /* CustomButtonModifier.swift */; };
 		093DD8642B0A7EE20017C83D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093DD8632B0A7EE20017C83D /* Extensions.swift */; };
-		094D58E02B13A6B20083CFC6 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094D58DF2B13A6B20083CFC6 /* DetailView.swift */; };
+		094D58E02B13A6B20083CFC6 /* AlbumDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094D58DF2B13A6B20083CFC6 /* AlbumDetailView.swift */; };
 		0954F6512B169C45008B0377 /* TrackModelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0954F6502B169C45008B0377 /* TrackModelCell.swift */; };
 		097D53902B0A83E60022E076 /* AuthValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097D538F2B0A83E60022E076 /* AuthValidation.swift */; };
 		097D53922B0A85C50022E076 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097D53912B0A85C50022E076 /* AuthViewController.swift */; };
@@ -71,7 +71,7 @@
 		093DD85F2B0A6ACF0017C83D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		093DD8612B0A7B610017C83D /* CustomButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonModifier.swift; sourceTree = "<group>"; };
 		093DD8632B0A7EE20017C83D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		094D58DF2B13A6B20083CFC6 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		094D58DF2B13A6B20083CFC6 /* AlbumDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailView.swift; sourceTree = "<group>"; };
 		0954F6502B169C45008B0377 /* TrackModelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackModelCell.swift; sourceTree = "<group>"; };
 		097D538F2B0A83E60022E076 /* AuthValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthValidation.swift; sourceTree = "<group>"; };
 		097D53912B0A85C50022E076 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
@@ -208,7 +208,7 @@
 		093DD8582B0A6A100017C83D /* Moduls */ = {
 			isa = PBXGroup;
 			children = (
-				094D58DB2B139FDB0083CFC6 /* DetailView */,
+				094D58DB2B139FDB0083CFC6 /* AlbumDetail */,
 				093DD85A2B0A6A5B0017C83D /* Browser */,
 				093DD8592B0A6A3D0017C83D /* Log In */,
 			);
@@ -253,20 +253,20 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
-		094D58DB2B139FDB0083CFC6 /* DetailView */ = {
+		094D58DB2B139FDB0083CFC6 /* AlbumDetail */ = {
 			isa = PBXGroup;
 			children = (
 				094D58DE2B13A2A30083CFC6 /* Model */,
 				094D58DC2B13A2940083CFC6 /* View */,
 				094D58DD2B13A29A0083CFC6 /* ViewModel */,
 			);
-			path = DetailView;
+			path = AlbumDetail;
 			sourceTree = "<group>";
 		};
 		094D58DC2B13A2940083CFC6 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				094D58DF2B13A6B20083CFC6 /* DetailView.swift */,
+				094D58DF2B13A6B20083CFC6 /* AlbumDetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -403,7 +403,7 @@
 				093A2F6F2B124A9F00ACDA95 /* BrowseView.swift in Sources */,
 				093A2F7D2B125BB200ACDA95 /* APIManager.swift in Sources */,
 				093DD8602B0A6ACF0017C83D /* Constants.swift in Sources */,
-				094D58E02B13A6B20083CFC6 /* DetailView.swift in Sources */,
+				094D58E02B13A6B20083CFC6 /* AlbumDetailView.swift in Sources */,
 				0954F6512B169C45008B0377 /* TrackModelCell.swift in Sources */,
 				099D48612B1664D400847372 /* RecomendationResponse.swift in Sources */,
 				099D48652B16918900847372 /* TrackRecomendationView.swift in Sources */,

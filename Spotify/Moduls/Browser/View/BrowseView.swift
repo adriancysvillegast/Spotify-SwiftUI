@@ -54,7 +54,7 @@ struct BrowseView: View {
                                             ForEach(viewModel.newReleasesCell, id: \.idAlbum) { item in
                                                 
                                                 NavigationLink {
-                                                    DetailView(album: item, viewModel: AlbumDetailViewModel())
+                                                    AlbumDetailView(album: item, viewModel: AlbumDetailViewModel())
                                                 } label: {
                                                     CoverView(item: item)
                                                 }

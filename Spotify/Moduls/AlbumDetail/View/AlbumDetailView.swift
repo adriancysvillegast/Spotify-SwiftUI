@@ -1,5 +1,5 @@
 //
-//  DetailView.swift
+//  AlbumDetailView.swift
 //  Spotify
 //
 //  Created by Adriancys Jesus Villegas Toro on 26/11/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DetailView: View {
+struct AlbumDetailView: View {
     
     // MARK: - Properties
     var album: NewReleasesModelCell
