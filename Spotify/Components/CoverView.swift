@@ -12,6 +12,7 @@ struct CoverView: View {
     // MARK: - Poperties
     let item: NewReleasesModelCell
     
+    
     // MARK: - Body
     var body: some View {
         
@@ -29,11 +30,6 @@ struct CoverView: View {
                             .progressViewStyle(.circular)
                     }
                     .frame(height: 150)
-
-//                    Image("ImageCover")
-//                        .resizable()
-//                        .scaledToFit()
-//                        .cornerRadius(12)
                 }
                 
                 HStack {
@@ -61,20 +57,20 @@ struct CoverView: View {
 
 // MARK: - Preview
 
-struct ItemView_Previews: PreviewProvider {
-
-    static let item: [AlbumResponse] = Bundle.main.decode("NewReleases.json")
-    
-    static let data : [NewReleasesModelCell] = item.map {
-        NewReleasesModelCell(
-            idAlbum: $0.id,
-            nameAlbum: $0.name,
-            nameArtist: $0.artists.first?.name ?? "-" ,
-            urlImage: URL(string: $0.images.first?.url ?? "-")
-        )
-    }
-    static var previews: some View {
-        CoverView(item: data[1])
-            .previewLayout(.fixed(width: 150, height: 200))
-    }
-}
+//struct ItemView_Previews: PreviewProvider {
+//
+//    static let item: [AlbumResponse] = Bundle.main.decode("NewReleases.json")
+//    
+//    static let data : [NewReleasesModelCell] = item.map {
+//        NewReleasesModelCell(
+//            idAlbum: $0.id,
+//            nameAlbum: $0.name,
+//            nameArtist: $0.artists.first?.name ?? "-" ,
+//            urlImage: URL(string: $0.images.first?.url ?? "-")
+//        )
+//    }
+//    static var previews: some View {
+//        CoverView(item: data[1])
+//            .previewLayout(.fixed(width: 150, height: 200))
+//    }
+//}

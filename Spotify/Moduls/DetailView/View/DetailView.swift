@@ -21,73 +21,47 @@ struct DetailView: View {
                 if viewModel.showError {
 //                    showErrorvIEW
                 }else if let album = viewModel.albumDetailCell{
-                    VStack(spacing: 0) {
+                    VStack {
+                        
+                        // MARK: - Header
                         Group {
                             AlbumHeaderView(albumDetail: album)
                         }
                         .padding(.top, 0)
                         
-                        
+                        // MARK: - List of tracks
                         Group {
                             TrackListView(tracks: viewModel.tracks)
                         }
                         .frame(height: CGFloat(viewModel.tracks.count) * 68)
                         
+                        // MARK: - Recomendation by random genre
+                        Group {
+                            TrackRecomendationView(tracks: viewModel.recomendedTracks, genreName: viewModel.genre)
+                        }
+                        
+                        
                         
                     }
                 }
             }
+            .alert(Text("Error"), isPresented: $viewModel.showError) {
+                Button(role: .cancel) {
+                    
+                } label: {
+                    Text("Cancel")
+                }
+
+            } message: {
+                Text(viewModel.errorMessage)
+            }
+
             
-//            ScrollView {
-//
-//                ZStack {
-//
-//
-//                    if ((viewModel.albumDetailCell?.tracks.isEmpty) != nil ){
-//                            // MARK: - Header
-//                            AlbumHeaderView(albumDetail: viewModel.albumDetailCell)
-//
-//                            // MARK: - Music
-//                            List {
-//                                ForEach(viewModel.albumDetailCell?.tracks ?? [], id: \.id) { track in
-//                                    Text(track.name )
-//                                }
-//                            }
-//
-//                    } else {
-//                        ProgressView()
-//                            .progressViewStyle(.circular)
-//                    }
-//
-//                    // MARK: - Body
-//                    VStack {
-//
-//                    }
-//
-//
-//                }
-//            }
         }
         .onAppear {
             viewModel.getDetail(album: album)
+            viewModel.getGenresRecomendation()
+            viewModel.getAudioTrackRecomendations()
         }
-    }
-}
-
-// MARK: - Preview
-
-struct DetailView_Previews: PreviewProvider {
-    
-    static let album: NewReleasesResponse = Bundle.main.decode("NewReleases.json")
-    static let data : [NewReleasesModelCell] = album.albums.items.compactMap {
-        NewReleasesModelCell(
-            idAlbum: $0.id,
-            nameAlbum: $0.name,
-            nameArtist: $0.artists.first?.name ?? "--",
-            urlImage: URL(string: $0.images.first?.url ?? "--"))
-    }
-    
-    static var previews: some View {
-        DetailView(album: data[0], viewModel: AlbumDetailViewModel())
     }
 }
