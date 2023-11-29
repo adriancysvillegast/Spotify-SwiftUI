@@ -72,7 +72,7 @@ final class APIManager {
     }
     // MARK: - Details
     
-    func getDetail(album: NewReleasesModelCell,
+    func getDetailAlbum(album: NewReleasesModelCell,
                    completion: @escaping (Result<AlbumsDetailsResponse, Error>) -> Void ) {
         createBaseRequest(
             with: URL(string: basicURL + "/albums/\(album.idAlbum)"),
@@ -100,6 +100,59 @@ final class APIManager {
         }
     }
     
+    func getGenres(completion: @escaping (Result<GenreResponse, Error>) -> Void) {
+        createBaseRequest(
+            with: URL(string: basicURL + "/recommendations/available-genre-seeds"),
+            type: .GET
+        ) { baseRequest in
+            
+            let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
+                guard let data = data, error == nil else {
+                    completion(.failure(APIError.failedToGetData))
+                    return
+                }
+                
+                do {
+                    
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let response = try decoder.decode(GenreResponse.self, from: data)
+                    completion(.success(response))
+                    
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+            task.resume()
+        }
+    }
     
     
+    func getRecomendationWithAGenre(genre: String, completion: @escaping (Result<RecomendationsResponse, Error>) -> Void) {
+        createBaseRequest(
+            with: URL(string: basicURL + "/recommendations?limit=30&seed_genres=\(genre)"),
+            type: .GET
+        ) { baseRequest in
+            
+            let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
+                guard let data = data, error == nil else {
+                    completion(.failure(APIError.failedToGetData))
+                    return
+                }
+                
+                do {
+                    
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let response = try decoder.decode(RecomendationsResponse.self, from: data)
+                    completion(.success(response))
+                    
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+            task.resume()
+        }
+        
+    }
 }
