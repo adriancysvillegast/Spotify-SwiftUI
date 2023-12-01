@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct TrackModelCell {
+struct TrackModelCell: Hashable {
     let image: URL?
     let artists: String
     let explicit: Bool
