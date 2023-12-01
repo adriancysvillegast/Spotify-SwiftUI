@@ -128,6 +128,7 @@ final class APIManager {
     }
     
     
+    
     func getRecomendationWithAGenre(genre: String, completion: @escaping (Result<RecomendationsResponse, Error>) -> Void) {
         createBaseRequest(
             with: URL(string: basicURL + "/recommendations?limit=30&seed_genres=\(genre)"),
@@ -154,5 +155,32 @@ final class APIManager {
             task.resume()
         }
         
+    }
+    
+    func getSongDetails(id: String, completion: @escaping (Result<AudioTrackResponse, Error>) -> Void ) {
+        createBaseRequest(
+            with: URL(string: basicURL + "/tracks/\(id)"),
+            type: .GET
+        ) { baseRequest in
+            
+            let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
+                guard let data = data, error == nil else {
+                    completion(.failure(APIError.failedToGetData))
+                    return
+                }
+                
+                do {
+                    
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let response = try decoder.decode(AudioTrackResponse.self, from: data)
+                    completion(.success(response))
+                    
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+            task.resume()
+        }
     }
 }

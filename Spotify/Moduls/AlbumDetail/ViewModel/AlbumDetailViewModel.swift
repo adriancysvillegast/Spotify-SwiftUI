@@ -14,28 +14,28 @@ class AlbumDetailViewModel: ObservableObject {
     @Published var tracks: [TrackModelCell] = []
     @Published var genre: String = "acoustic"
     @Published var recomendedTracks: [TrackModelCell] = []
-    
+
     @State var showError: Bool = false
     @State var errorMessage: String = "Ups we got and error\nwhen we were loading data"
+    
     // MARK: - Methods
     
     func getDetail(album: NewReleasesModelCell) {
-        
         APIManager.shared.getDetailAlbum(
             album: album
         ) { [weak self] result in
             
             switch result {
             case .success(let value):
-                DispatchQueue.main.async {
+                
                     let data = AlbumDetailModelCell(
                         id: value.id,
-                        image: URL(string: value.images.first?.url ?? "-"),
+                        image: album.urlImage,
                         nameAlbum: value.name,
                         nameArtist: value.artists.first?.name ?? "--",
                         tracks: value.tracks.items)
-                    
-                    self?.tracks = self?.getArtist(audios: value.tracks.items) ?? []
+                DispatchQueue.main.async {
+                    self?.tracks = self?.getArtist(albumImage: album.urlImage, audios: value.tracks.items) ?? []
                     self?.albumDetailCell = data
                 }
             case .failure(let failure):
@@ -70,7 +70,6 @@ class AlbumDetailViewModel: ObservableObject {
         ) { [weak self] result in
             switch result {
             case .success(let success):
-//                print(success.tracks.first?.album?.images.first?.url)
                 DispatchQueue.main.async {
                     //                    let images
                     self?.recomendedTracks = success.tracks.compactMap({
@@ -91,14 +90,14 @@ class AlbumDetailViewModel: ObservableObject {
     }
     
     
-    private func getArtist(audios: [AudioTrackResponse]) -> [TrackModelCell] {
+    private func getArtist(albumImage: URL?,audios: [AudioTrackResponse]) -> [TrackModelCell] {
         var tracks: [TrackModelCell] = []
         
         for audio in audios {
             
             let artists = audio.artists.compactMap { $0.name }
             let track = TrackModelCell(
-                image: URL(string: audio.album?.images.first?.url ?? "-"),
+                image: albumImage,
                 artists: artists.joined(separator: ", "),
                 explicit: audio.explicit,
                 id: audio.id,
@@ -109,6 +108,7 @@ class AlbumDetailViewModel: ObservableObject {
         }
         return tracks
     }
-    
+ 
+
 }
 

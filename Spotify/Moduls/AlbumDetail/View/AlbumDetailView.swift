@@ -12,6 +12,8 @@ struct AlbumDetailView: View {
     // MARK: - Properties
     var album: NewReleasesModelCell
     @StateObject var viewModel: AlbumDetailViewModel
+    @State var trackSelected: String = "no"
+    @State var showTrack: Bool = false
     
     // MARK: - Body
     
@@ -31,7 +33,37 @@ struct AlbumDetailView: View {
                         
                         // MARK: - List of tracks
                         Group {
-                            TrackListView(tracks: viewModel.tracks)
+                            List {
+                                ForEach(viewModel.tracks, id: \.id) { track in
+                                    Button {
+//                                        Task {
+                                            trackSelected = track.id
+                                            self.showTrack.toggle()
+//                                        }
+                                        
+                                        
+                                    } label: {
+                                        VStack(alignment: .leading, spacing: 5) {
+                                            HStack {
+                                                Text(track.name )
+                                                    .font(.title3)
+                                                    .foregroundColor(.primary)
+                                                    .lineLimit(1)
+
+                                                if track.explicit {
+                                                    Image(systemName: "e.square.fill")
+                                                }
+                                            }
+
+                                            Text(track.artists)
+                                                .font(.footnote)
+                                                .foregroundColor(.secondary)
+                                        }
+                                    }
+                                }
+                                
+                            }
+                            .listStyle(.plain)
                         }
                         .frame(height: CGFloat(viewModel.tracks.count) * 68)
                         
@@ -39,11 +71,13 @@ struct AlbumDetailView: View {
                         Group {
                             TrackRecomendationView(tracks: viewModel.recomendedTracks, genreName: viewModel.genre)
                         }
-                        
-                        
-                        
+   
                     }
                 }
+            }
+            .sheet(isPresented: $showTrack) {
+                PlayView(id: $trackSelected, viewModel: PlaySongViewModel())
+                    .presentationDragIndicator(.visible)
             }
             .alert(Text("Error"), isPresented: $viewModel.showError) {
                 Button(role: .cancel) {
@@ -55,7 +89,6 @@ struct AlbumDetailView: View {
             } message: {
                 Text(viewModel.errorMessage)
             }
-
             
         }
         .onAppear {
