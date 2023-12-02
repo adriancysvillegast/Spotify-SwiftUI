@@ -52,6 +52,7 @@ struct AlbumDetailView: View {
 
                                                 if track.explicit {
                                                     Image(systemName: "e.square.fill")
+                                                        .foregroundColor(.primary)
                                                 }
                                             }
 
