@@ -10,6 +10,7 @@ import Foundation
 final class APIManager {
     // MARK: - Properties
     static let shared: APIManager = APIManager()
+    
     enum HTTPMethods: String {
         case GET
         case PUT

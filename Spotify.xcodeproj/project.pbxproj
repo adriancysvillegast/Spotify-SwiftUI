@@ -42,6 +42,7 @@
 		099D485F2B165D9200847372 /* GenreResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099D485E2B165D9200847372 /* GenreResponse.swift */; };
 		099D48612B1664D400847372 /* RecomendationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099D48602B1664D400847372 /* RecomendationResponse.swift */; };
 		099D48652B16918900847372 /* TrackRecomendationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099D48642B16918900847372 /* TrackRecomendationView.swift */; };
+		09E4F04E2B1B94C6005BABE5 /* PlaybackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E4F04D2B1B94C6005BABE5 /* PlaybackManager.swift */; };
 		09ECA0E52B177F5400C84DAE /* TrackCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ECA0E42B177F5400C84DAE /* TrackCoverView.swift */; };
 		09ECA0EA2B18CC8000C84DAE /* PlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ECA0E92B18CC8000C84DAE /* PlayView.swift */; };
 		09ECA0EE2B19057400C84DAE /* VolumenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ECA0ED2B19057400C84DAE /* VolumenManager.swift */; };
@@ -87,6 +88,7 @@
 		099D485E2B165D9200847372 /* GenreResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreResponse.swift; sourceTree = "<group>"; };
 		099D48602B1664D400847372 /* RecomendationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecomendationResponse.swift; sourceTree = "<group>"; };
 		099D48642B16918900847372 /* TrackRecomendationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecomendationView.swift; sourceTree = "<group>"; };
+		09E4F04D2B1B94C6005BABE5 /* PlaybackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackManager.swift; sourceTree = "<group>"; };
 		09ECA0E42B177F5400C84DAE /* TrackCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCoverView.swift; sourceTree = "<group>"; };
 		09ECA0E92B18CC8000C84DAE /* PlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayView.swift; sourceTree = "<group>"; };
 		09ECA0ED2B19057400C84DAE /* VolumenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumenManager.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				097D53932B0A86C40022E076 /* AuthManager.swift */,
 				093A2F7C2B125BB200ACDA95 /* APIManager.swift */,
 				09ECA0ED2B19057400C84DAE /* VolumenManager.swift */,
+				09E4F04D2B1B94C6005BABE5 /* PlaybackManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 				0954F6512B169C45008B0377 /* TrackModelCell.swift in Sources */,
 				096E23DE2B1A4D7D00986F43 /* PlaySongViewModel.swift in Sources */,
 				099D48612B1664D400847372 /* RecomendationResponse.swift in Sources */,
+				09E4F04E2B1B94C6005BABE5 /* PlaybackManager.swift in Sources */,
 				099D48652B16918900847372 /* TrackRecomendationView.swift in Sources */,
 				097D53972B0A89480022E076 /* AuthResponse.swift in Sources */,
 				09F7BC792B13B4D300DE2861 /* AlbumDetailsResponse.swift in Sources */,

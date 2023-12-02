@@ -12,7 +12,7 @@ struct PlayView: View {
     // MARK: - Porperties
     @Binding var id: String
     @StateObject var viewModel: PlaySongViewModel
-    @State private var volume: Float = 0.5
+    @State private var volume: Float = AVAudioSession.sharedInstance().outputVolume
 //    AVAudioSession.sharedInstance().outputVolume
     
     
@@ -78,40 +78,47 @@ struct PlayView: View {
                         
                         HStack {
                             
-                            Spacer()
-                            
-                            Button {
-                                //                        restart
-                            } label: {
-                                Image(systemName: "backward.fill")
-                                    .font(.title)
-                                    .foregroundColor(.primary)
-                                    .fontWeight(.heavy)
-                            }
-                            
-                            Spacer()
-                            
-                            Button {
-                                //                        play
-                            } label: {
-                                Image(systemName: "play.fill")
-                                    .font(.title)
-                                    .foregroundColor(.primary)
-                                    .fontWeight(.heavy)
-                            }
-                            
-                            Spacer()
-                            
-                            Button {
-                                //                        Next
-                            } label: {
-                                Image(systemName: "forward.fill")
-                                    .font(.title)
-                                    .foregroundColor(.primary)
-                                    .fontWeight(.heavy)
+                            if track.previewUrl?.absoluteString == "-" {
+                                Text("Not available to listen")
+                                    .font(.footnote)
+                                    .foregroundColor(.secondary)
+                            }else {
+                                Spacer()
                                 
+                                Button {
+                                    //                        restart
+                                } label: {
+                                    Image(systemName: "backward.fill")
+                                        .font(.title)
+                                        .foregroundColor(.primary)
+                                        .fontWeight(.heavy)
+                                }
+                                
+                                Spacer()
+                                
+                                Button {
+                                    viewModel.playSound(track: track)
+                                } label: {
+                                    Image(systemName: "play.fill")
+                                        .font(.title)
+                                        .foregroundColor(.primary)
+                                        .fontWeight(.heavy)
+                                }
+                                
+                                Spacer()
+                                
+                                Button {
+                                    //                        Next
+                                } label: {
+                                    Image(systemName: "forward.fill")
+                                        .font(.title)
+                                        .foregroundColor(.primary)
+                                        .fontWeight(.heavy)
+                                    
+                                }
+                                Spacer()
                             }
-                            Spacer()
+                            
                         }
                         .padding(.top)
                         
