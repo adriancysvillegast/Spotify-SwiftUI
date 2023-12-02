@@ -13,6 +13,8 @@ struct TrackRecomendationView: View {
     let tracks: [TrackModelCell]
     let genreName: String
     let cellRow = [GridItem()]
+    @State var showTrack: Bool = false
+    @State var trackSelected: String = ""
     // MARK: - Body
     
     var body: some View {
@@ -42,12 +44,21 @@ struct TrackRecomendationView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             LazyHGrid(rows: cellRow) {
                                 ForEach(tracks, id: \.id) { track in
-                                    
-                                    TrackCoverView(track: track)
+                                    Button {
+                                        showTrack.toggle()
+                                        trackSelected = track.id
+                                    } label: {
+                                        TrackCoverView(track: track)
+                                    }
                                 }
                             }
+                            
+                            
                         }
                         .frame(height: 170)
+                        .sheet(isPresented: $showTrack) {
+                            PlayView(id: $trackSelected, viewModel: PlaySongViewModel())
+                        }
                     
                 }
             }
