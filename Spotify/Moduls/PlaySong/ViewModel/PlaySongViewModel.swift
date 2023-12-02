@@ -35,5 +35,8 @@ class PlaySongViewModel : ObservableObject {
         }
     }
     
+    func playSound(track: TrackModelCell) {
+        PlaybackManager.shared.startPlayback(track: track)
+    }
     
 }
