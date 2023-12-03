@@ -19,7 +19,6 @@ struct AlbumsResponse: Codable {
 
 // MARK: - AlbumResponse
 struct AlbumResponse: Codable, Identifiable {
-
     let albumType: String
     let availableMarkets: [String]
     let id: String

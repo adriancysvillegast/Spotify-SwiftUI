@@ -2,19 +2,16 @@
 //  TrackModelCell.swift
 //  Spotify
 //
-//  Created by Adriancys Jesus Villegas Toro on 27/11/23.
+//  Created by Adriancys Jesus Villegas Toro on 28/11/23.
 //
 
 import Foundation
+import SwiftUI
 
-struct TrackModelCell {
-    var album: AlbumResponse?
+struct TrackModelCell: Hashable {
+    let image: URL?
     let artists: String
-//    let availableMarkets: [String]
-//    let discNumber: Int
-//    let durationMs: Int
     let explicit: Bool
-//    let externalUrls: [String: String]
     let id: String
     let name: String
     let previewUrl: URL?

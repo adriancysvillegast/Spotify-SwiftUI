@@ -21,11 +21,7 @@ final class AuthManager: ObservableObject {
     @State var errorLogInMessage: String?
     
     private var refreshingToken = false
-    
-    var isSignedIn: Bool {
-        return accessToken != nil
-    }
-    
+
     private var tokenExpirationDate: Date? {
         return UserDefaults.standard.object(forKey: "expires_in") as? Date
     }
@@ -182,11 +178,16 @@ final class AuthManager: ObservableObject {
     }
     
     private func cacheToken(result: AuthResponse) {
-        accessToken = result.accessToken
-        UserDefaults.standard.set(Date().addingTimeInterval(TimeInterval(result.expiresIn)), forKey: "expires_in")
-        if let refresh = result.refreshToken{
-            refreshToken = refresh
+        DispatchQueue.main.async {
+            self.accessToken = result.accessToken
+            
+            UserDefaults.standard.set(Date().addingTimeInterval(TimeInterval(result.expiresIn)), forKey: "expires_in")
+            if let refresh = result.refreshToken{
+                self.refreshToken = refresh
+            }
         }
+        
+       
         
     }
     
