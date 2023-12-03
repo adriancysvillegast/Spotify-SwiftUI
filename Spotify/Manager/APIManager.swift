@@ -58,11 +58,12 @@ final class APIManager {
                 }
                 
                 do {
+//                    let json = try JSONSerialization.jsonObject(with: data)
+//                    print(json)
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
                     let response = try decoder.decode(NewReleasesResponse.self, from: data)
                     completion(.success(response))
-                    
                 } catch {
                     completion(.failure(error))
                 }
