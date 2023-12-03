@@ -13,8 +13,21 @@ struct PlayView: View {
     @Binding var id: String
     @StateObject var viewModel: PlaySongViewModel
     @State private var volume: Float = AVAudioSession.sharedInstance().outputVolume
+    @State private var isPlaying: Bool = false
 //    AVAudioSession.sharedInstance().outputVolume
     
+    // MARK: - Methods
+    
+    func chechStatusPlay(track: TrackModelCell) {
+        if isPlaying {
+            viewModel.tappedPlayPause()
+            isPlaying.toggle()
+        }else {
+            viewModel.playSound(track: track)
+            isPlaying.toggle()
+        }
+        
+    }
     
     // MARK: - Body
     
@@ -97,9 +110,10 @@ struct PlayView: View {
                                 Spacer()
                                 
                                 Button {
-                                    viewModel.playSound(track: track)
+                                    
+                                    chechStatusPlay(track: track)
                                 } label: {
-                                    Image(systemName: "play.fill")
+                                    Image(systemName: isPlaying ? "pause.fill" : "play.fill")
                                         .font(.title)
                                         .foregroundColor(.primary)
                                         .fontWeight(.heavy)

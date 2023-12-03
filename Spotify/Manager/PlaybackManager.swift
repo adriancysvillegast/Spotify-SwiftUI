@@ -64,4 +64,19 @@ final class PlaybackManager: ObservableObject {
         }
         
     
+    func tappedPlayPause() {
+        if let player = player {
+            if player.timeControlStatus == .playing {
+                player.pause()
+            }else if player.timeControlStatus == .paused {
+                player.play()
+            }
+        }else if let playerList = playerQueue {
+            if playerList.timeControlStatus == .playing{
+                playerList.pause()
+            }else if playerList.timeControlStatus == .paused {
+                playerList.play()
+            }
+        }
+    }
 }

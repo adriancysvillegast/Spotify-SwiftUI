@@ -6,12 +6,12 @@
 //
 
 import Foundation
+import SwiftUI
 
 class PlaySongViewModel : ObservableObject {
     
     // MARK: - Properties
     @Published var songDetail: TrackModelCell?
-    
     
     // MARK: - Methods
     
@@ -39,4 +39,7 @@ class PlaySongViewModel : ObservableObject {
         PlaybackManager.shared.startPlayback(track: track)
     }
     
+    func tappedPlayPause() {
+        PlaybackManager.shared.tappedPlayPause()
+    }
 }
