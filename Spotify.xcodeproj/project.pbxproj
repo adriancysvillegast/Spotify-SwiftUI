@@ -42,6 +42,8 @@
 		099D485F2B165D9200847372 /* GenreResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099D485E2B165D9200847372 /* GenreResponse.swift */; };
 		099D48612B1664D400847372 /* RecomendationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099D48602B1664D400847372 /* RecomendationResponse.swift */; };
 		099D48652B16918900847372 /* TrackRecomendationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099D48642B16918900847372 /* TrackRecomendationView.swift */; };
+		09ADF21F2B1E38CD0054FF3F /* FeaturePlaylistResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ADF21E2B1E38CD0054FF3F /* FeaturePlaylistResponse.swift */; };
+		09ADF2212B1E395B0054FF3F /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ADF2202B1E395B0054FF3F /* UserResponse.swift */; };
 		09E4F04E2B1B94C6005BABE5 /* PlaybackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E4F04D2B1B94C6005BABE5 /* PlaybackManager.swift */; };
 		09ECA0E52B177F5400C84DAE /* TrackCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ECA0E42B177F5400C84DAE /* TrackCoverView.swift */; };
 		09ECA0EA2B18CC8000C84DAE /* PlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ECA0E92B18CC8000C84DAE /* PlayView.swift */; };
@@ -88,6 +90,8 @@
 		099D485E2B165D9200847372 /* GenreResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreResponse.swift; sourceTree = "<group>"; };
 		099D48602B1664D400847372 /* RecomendationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecomendationResponse.swift; sourceTree = "<group>"; };
 		099D48642B16918900847372 /* TrackRecomendationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecomendationView.swift; sourceTree = "<group>"; };
+		09ADF21E2B1E38CD0054FF3F /* FeaturePlaylistResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturePlaylistResponse.swift; sourceTree = "<group>"; };
+		09ADF2202B1E395B0054FF3F /* UserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
 		09E4F04D2B1B94C6005BABE5 /* PlaybackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackManager.swift; sourceTree = "<group>"; };
 		09ECA0E42B177F5400C84DAE /* TrackCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCoverView.swift; sourceTree = "<group>"; };
 		09ECA0E92B18CC8000C84DAE /* PlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayView.swift; sourceTree = "<group>"; };
@@ -126,6 +130,8 @@
 				093A2F7E2B12609600ACDA95 /* NewReleasesResponse.swift */,
 				093A2F802B1260C900ACDA95 /* APIImage.swift */,
 				093A2F822B1260EC00ACDA95 /* ArtistsResponse.swift */,
+				09ADF21E2B1E38CD0054FF3F /* FeaturePlaylistResponse.swift */,
+				09ADF2202B1E395B0054FF3F /* UserResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -421,6 +427,7 @@
 				09ECA0EA2B18CC8000C84DAE /* PlayView.swift in Sources */,
 				093DD85E2B0A6A950017C83D /* LogInView.swift in Sources */,
 				093A2F752B124EA700ACDA95 /* ProfileView.swift in Sources */,
+				09ADF21F2B1E38CD0054FF3F /* FeaturePlaylistResponse.swift in Sources */,
 				097D53942B0A86C40022E076 /* AuthManager.swift in Sources */,
 				09F7BC7B2B13B52800DE2861 /* AudioTrackResponse.swift in Sources */,
 				093A2F8E2B12B62D00ACDA95 /* CoverView.swift in Sources */,
@@ -447,6 +454,7 @@
 				09F7BC792B13B4D300DE2861 /* AlbumDetailsResponse.swift in Sources */,
 				09F7BC7D2B13BA7200DE2861 /* AlbumDetailViewModel.swift in Sources */,
 				093A2F832B1260ED00ACDA95 /* ArtistsResponse.swift in Sources */,
+				09ADF2212B1E395B0054FF3F /* UserResponse.swift in Sources */,
 				093A2F792B124F8500ACDA95 /* TabBarView.swift in Sources */,
 				099C9FB22B14DD8C00125255 /* NewReleasesModelCell.swift in Sources */,
 				093DD8622B0A7B610017C83D /* CustomButtonModifier.swift in Sources */,
