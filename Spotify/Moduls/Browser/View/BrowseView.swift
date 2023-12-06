@@ -14,20 +14,20 @@ struct BrowseView: View {
     
     @StateObject var viewModel = BrowserViewModel()
     let newReleasesRow = [GridItem(), GridItem()]
-    private var newReleases: [AlbumResponse] = []
+//    private var newReleases: [AlbumResponse] = []
     // MARK: - Body
     
     var body: some View {
         NavigationView {
-            ZStack {
+            ScrollView(.vertical, showsIndicators: false) {
                 VStack {
-                    if viewModel.newReleasesCell.isEmpty {
+                    if viewModel.newReleasesCell.isEmpty && viewModel.featureListsCell.isEmpty {
                         ProgressView()
                             .progressViewStyle(.circular)
                     }else {
                         
                         VStack {
-                            //                            NewReleasesResponse
+                            // MARK: - NewReleasesResponse
                             Group {
                                 
                                 VStack {
@@ -56,7 +56,7 @@ struct BrowseView: View {
                                                 NavigationLink {
                                                     AlbumDetailView(album: item, viewModel: AlbumDetailViewModel())
                                                 } label: {
-                                                    CoverView(item: item)
+                                                    AlbumCoverView(item: item)
                                                 }
                                             }
                         
@@ -67,6 +67,14 @@ struct BrowseView: View {
                                     Spacer()
                                 }
                             }
+                            
+                            // MARK: - FeaturePlaylist
+                            Group {
+                                FeaturePlaylistView(featureLists: viewModel.featureListsCell)
+                            }
+                            .frame(height: 500)
+                            
+                            
                             
                             Spacer()
 
@@ -81,9 +89,8 @@ struct BrowseView: View {
         }
         .onAppear {
             viewModel.getData()
-            
-            
         }
+        
     }
 }
 

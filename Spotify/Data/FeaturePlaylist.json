@@ -1,0 +1,733 @@
+{
+    message = "Playlists populares";
+    playlists =     {
+        href = "https://api.spotify.com/v1/browse/featured-playlists?country=VE&timestamp=2023-12-04T17%3A28%3A55&offset=0&limit=20";
+        items =         (
+                        {
+                collaborative = 0;
+                description = "Today's top Latin hits, elevando nuestra m\U00fasica. Cover: Myke Towers";
+                "external_urls" =                 {
+                    spotify = "https://open.spotify.com/playlist/37i9dQZF1DX10zKzsJ2jva";
+                };
+                href = "https://api.spotify.com/v1/playlists/37i9dQZF1DX10zKzsJ2jva";
+                id = 37i9dQZF1DX10zKzsJ2jva;
+                images =                 (
+                                        {
+                        height = "<null>";
+                        url = "https://i.scdn.co/image/ab67706f000000037f60989cbef5935b0e9072aa";
+                        width = "<null>";
+                    }
+                );
+                name = "Viva Latino";
+                owner =                 {
+                    "display_name" = Spotify;
+                    "external_urls" =                     {
+                        spotify = "https://open.spotify.com/user/spotify";
+                    };
+                    href = "https://api.spotify.com/v1/users/spotify";
+                    id = spotify;
+                    type = user;
+                    uri = "spotify:user:spotify";
+                };
+                "primary_color" = "<null>";
+                public = "<null>";
+                "snapshot_id" = MTcwMTcwMjQ3OCwwMDAwMDAwMDRiMjE1YmY3ZjNiMzQ2MGI3NDQxZDczNjI1NTE0NjE5;
+                tracks =                 {
+                    href = "https://api.spotify.com/v1/playlists/37i9dQZF1DX10zKzsJ2jva/tracks";
+                    total = 50;
+                };
+                type = playlist;
+                uri = "spotify:playlist:37i9dQZF1DX10zKzsJ2jva";
+            },
+                        {
+                collaborative = 0;
+                description = "De la CALLE a la CIMA con Myke Towers.";
+                "external_urls" =                 {
+                    spotify = "https://open.spotify.com/playlist/37i9dQZF1DWZjqjZMudx9T";
+                };
+                href = "https://api.spotify.com/v1/playlists/37i9dQZF1DWZjqjZMudx9T";
+                id = 37i9dQZF1DWZjqjZMudx9T;
+                images =                 (
+                                        {
+                        height = "<null>";
+                        url = "https://i.scdn.co/image/ab67706f00000003bf52a6f306a2f0b59046b0cd";
+                        width = "<null>";
+                    }
+                );
+                name = "MANSI\U00d3N REGGAET\U00d3N";
+                owner =                 {
+                    "display_name" = Spotify;
+                    "external_urls" =                     {
+                        spotify = "https://open.spotify.com/user/spotify";
+                    };
+                    href = "https://api.spotify.com/v1/users/spotify";
+                    id = spotify;
+                    type = user;
+                    uri = "spotify:user:spotify";
+                };
+                "primary_color" = "<null>";
+                public = "<null>";
+                "snapshot_id" = MTcwMTM4ODg2MCwwMDAwMDAwMGI1ODQzNDMyY2YzZDc2NzA2ODc0ZDMxNjZmOWNjZTRl;
+                tracks =                 {
+                    href = "https://api.spotify.com/v1/playlists/37i9dQZF1DWZjqjZMudx9T/tracks";
+                    total = 50;
+                };
+                type = playlist;
+                uri = "spotify:playlist:37i9dQZF1DWZjqjZMudx9T";
+            },
+                        {
+                collaborative = 0;
+                description = "\U00a1Los \U00e9xitos de hoy en un s\U00f3lo lugar! En portada: Bad Bunny";
+                "external_urls" =                 {
+                    spotify = "https://open.spotify.com/playlist/37i9dQZF1DX8kTuG4gvrVk";
+                };
+                href = "https://api.spotify.com/v1/playlists/37i9dQZF1DX8kTuG4gvrVk";
+                id = 37i9dQZF1DX8kTuG4gvrVk;
+                images =                 (
+                                        {
+                        height = "<null>";
+                        url = "https://i.scdn.co/image/ab67706f00000003e5f304689992618a81999acc";
+                        width = "<null>";
+                    }
+                );
+                name = "\U00c9xitos Venezuela";
+                owner =                 {
+                    "display_name" = Spotify;
+                    "external_urls" =                     {
+                        spotify = "https://open.spotify.com/user/spotify";
+                    };
+                    href = "https://api.spotify.com/v1/users/spotify";
+                    id = spotify;
+                    type = user;
+                    uri = "spotify:user:spotify";
+                };
+                "primary_color" = "<null>";
+                public = "<null>";
+                "snapshot_id" = MTcwMDU5NDYyNiwwMDAwMDAwMDY5YTIwYTU4N2NlNDMwYTNiZTMzMDEwMGMxMTIxMDU2;
+                tracks =                 {
+                    href = "https://api.spotify.com/v1/playlists/37i9dQZF1DX8kTuG4gvrVk/tracks";
+                    total = 50;
+                };
+                type = playlist;
+                uri = "spotify:playlist:37i9dQZF1DX8kTuG4gvrVk";
+            },
+                        {
+                collaborative = 0;
+                description = "\U00c9xitos urbanos de Latinoam\U00e9rica con Doble One Flow Letal.";
+                "external_urls" =                 {
+                    spotify = "https://open.spotify.com/playlist/37i9dQZF1DWVskFRGurTfg";
+                };
+                href = "https://api.spotify.com/v1/playlists/37i9dQZF1DWVskFRGurTfg";
+                id = 37i9dQZF1DWVskFRGurTfg;
+                images =                 (
+                                        {
+                        height = "<null>";
+                        url = "https://i.scdn.co/image/ab67706f0000000341f7e9cd36730b047399d8e8";
+                        width = "<null>";
+                    }
+                );
+                name = "Hits Urbanos";
+                owner =                 {
+                    "display_name" = Spotify;
+                    "external_urls" =                     {
+                        spotify = "https://open.spotify.com/user/spotify";
+                    };
+                    href = "https://api.spotify.com/v1/users/spotify";
+                    id = spotify;
+                    type = user;
+                    uri = "spotify:user:spotify";
+                };
+                "primary_color" = "<null>";
+                public = "<null>";
+                "snapshot_id" = MTcwMTQxMDQwMCwwMDAwMDAwMDhlY2MyYTkwYWQ4ZjBlNWVjNjc0N2Q5Y2NmOGY5OTcw;
+                tracks =                 {
+                    href = "https://api.spotify.com/v1/playlists/37i9dQZF1DWVskFRGurTfg/tracks";
+                    total = 100;
+                };
+                type = playlist;
+                uri = "spotify:playlist:37i9dQZF1DWVskFRGurTfg";
+            },
+                        {
+                collaborative = 0;
+                description = "Acu\U00e9rdate de estos cl\U00e1sicos. Foto: Don Omar.";
+                "external_urls" =                 {
+                    spotify = "https://open.spotify.com/playlist/37i9dQZF1DWWU6Rfto8Ppm";
+                };
+                href = "https://api.spotify.com/v1/playlists/37i9dQZF1DWWU6Rfto8Ppm";
+                id = 37i9dQZF1DWWU6Rfto8Ppm;
+                images =                 (
+                                        {
+                        height = "<null>";
+                        url = "https://i.scdn.co/image/ab67706f00000003554691e0765a72af200782c3";
+                        width = "<null>";
+                    }
+                );
+                name = "Reggaet\U00f3n Viejito";
+                owner =                 {
+                    "display_name" = Spotify;
+                    "external_urls" =                     {
+                        spotify = "https://open.spotify.com/user/spotify";
+                    };
+                    href = "https://api.spotify.com/v1/users/spotify";
+                    id = spotify;
+                    type = user;
+                    uri = "spotify:user:spotify";
+                };
+                "primary_color" = "<null>";
+                public = "<null>";
+                "snapshot_id" = MTY5NjUxOTUxMCwwMDAwMDAwMDIxNTBiMTM4ZDg1OWEyYTEyMTQ5YTQzMTVhNjdlMTYy;
+                tracks =                 {
+                    href = "https://api.spotify.com/v1/playlists/37i9dQZF1DWWU6Rfto8Ppm/tracks";
+                    total = 200;
+                };
+                type = playlist;
+                uri = "spotify:playlist:37i9dQZF1DWWU6Rfto8Ppm";
+            },
+                        {
+                collaborative = 0;
+                description = "Tyla is on top of the Hottest 50!";
+                "external_urls" =                 {
+                    spotify = "https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M";
+                };
+                href = "https://api.spotify.com/v1/playlists/37i9dQZF1DXcBWIGoYBM5M";
+                id = 37i9dQZF1DXcBWIGoYBM5M;
+                images =                 (
+                                        {
+                        height = "<null>";
+                        url = "https://i.scdn.co/image/ab67706f000000036a4304aeec529b69a2b42d4d";
+                        width = "<null>";
+                    }
+                );
+                name = "Today\U2019s Top Hits";
+                owner =                 {
+                    "display_name" = Spotify;
+                    "external_urls" =                     {
+                        spotify = "https://open.spotify.com/user/spotify";
+                    };
+                    href = "https://api.spotify.com/v1/users/spotify";
+                    id = spotify;
+                    type = user;
+                    uri = "spotify:user:spotify";
+                };
+                "primary_color" = "<null>";
+                public = "<null>";
+                "snapshot_id" = MTcwMTQwNjgwMCwwMDAwMDAwMDJjOTEwNjQ5ZTNkODAwNjIyNGU4YzdhZjVkNmQ0YmQ5;
+                tracks =                 {
+                    href = "https://api.spotify.com/v1/playlists/37i9dQZF1DXcBWIGoYBM5M/tracks";
+                    total = 50;
+                };
+                type = playlist;
+                uri = "spotify:playlist:37i9dQZF1DXcBWIGoYBM5M";
+            },
+                        {
+                collaborative = 0;
+                description = "Lo m\U00e1s escuchado en Venezuela del 2023 con Yandel en portada.";
+                "external_urls" =                 {
+                    spotify = "https://open.spotify.com/playlist/37i9dQZF1DXdxy9DNcGSKG";
+                };
+                href = "https://api.spotify.com/v1/playlists/37i9dQZF1DXdxy9DNcGSKG";
+                id = 37i9dQZF1DXdxy9DNcGSKG;
+                images =                 (
+                                        {
+                        height = "<null>";
+                        url = "https://i.scdn.co/image/ab67706f00000003306d4065839d1da9305d3d21";
+                        width = "<null>";
+                    }
+                );
+                name = "Top Canciones Venezuela 2023";
+                owner =                 {
+                    "display_name" = Spotify;
+                    "external_urls" =                     {
+                        spotify = "https://open.spotify.com/user/spotify";
+                    };
+                    href = "https://api.spotify.com/v1/users/spotify";
+                    id = spotify;
+                    type = user;
+                    uri = "spotify:user:spotify";
+                };
+                "primary_color" = "<null>";
+                public = "<null>";
+                "snapshot_id" = MTcwMTI2MDE2MCwwMDAwMDAwMGE5ZDJhYTZiZTFmOTUzZjdhNDI0MGYxNDVlMTA4OTJh;
+                tracks =                 {
+                    href = "https://api.spotify.com/v1/playlists/37i9dQZF1DXdxy9DNcGSKG/tracks";
+                    total = 50;
+                };
+                type = playlist;
+                uri = "spotify:playlist:37i9dQZF1DXdxy9DNcGSKG";
+            },
+                        {
+                collaborative = 0;
+                description = "Una sensual selecci\U00f3n de canciones para bailar en una sola baldosa.";
+                "external_urls" =                 {
+                    spotify = "https://open.spotify.com/playlist/37i9dQZF1DX2piJKuRdKIA";
+                };
+                href = "https://api.spotify.com/v1/playlists/37i9dQZF1DX2piJKuRdKIA";
+                id = 37i9dQZF1DX2piJKuRdKIA;
+                images =                 (
+                                        {
+                        height = "<null>";
+                        url = "https://i.scdn.co/image/ab67706f00000003130f77d8179e72f067bf0d9f";
+                        width = "<null>";
+                    }
+                );
+                name = "Salsa Rom\U00e1ntica";
+                owner =                 {
+                    "display_name" = Spotify;
+                    "external_urls" =                     {
+                        spotify = "https://open.spotify.com/user/spotify";
+                    };
+                    href = "https://api.spotify.com/v1/users/spotify";
+                    id = spotify;
+                    type = user;
+                    uri = "spotify:user:spotify";
+                };
+                "primary_color" = "<null>";
+                public = "<null>";
+                "snapshot_id" = MTcwMDE3NTY4NiwwMDAwMDAwMDJiNTc0OTlhMjNlMWJlZTg2NDk4YWJiYzhiYzU3ZWZk;
+                tracks =                 {
+                    href = "https://api.spotify.com/v1/playlists/37i9dQZF1DX2piJKuRdKIA/tracks";
+                    total = 50;
+                };
+                type = playlist;
+                uri = "spotify:playlist:37i9dQZF1DX2piJKuRdKIA";
+            },
+                        {
+                collaborative = 0;
+                description = "the beat of your drift";
+                "external_urls" =                 {
+                    spotify = "https://open.spotify.com/playlist/37i9dQZF1DWWY64wDtewQt";
+                };
+                href = "https://api.spotify.com/v1/playlists/37i9dQZF1DWWY64wDtewQt";
+                id = 37i9dQZF1DWWY64wDtewQt;
+                images =                 (
+                                        {
+                        height = "<null>";
+                        url = "https://i.scdn.co/image/ab67706f00000003734aea8a9641f7060e8e1bb7";
+                        width = "<null>";
+                    }
+                );
+                name = phonk;
+                owner =                 {
+                    "display_name" = Spotify;
+                    "external_urls" =                     {
+                        spotify = "https://open.spotify.com/user/spotify";
+                    };
+                    href = "https://api.spotify.com/v1/users/spotify";
+                    id = spotify;
+                    type = user;
+                    uri = "spotify:user:spotify";
+                };
+                "primary_color" = "<null>";
+                public = "<null>";
+                "snapshot_id" = MTcwMTQzOTg5NywwMDAwMDAwMDlkZjBlNDEzYzI3ZTRkNjEzNDA3NGRhOWMyYWViOGU2;
+                tracks =                 {
+                    href = "https://api.spotify.com/v1/playlists/37i9dQZF1DWWY64wDtewQt/tracks";
+                    total = 100;
+                };
+                type = playlist;
+                uri = "spotify:playlist:37i9dQZF1DWWY64wDtewQt";
+            },
+                        {
+                collaborative = 0;
+                description = "Reggaeton hits from Kali Uchis, KAROL G, Bad Bunny, Feid and more.\Ud83d\Udd25\Ud83e\Udd75";
+                "external_urls" =                 {
+                    spotify = "https://open.spotify.com/playlist/37i9dQZF1DWY7IeIP1cdjF";
+                };
+                href = "https://api.spotify.com/v1/playlists/37i9dQZF1DWY7IeIP1cdjF";
+                id = 37i9dQZF1DWY7IeIP1cdjF;
+                images =                 (
+                                        {
+                        height = "<null>";
+                        url = "https://i.scdn.co/image/ab67706f0000000363d4448f673884bdc6c75072";
+                        width = "<null>";
+                    }
+                );
+                name = "Baila Reggaeton";
+                owner =                 {
+                    "display_name" = Spotify;
+                    "external_urls" =                     {
+                        spotify = "https://open.spotify.com/user/spotify";
+                    };
+                    href = "https://api.spotify.com/v1/users/spotify";
+                    id = spotify;
+                    type = user;
+                    uri = "spotify:user:spotify";
+                };
+                "primary_color" = "<null>";
+                public = "<null>";
+                "snapshot_id" = MTcwMTQwNjg2MCwwMDAwMDAwMGFmNWMwNzU0MGU5ODVhMmFiMTBlMTFmOTAwOGRjNjYw;
+                tracks =                 {
+                    href = "https://api.spotify.com/v1/playlists/37i9dQZF1DWY7IeIP1cdjF/tracks";
+                    total = 50;
+                };
+                type = playlist;
+                uri = "spotify:playlist:37i9dQZF1DWY7IeIP1cdjF";
+            },
+                        {
+                collaborative = 0;
+                description = "\U00a1Vive el esp\U00edritu navide\U00f1o venezolano!";
+                "external_urls" =                 {
+                    spotify = "https://open.spotify.com/playlist/37i9dQZF1DWTv3XP324zOL";
+                };
+                href = "https://api.spotify.com/v1/playlists/37i9dQZF1DWTv3XP324zOL";
+                id = 37i9dQZF1DWTv3XP324zOL;
+                images =                 (
+                                        {
+                        height = "<null>";
+                        url = "https://i.scdn.co/image/ab67706f00000003259604d98d7bba68b476b294";
+                        width = "<null>";
+                    }
+                );
+                name = "Navidad Venezolana";
+                owner =                 {
+                    "display_name" = Spotify;
+                    "external_urls" =                     {
+                        spotify = "https://open.spotify.com/user/spotify";
+                    };
+                    href = "https://api.spotify.com/v1/users/spotify";
+                    id = spotify;
+                    type = user;
+                    uri = "spotify:user:spotify";
+                };
+                "primary_color" = "<null>";
+                public = "<null>";
+                "snapshot_id" = MTY4NjkxODY1NiwwMDAwMDAwMDg4MDAxMTMzYTdmNTQ4YmVmNWJmNWFhMzhlMTRmMTIx;
+                tracks =                 {
+                    href = "https://api.spotify.com/v1/playlists/37i9dQZF1DWTv3XP324zOL/tracks";
+                    total = 100;
+                };
+                type = playlist;
+                uri = "spotify:playlist:37i9dQZF1DWTv3XP324zOL";
+            },
+                        {
+                collaborative = 0;
+                description = "Representando la cultura con orgullo. Representing with pride! Cover: ELENA ROSE, Danny Ocean, Jerry Di";
+                "external_urls" =                 {
+                    spotify = "https://open.spotify.com/playlist/37i9dQZF1DWWekySnB4xpt";
+                };
+                href = "https://api.spotify.com/v1/playlists/37i9dQZF1DWWekySnB4xpt";
+                id = 37i9dQZF1DWWekySnB4xpt;
+                images =                 (
+                                        {
+                        height = "<null>";
+                        url = "https://i.scdn.co/image/ab67706f00000003f0644d89ef1784a272c2ca33";
+                        width = "<null>";
+                    }
+                );
+                name = "Made In Venezuela";
+                owner =                 {
+                    "display_name" = Spotify;
+                    "external_urls" =                     {
+                        spotify = "https://open.spotify.com/user/spotify";
+                    };
+                    href = "https://api.spotify.com/v1/users/spotify";
+                    id = spotify;
+                    type = user;
+                    uri = "spotify:user:spotify";
+                };
+                "primary_color" = "<null>";
+                public = "<null>";
+                "snapshot_id" = MTcwMDU5NTI2MSwwMDAwMDAwMGVlM2QwM2NjMTRjYjM3NmViZDg0YmNmOTRhNmQwM2U3;
+                tracks =                 {
+                    href = "https://api.spotify.com/v1/playlists/37i9dQZF1DWWekySnB4xpt/tracks";
+                    total = 85;
+                };
+                type = playlist;
+                uri = "spotify:playlist:37i9dQZF1DWWekySnB4xpt";
+            },
+                        {
+                collaborative = 0;
+                description = "Las canciones de reggaeton que marcaron el a\U00f1o. Foto: Yng Lvcas & Peso Pluma.";
+                "external_urls" =                 {
+                    spotify = "https://open.spotify.com/playlist/37i9dQZF1DX53b8g3ZSsaM";
+                };
+                href = "https://api.spotify.com/v1/playlists/37i9dQZF1DX53b8g3ZSsaM";
+                id = 37i9dQZF1DX53b8g3ZSsaM;
+                images =                 (
+                                        {
+                        height = "<null>";
+                        url = "https://i.scdn.co/image/ab67706f00000003186f5d0fe8582d6e8705d366";
+                        width = "<null>";
+                    }
+                );
+                name = "Lo Mejor De Mansi\U00f3n Reggaet\U00f3n 2023";
+                owner =                 {
+                    "display_name" = Spotify;
+                    "external_urls" =                     {
+                        spotify = "https://open.spotify.com/user/spotify";
+                    };
+                    href = "https://api.spotify.com/v1/users/spotify";
+                    id = spotify;
+                    type = user;
+                    uri = "spotify:user:spotify";
+                };
+                "primary_color" = "<null>";
+                public = "<null>";
+                "snapshot_id" = MTcwMTI2MDc3OCwwMDAwMDAwMDI3ZTc3MmYwMGEyNzIwMGIxM2I1ZWVkYjI5OWJhYjdi;
+                tracks =                 {
+                    href = "https://api.spotify.com/v1/playlists/37i9dQZF1DX53b8g3ZSsaM/tracks";
+                    total = 50;
+                };
+                type = playlist;
+                uri = "spotify:playlist:37i9dQZF1DX53b8g3ZSsaM";
+            },
+                        {
+                collaborative = 0;
+                description = "T\U00fa, nosotros y esta lista de canciones. Foto: Chayanne";
+                "external_urls" =                 {
+                    spotify = "https://open.spotify.com/playlist/37i9dQZF1DXa1S1d38suSz";
+                };
+                href = "https://api.spotify.com/v1/playlists/37i9dQZF1DXa1S1d38suSz";
+                id = 37i9dQZF1DXa1S1d38suSz;
+                images =                 (
+                                        {
+                        height = "<null>";
+                        url = "https://i.scdn.co/image/ab67706f0000000353942808a10158b1bed8fb4b";
+                        width = "<null>";
+                    }
+                );
+                name = "Para Enamorados";
+                owner =                 {
+                    "display_name" = Spotify;
+                    "external_urls" =                     {
+                        spotify = "https://open.spotify.com/user/spotify";
+                    };
+                    href = "https://api.spotify.com/v1/users/spotify";
+                    id = spotify;
+                    type = user;
+                    uri = "spotify:user:spotify";
+                };
+                "primary_color" = "<null>";
+                public = "<null>";
+                "snapshot_id" = MTY5ODM4Mjc0MCwwMDAwMDAwMGM2YmJmNGJiMmMwNDg5ZThkNGQ4NWNiNGQwNDgyZTE3;
+                tracks =                 {
+                    href = "https://api.spotify.com/v1/playlists/37i9dQZF1DXa1S1d38suSz/tracks";
+                    total = 50;
+                };
+                type = playlist;
+                uri = "spotify:playlist:37i9dQZF1DXa1S1d38suSz";
+            },
+                        {
+                collaborative = 0;
+                description = "\U00danete al party con estos hits!";
+                "external_urls" =                 {
+                    spotify = "https://open.spotify.com/playlist/37i9dQZF1DX9KJJbsGEwfj";
+                };
+                href = "https://api.spotify.com/v1/playlists/37i9dQZF1DX9KJJbsGEwfj";
+                id = 37i9dQZF1DX9KJJbsGEwfj;
+                images =                 (
+                                        {
+                        height = "<null>";
+                        url = "https://i.scdn.co/image/ab67706f00000003d00abac1d7010c289a01e4d6";
+                        width = "<null>";
+                    }
+                );
+                name = "Fiesta! Fiesta!";
+                owner =                 {
+                    "display_name" = Spotify;
+                    "external_urls" =                     {
+                        spotify = "https://open.spotify.com/user/spotify";
+                    };
+                    href = "https://api.spotify.com/v1/users/spotify";
+                    id = spotify;
+                    type = user;
+                    uri = "spotify:user:spotify";
+                };
+                "primary_color" = "<null>";
+                public = "<null>";
+                "snapshot_id" = MTcwMTQxMDQwMCwwMDAwMDAwMDg5MDE5ZjU2NjM4MDE5OGI1MDQ0MzgyYWYwYTE3MzFl;
+                tracks =                 {
+                    href = "https://api.spotify.com/v1/playlists/37i9dQZF1DX9KJJbsGEwfj/tracks";
+                    total = 151;
+                };
+                type = playlist;
+                uri = "spotify:playlist:37i9dQZF1DX9KJJbsGEwfj";
+            },
+                        {
+                collaborative = 0;
+                description = "Timeless heart-warming classics from 1940- 1980 for the holiday season.";
+                "external_urls" =                 {
+                    spotify = "https://open.spotify.com/playlist/37i9dQZF1DX6R7QUWePReA";
+                };
+                href = "https://api.spotify.com/v1/playlists/37i9dQZF1DX6R7QUWePReA";
+                id = 37i9dQZF1DX6R7QUWePReA;
+                images =                 (
+                                        {
+                        height = "<null>";
+                        url = "https://i.scdn.co/image/ab67706f00000003b70e0f51ac4cf9d62cee4977";
+                        width = "<null>";
+                    }
+                );
+                name = "Christmas Classics";
+                owner =                 {
+                    "display_name" = Spotify;
+                    "external_urls" =                     {
+                        spotify = "https://open.spotify.com/user/spotify";
+                    };
+                    href = "https://api.spotify.com/v1/users/spotify";
+                    id = spotify;
+                    type = user;
+                    uri = "spotify:user:spotify";
+                };
+                "primary_color" = "<null>";
+                public = "<null>";
+                "snapshot_id" = MTcwMDk3MDYzNiwwMDAwMDAwMDJkZGM2YjUxZTFmNmRjMDRhZjY1NTBiOGE1OTJhYzhj;
+                tracks =                 {
+                    href = "https://api.spotify.com/v1/playlists/37i9dQZF1DX6R7QUWePReA/tracks";
+                    total = 75;
+                };
+                type = playlist;
+                uri = "spotify:playlist:37i9dQZF1DX6R7QUWePReA";
+            },
+                        {
+                collaborative = 0;
+                description = "Los grandes \U00e9xitos de Prince Royce y Romeo Santos en un mismo lugar. Can't choose between the two? Listen to both!";
+                "external_urls" =                 {
+                    spotify = "https://open.spotify.com/playlist/37i9dQZF1DXcPINDdHzDqa";
+                };
+                href = "https://api.spotify.com/v1/playlists/37i9dQZF1DXcPINDdHzDqa";
+                id = 37i9dQZF1DXcPINDdHzDqa;
+                images =                 (
+                                        {
+                        height = "<null>";
+                        url = "https://i.scdn.co/image/ab67706f000000034c3d46b75f7db386d767ab38";
+                        width = "<null>";
+                    }
+                );
+                name = "Dos \U00cdconos: Prince Royce x Romeo Santos";
+                owner =                 {
+                    "display_name" = Spotify;
+                    "external_urls" =                     {
+                        spotify = "https://open.spotify.com/user/spotify";
+                    };
+                    href = "https://api.spotify.com/v1/users/spotify";
+                    id = spotify;
+                    type = user;
+                    uri = "spotify:user:spotify";
+                };
+                "primary_color" = "<null>";
+                public = "<null>";
+                "snapshot_id" = MTY4NjgzNjA2MSwwMDAwMDAwMGQ4OTZkNGZhZDcyNTZhYzdjNjY2YjgzMzNkMDdiM2Vm;
+                tracks =                 {
+                    href = "https://api.spotify.com/v1/playlists/37i9dQZF1DXcPINDdHzDqa/tracks";
+                    total = 50;
+                };
+                type = playlist;
+                uri = "spotify:playlist:37i9dQZF1DXcPINDdHzDqa";
+            },
+                        {
+                collaborative = 0;
+                description = "Los \U00e9xitos de la salsa de ayer y hoy en un s\U00f3lo lugar. Foto: Marc Anthony";
+                "external_urls" =                 {
+                    spotify = "https://open.spotify.com/playlist/37i9dQZF1DWUFmUp1ez7YB";
+                };
+                href = "https://api.spotify.com/v1/playlists/37i9dQZF1DWUFmUp1ez7YB";
+                id = 37i9dQZF1DWUFmUp1ez7YB;
+                images =                 (
+                                        {
+                        height = "<null>";
+                        url = "https://i.scdn.co/image/ab67706f0000000310915a25c0c528062441905e";
+                        width = "<null>";
+                    }
+                );
+                name = "Dame Salsa";
+                owner =                 {
+                    "display_name" = Spotify;
+                    "external_urls" =                     {
+                        spotify = "https://open.spotify.com/user/spotify";
+                    };
+                    href = "https://api.spotify.com/v1/users/spotify";
+                    id = spotify;
+                    type = user;
+                    uri = "spotify:user:spotify";
+                };
+                "primary_color" = "<null>";
+                public = "<null>";
+                "snapshot_id" = MTY5NTc3MjAwNywwMDAwMDAwMGE2Yzc3NGJiNzIwNTFkY2ZkMWQ5ODQ2M2YxMGNiZDhm;
+                tracks =                 {
+                    href = "https://api.spotify.com/v1/playlists/37i9dQZF1DWUFmUp1ez7YB/tracks";
+                    total = 90;
+                };
+                type = playlist;
+                uri = "spotify:playlist:37i9dQZF1DWUFmUp1ez7YB";
+            },
+                        {
+                collaborative = 0;
+                description = "Latinoam\U00e9rica baila al ritmo de SOG y Potencia L\U00edrica.";
+                "external_urls" =                 {
+                    spotify = "https://open.spotify.com/playlist/37i9dQZF1DWVOLXBOylBUZ";
+                };
+                href = "https://api.spotify.com/v1/playlists/37i9dQZF1DWVOLXBOylBUZ";
+                id = 37i9dQZF1DWVOLXBOylBUZ;
+                images =                 (
+                                        {
+                        height = "<null>";
+                        url = "https://i.scdn.co/image/ab67706f0000000336d3f8f7f8a944f728841adf";
+                        width = "<null>";
+                    }
+                );
+                name = "El Ritmo";
+                owner =                 {
+                    "display_name" = Spotify;
+                    "external_urls" =                     {
+                        spotify = "https://open.spotify.com/user/spotify";
+                    };
+                    href = "https://api.spotify.com/v1/users/spotify";
+                    id = spotify;
+                    type = user;
+                    uri = "spotify:user:spotify";
+                };
+                "primary_color" = "<null>";
+                public = "<null>";
+                "snapshot_id" = MTcwMTQwNjc0MCwwMDAwMDAwMDljNGRkZWViOGE2NTliNTYzOTM1NjZkZGNjYmZmODg0;
+                tracks =                 {
+                    href = "https://api.spotify.com/v1/playlists/37i9dQZF1DWVOLXBOylBUZ/tracks";
+                    total = 100;
+                };
+                type = playlist;
+                uri = "spotify:playlist:37i9dQZF1DWVOLXBOylBUZ";
+            },
+                        {
+                collaborative = 0;
+                description = "Los artistas m\U00e1s escuchados en Venezuela este 2023 con Bad Bunny en portada.";
+                "external_urls" =                 {
+                    spotify = "https://open.spotify.com/playlist/37i9dQZF1DX7WarztOp0vi";
+                };
+                href = "https://api.spotify.com/v1/playlists/37i9dQZF1DX7WarztOp0vi";
+                id = 37i9dQZF1DX7WarztOp0vi;
+                images =                 (
+                                        {
+                        height = "<null>";
+                        url = "https://i.scdn.co/image/ab67706f00000003d54a98d1893c05a27930f983";
+                        width = "<null>";
+                    }
+                );
+                name = "Top Artistas Venezuela 2023";
+                owner =                 {
+                    "display_name" = Spotify;
+                    "external_urls" =                     {
+                        spotify = "https://open.spotify.com/user/spotify";
+                    };
+                    href = "https://api.spotify.com/v1/users/spotify";
+                    id = spotify;
+                    type = user;
+                    uri = "spotify:user:spotify";
+                };
+                "primary_color" = "<null>";
+                public = "<null>";
+                "snapshot_id" = MTcwMTI2MDE2MCwwMDAwMDAwMGRhNTAyNzQ1NGYzZTJlMGUyMDJlMzg5N2ZlZjMxNmM4;
+                tracks =                 {
+                    href = "https://api.spotify.com/v1/playlists/37i9dQZF1DX7WarztOp0vi/tracks";
+                    total = 50;
+                };
+                type = playlist;
+                uri = "spotify:playlist:37i9dQZF1DX7WarztOp0vi";
+            }
+        );
+        limit = 20;
+        next = "https://api.spotify.com/v1/browse/featured-playlists?country=VE&timestamp=2023-12-04T17%3A28%3A55&offset=20&limit=20";
+        offset = 0;
+        previous = "<null>";
+        total = 24;
+    };
+}

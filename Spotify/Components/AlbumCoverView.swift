@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CoverView: View {
+struct AlbumCoverView: View {
     
     // MARK: - Poperties
     let item: NewReleasesModelCell
@@ -22,8 +22,7 @@ struct CoverView: View {
                     AsyncImage(url: item.urlImage) { image in
                         image
                             .resizable()
-                            .scaledToFit()
-                            .cornerRadius(12)
+                            .modifier(ImageModifier())
                         
                     } placeholder: {
                         ProgressView()
