@@ -58,8 +58,8 @@ final class APIManager {
                 }
                 
                 do {
-//                    let json = try JSONSerialization.jsonObject(with: data)
-//                    print(json)
+                    //                    let json = try JSONSerialization.jsonObject(with: data)
+                    //                    print(json)
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
                     let response = try decoder.decode(NewReleasesResponse.self, from: data)
@@ -75,7 +75,7 @@ final class APIManager {
     // MARK: - Details
     
     func getDetailAlbum(album: NewReleasesModelCell,
-                   completion: @escaping (Result<AlbumsDetailsResponse, Error>) -> Void ) {
+                        completion: @escaping (Result<AlbumsDetailsResponse, Error>) -> Void ) {
         createBaseRequest(
             with: URL(string: basicURL + "/albums/\(album.idAlbum)"),
             type: .GET
@@ -178,6 +178,63 @@ final class APIManager {
                     let response = try decoder.decode(AudioTrackResponse.self, from: data)
                     completion(.success(response))
                     
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+            task.resume()
+        }
+    }
+    
+    
+    func getFeaturePlaylist(completion: @escaping (Result<FeaturePlaylistResponse, Error>) -> Void) {
+        createBaseRequest(
+            with: URL(string: basicURL + "/browse/featured-playlists?limit=20"),
+            type: .GET
+        ) { baseRequest in
+            
+            let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
+                guard let data = data, error == nil else {
+                    completion(.failure(APIError.failedToGetData))
+                    return
+                }
+                
+                do {
+//                                        let json = try JSONSerialization.jsonObject(with: data)
+//                                        print(json)
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let response = try decoder.decode(FeaturePlaylistResponse.self, from: data)
+                    completion(.success(response))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+            task.resume()
+        }
+    }
+    
+    func getPlaylistDetail(playlistID: String,
+                           completion: @escaping (Result<PlaylistDetailResponse, Error>) -> Void ) {
+        createBaseRequest(
+            with: URL(string: basicURL + "/playlists/\(playlistID)"),
+            type: .GET
+        ) { baseRequest in
+            
+            let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
+                guard let data = data, error == nil else {
+                    completion(.failure(APIError.failedToGetData))
+                    return
+                }
+                
+                do {
+//                                        let json = try JSONSerialization.jsonObject(with: data)
+//                                        print(json)
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let response = try decoder.decode(PlaylistDetailResponse.self, from: data)
+//                    print(response)
+                    completion(.success(response))
                 } catch {
                     completion(.failure(error))
                 }
