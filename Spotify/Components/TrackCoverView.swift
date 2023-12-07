@@ -18,8 +18,7 @@ struct TrackCoverView: View {
                 AsyncImage(url: track.image) { image in
                     image
                         .resizable()
-                        .scaledToFit()
-                        .cornerRadius(12)
+                        .modifier(ImageModifier())
                     
                 } placeholder: {
                     ProgressView()
