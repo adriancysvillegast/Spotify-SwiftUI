@@ -36,4 +36,10 @@ struct Constants {
         let string = "\(baseURL)?response_type=code&client_id=\(Constants.clientID)&scope=\(Constants.scopes)&redirect_uri=\(Constants.redirectURL)&show_dialog=TRUE"
         return URL(string: string)
     }
+    
+//    genres
+    
+    static let alternative = "alternative"
+    static let hardRock = "hard-rock"
+    static let house = "house"
 }

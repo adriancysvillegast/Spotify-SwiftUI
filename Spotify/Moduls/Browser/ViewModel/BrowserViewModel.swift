@@ -14,9 +14,13 @@ class BrowserViewModel: ObservableObject {
     // MARK: - Properties
     @Published var newReleasesCell: [NewReleasesModelCell] = []
     @Published var featureListsCell: [FeaturePlaylistModelCell] = []
+    @Published var rockListCell: [TrackModelCell] = []
+    @Published var alternativeListCell: [TrackModelCell] = []
+    @Published var houseListCell: [TrackModelCell] = []
     // MARK: - Methods
     
     func getData() {
+        
         APIManager.shared.getNewRelease { [weak self] response in
             switch response {
             case .success(let result):
@@ -35,7 +39,7 @@ class BrowserViewModel: ObservableObject {
             }
         }
         
-        APIManager.shared.getFeaturePlaylist { response in
+        APIManager.shared.getFeaturePlaylist { [weak self] response in
             switch response {
             case .success(let success):
                 let playlist = success.playlists.items.compactMap {
@@ -46,11 +50,80 @@ class BrowserViewModel: ObservableObject {
                     )
                 }
                 DispatchQueue.main.async {
-                    self.featureListsCell = playlist
+                    self?.featureListsCell = playlist
                 }
             case .failure(let failure):
                 print(failure.localizedDescription)
             }
+        }
+        
+//        alternative
+        APIManager.shared.getRecomendationWithAGenre(
+            genre: Constants.alternative) { [weak self] result in
+                switch result {
+                case .success(let success):
+//                    print("Alternative: \(success.tracks)")
+                    let tracks = success.tracks.compactMap {
+                        TrackModelCell(
+                            image: URL(string: $0.album?.images.first?.url ?? "-"),
+                            artists: $0.artists.first?.name ?? "-",
+                            explicit: $0.explicit,
+                            id: $0.id,
+                            name: $0.name,
+                            previewUrl: URL(string: $0.previewUrl ?? "-"))
+                    }
+                    DispatchQueue.main.async {
+                        self?.alternativeListCell = tracks
+                    }
+                case .failure(let failure):
+                    print(failure.localizedDescription)
+                }
+        }
+        
+//        hard-rock
+        APIManager.shared.getRecomendationWithAGenre(
+            genre: Constants.hardRock) { [weak self] result in
+                switch result {
+                case .success(let success):
+//                    print("hard-rock: \(success.tracks)")
+                    let tracks = success.tracks.compactMap {
+                        TrackModelCell(
+                            image: URL(string: $0.album?.images.first?.url ?? "-"),
+                            artists: $0.artists.first?.name ?? "-",
+                            explicit: $0.explicit,
+                            id: $0.id,
+                            name: $0.name,
+                            previewUrl: URL(string: $0.previewUrl ?? "-"))
+                    }
+                    DispatchQueue.main.async {
+                        self?.rockListCell = tracks
+                    }
+                case .failure(let failure):
+                    print(failure.localizedDescription)
+                }
+        }
+//        house
+        
+        APIManager.shared.getRecomendationWithAGenre(
+            genre: Constants.house) { [weak self] result in
+                switch result {
+                case .success(let success):
+//                    print("house: \(success.tracks)")
+                    let tracks = success.tracks.compactMap {
+                        TrackModelCell(
+                            image: URL(string: $0.album?.images.first?.url ?? "-"),
+                            artists: $0.artists.first?.name ?? "-",
+                            explicit: $0.explicit,
+                            id: $0.id,
+                            name: $0.name,
+                            previewUrl: URL(string: $0.previewUrl ?? "-"))
+                    }
+                    DispatchQueue.main.async {
+                        self?.houseListCell = tracks
+                    }
+                case .failure(let failure):
+                    print(failure.localizedDescription)
+                }
         }
         
     }

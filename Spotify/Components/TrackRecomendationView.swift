@@ -64,10 +64,6 @@ struct TrackRecomendationView: View {
             }
         }
         
-        .padding(.horizontal)
-        
-        
-        
     }
 }
 

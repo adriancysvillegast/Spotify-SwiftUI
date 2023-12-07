@@ -72,6 +72,7 @@ struct AlbumDetailView: View {
                         Group {
                             TrackRecomendationView(tracks: viewModel.recomendedTracks, genreName: viewModel.genre)
                         }
+                        .padding(.horizontal)
    
                     }
                 }
