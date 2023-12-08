@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PlaylistDetailView: View {
     // MARK: - Propeties
-    var playlist: FeaturePlaylistModelCell
+    var playlist: PlaylistsModelCell
     @StateObject var viewModel: PlaylistDetailViewModel
     @State var trackSelected: String = "no"
     @State var showTrack: Bool = false

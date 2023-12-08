@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FeaturePlaylistView: View {
     // MARK: - Properties
-    let featureLists: [FeaturePlaylistModelCell]
+    let featureLists: [PlaylistsModelCell]
     let featureRow = [GridItem(), GridItem()]
     // MARK: - LifeCycle
     
@@ -57,10 +57,11 @@ struct FeaturePlaylistView_Previews: PreviewProvider {
     static let feature: FeaturePlaylistResponse = Bundle.main.decode("FeaturePlaylist.json")
     
     static let playlist = feature.playlists.items.compactMap {
-        FeaturePlaylistModelCell(id: $0.id,
-                                 namePlaylist: $0.name,
-                                 playlistOwner: $0.owner.displayName,
-                                 image: URL(string: $0.images.first?.url ?? "-")
+        PlaylistsModelCell(id: $0.id,
+                           namePlaylist: $0.name,
+                           playlistOwner: $0.owner.displayName,
+                           image: URL(string: $0.images.first?.url ?? "-"),
+                           description: ""
         )
     }
     static var previews: some View {
