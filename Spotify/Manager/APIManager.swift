@@ -242,4 +242,34 @@ final class APIManager {
             task.resume()
         }
     }
+    
+    func getCurrentUserPlaylists(completion: @escaping (Result<[Playlist], Error>) -> Void) {
+        createBaseRequest(
+            with: URL(string: basicURL + "/me/playlists?limit=50"),
+            type: .GET
+        ) { baseRequest in
+            
+            let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
+                guard let data = data, error == nil else {
+                    completion(.failure(APIError.failedToGetData))
+                    return
+                }
+                
+                do {
+//                                        let json = try JSONSerialization.jsonObject(with: data)
+//                                        print(json)
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let response = try decoder.decode(PlaylistsResponse.self, from: data)
+                    completion(.success(response.items))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+            task.resume()
+        }
+    }
+    
+    
+    
 }

@@ -1,21 +1,20 @@
 //
-//  FeaturePlaylistCoverView.swift
+//  ItemCoverView.swift
 //  Spotify
 //
-//  Created by Adriancys Jesus Villegas Toro on 6/12/23.
+//  Created by Adriancys Jesus Villegas Toro on 8/12/23.
 //
 
 import SwiftUI
 
-struct FeaturePlaylistCoverView: View {
+struct ItemCoverView: View {
     
     // MARK: - Properties
-    let item: PlaylistsModelCell
+    let item: ItemModelCell
     // MARK: - Body
-    
     var body: some View {
         ZStack {
-            VStack(spacing: 5) {
+            VStack {
                 VStack {
                     AsyncImage(url: item.image) { image in
                         image
@@ -26,16 +25,16 @@ struct FeaturePlaylistCoverView: View {
                         ProgressView()
                             .progressViewStyle(.circular)
                     }
-                    .frame(height: 150)
+//                    .frame(height: 150)
                 }
                 
                 HStack {
                     VStack(alignment: .leading) {
-                        Text(item.namePlaylist)
+                        Text(item.nameItem)
                             .foregroundColor(.primary)
                             .lineLimit(1)
                         
-                        Text(item.playlistOwner)
+                        Text(item.creatorName)
                             .foregroundColor(.secondary)
                             .lineLimit(1)
                     }
@@ -48,21 +47,11 @@ struct FeaturePlaylistCoverView: View {
             
             
         }
-        .frame(width: 150, height: 200)
     }
 }
 
-struct FeaturePlaylistCoverView_Previews: PreviewProvider {
-    static let list: FeaturePlaylistResponse = Bundle.main.decode("FeaturePlaylist.json")
-    static let playlist = list.playlists.items.compactMap {
-        PlaylistsModelCell(id: $0.id,
-                           namePlaylist: $0.name,
-                           playlistOwner: $0.owner.displayName,
-                           image: URL(string: $0.images.first?.url ?? "-"),
-                           description: ""
-        )
-    }
-    static var previews: some View {
-        FeaturePlaylistCoverView(item: playlist[0])
-    }
-}
+//struct ItemCoverView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ItemCoverView()
+//    }
+//}
