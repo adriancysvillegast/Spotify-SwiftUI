@@ -19,30 +19,41 @@ struct LibraryView: View {
         NavigationView {
             ScrollView(.vertical, showsIndicators: false) {
                 
-                List {
-                    // MARK: - List
-                    ListLibraryView()
+                if viewModel.allTracks.isEmpty {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                }else {
+                    List {
+                        // MARK: - List
+                        ListLibraryView()
+                        
+                    }
+                    .navigationTitle("Library")
+                    .listStyle(.plain)
+                    .frame(height: 100)
                     
-                }
-                .navigationTitle("Library")
-                .listStyle(.plain)
-                .frame(height: 100)
-                
-                LazyVGrid(columns: rows) {
-                    ForEach(viewModel.playlists, id: \.id) { list in
-                        NavigationLink {
-                            Text(list.nameItem)
-                        } label: {
-                            ItemCoverView(item: list)
+                    LazyVGrid(columns: rows) {
+                        ForEach(viewModel.allTracks, id: \.id) { list in
+                            NavigationLink {
+                                if list.isPlaylist {
+//                                    PlaylistDetailView(playlist: <#T##PlaylistsModelCell#>, viewModel: <#T##PlaylistDetailViewModel#>)
+                                }else {
+//                                    AlbumDetailView(album: <#T##NewReleasesModelCell#>, viewModel: <#T##AlbumDetailViewModel#>)
+                                }
+                            } label: {
+                                ItemCoverView(item: list)
+                            }
                         }
                     }
+                    .padding(.horizontal)
+                    
+                    Spacer()
+                    
                 }
-                .padding(.horizontal)
-                
-                Spacer()
                 
             }
             .frame(maxHeight: .infinity)
+            
             
         }
         .onAppear {

@@ -20,12 +20,10 @@ struct ItemCoverView: View {
                         image
                             .resizable()
                             .modifier(ImageModifier())
-                        
                     } placeholder: {
                         ProgressView()
                             .progressViewStyle(.circular)
                     }
-//                    .frame(height: 150)
                 }
                 
                 HStack {
@@ -33,16 +31,16 @@ struct ItemCoverView: View {
                         Text(item.nameItem)
                             .foregroundColor(.primary)
                             .lineLimit(1)
-                        
+
                         Text(item.creatorName)
                             .foregroundColor(.secondary)
                             .lineLimit(1)
                     }
-                    
+
                     Spacer()
                 }
                 .frame(minWidth: 0, maxWidth: .infinity)
-                    
+
             }
             
             
