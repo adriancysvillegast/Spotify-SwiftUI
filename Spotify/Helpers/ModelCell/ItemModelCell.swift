@@ -13,4 +13,5 @@ struct ItemModelCell {
     let creatorName: String
     let image: URL?
     let description: String?
+    let isPlaylist: Bool
 }

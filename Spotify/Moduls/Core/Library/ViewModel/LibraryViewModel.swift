@@ -9,7 +9,7 @@ import Foundation
 
 class LibraryViewModel: ObservableObject {
     // MARK: - Poperties
-    @Published var playlists: [ItemModelCell] = []
+    @Published var allTracks: [ItemModelCell] = []
     
     // MARK: - Methods
     
@@ -23,14 +23,38 @@ class LibraryViewModel: ObservableObject {
                                   nameItem: $0.name,
                                   creatorName: $0.owner.displayName,
                                   image: URL(string: $0.images.first?.url ?? "-"),
-                                  description: $0.description
+                                  description: $0.description,
+                                  isPlaylist: true
                     )
                 }
                 DispatchQueue.main.async {
-                    self?.playlists = playlists
+                    self?.allTracks.append(contentsOf: playlists)
                 }
             case .failure(let failure):
                 print(failure.localizedDescription + "jjjj")
+            }
+        }
+        
+        
+        APIManager.shared.getCurrentUserAlbums { [weak self] result in
+            switch result {
+            case .success(let success):
+                let albums = success.compactMap {
+                    ItemModelCell(id: $0.id,
+                                  nameItem: $0.name,
+                                  creatorName: $0.artists.first?.name ?? "-",
+                                  image: URL(string: $0.images.first?.url ?? "-"),
+                                  description: "",
+                                  isPlaylist: false
+                    )
+                }
+                
+                DispatchQueue.main.async {
+                    self?.allTracks.append(contentsOf: albums)
+                }
+                
+            case .failure(let failure):
+                print(failure.localizedDescription)
             }
         }
     }

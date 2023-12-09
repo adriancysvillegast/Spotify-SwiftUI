@@ -271,5 +271,31 @@ final class APIManager {
     }
     
     
+    func getCurrentUserAlbums(completion: @escaping (Result<[AlbumResponse], Error>) -> Void) {
+        createBaseRequest(
+            with: URL(string: basicURL + "/me/albums?limit=50"),
+            type: .GET
+        ) { baseRequest in
+            
+            let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
+                guard let data = data, error == nil else {
+                    completion(.failure(APIError.failedToGetData))
+                    return
+                }
+                
+                do {
+//                                        let json = try JSONSerialization.jsonObject(with: data)
+//                                        print(json)
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let response = try decoder.decode(LibraryAlbumsResponse.self, from: data)
+                    completion(.success(response.items.compactMap({ $0.album })))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+            task.resume()
+        }
+    }
     
 }
