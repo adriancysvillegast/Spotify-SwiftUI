@@ -33,18 +33,21 @@ struct LibraryView: View {
                     .frame(height: 100)
                     
                     LazyVGrid(columns: rows) {
-                        ForEach(viewModel.allTracks, id: \.id) { list in
+                        ForEach(viewModel.allTracks, id: \.id) { item in
                             NavigationLink {
-                                if list.isPlaylist {
-//                                    PlaylistDetailView(playlist: <#T##PlaylistsModelCell#>, viewModel: <#T##PlaylistDetailViewModel#>)
+                                if item.isPlaylist {
+                                    PlaylistDetailView(playlist: item, viewModel: PlaylistDetailViewModel())
+                                    
                                 }else {
-//                                    AlbumDetailView(album: <#T##NewReleasesModelCell#>, viewModel: <#T##AlbumDetailViewModel#>)
+                                    AlbumDetailView(album: item, viewModel: AlbumDetailViewModel())
                                 }
                             } label: {
-                                ItemCoverView(item: list)
+                                ItemCoverView(item: item)
+                                    .frame(height: 240)
                             }
                         }
                     }
+
                     .padding(.horizontal)
                     
                     Spacer()
