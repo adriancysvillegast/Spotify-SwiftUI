@@ -20,7 +20,7 @@ class AlbumDetailViewModel: ObservableObject {
     
     // MARK: - Methods
     
-    func getDetail(album: NewReleasesModelCell) {
+    func getDetail(album: ItemModelCell) {
         APIManager.shared.getDetailAlbum(
             album: album
         ) { [weak self] result in
@@ -30,12 +30,12 @@ class AlbumDetailViewModel: ObservableObject {
                 
                     let data = AlbumDetailModelCell(
                         id: value.id,
-                        image: album.urlImage,
+                        image: album.image,
                         nameAlbum: value.name,
                         nameArtist: value.artists.first?.name ?? "--",
                         tracks: value.tracks.items)
                 DispatchQueue.main.async {
-                    self?.tracks = self?.getArtist(albumImage: album.urlImage, audios: value.tracks.items) ?? []
+                    self?.tracks = self?.getArtist(albumImage: album.image, audios: value.tracks.items) ?? []
                     self?.albumDetailCell = data
                 }
             case .failure(let failure):

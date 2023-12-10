@@ -10,7 +10,7 @@ import SwiftUI
 struct AlbumDetailView: View {
     
     // MARK: - Properties
-    var album: NewReleasesModelCell
+    var album: ItemModelCell
     @StateObject var viewModel: AlbumDetailViewModel
     @State var trackSelected: String = "no"
     @State var showTrack: Bool = false

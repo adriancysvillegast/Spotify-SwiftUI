@@ -63,7 +63,7 @@ struct BrowseView: View {
                                     
                                     ScrollView(.horizontal, showsIndicators: false) {
                                         LazyHGrid(rows: newReleasesRow) {
-                                            ForEach(viewModel.newReleasesCell, id: \.idAlbum) { item in
+                                            ForEach(viewModel.newReleasesCell, id: \.id) { item in
                                                 
                                                 NavigationLink {
                                                     AlbumDetailView(album: item, viewModel: AlbumDetailViewModel())
