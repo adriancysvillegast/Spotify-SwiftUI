@@ -13,7 +13,7 @@ import SwiftUI
 class BrowserViewModel: ObservableObject {
     // MARK: - Properties
     @Published var newReleasesCell: [ItemModelCell] = []
-    @Published var featureListsCell: [PlaylistsModelCell] = []
+    @Published var featureListsCell: [ItemModelCell] = []
     @Published var rockListCell: [TrackModelCell] = []
     @Published var alternativeListCell: [TrackModelCell] = []
     @Published var houseListCell: [TrackModelCell] = []
@@ -46,12 +46,20 @@ class BrowserViewModel: ObservableObject {
             switch response {
             case .success(let success):
                 let playlist = success.playlists.items.compactMap {
-                    PlaylistsModelCell(id: $0.id,
-                                       namePlaylist: $0.name,
-                                       playlistOwner: $0.owner.displayName,
-                                       image: URL(string: $0.images.first?.url ?? "-"),
-                                       description: ""
-                    )
+                    
+                    ItemModelCell(id: $0.id,
+                                  nameItem: $0.name,
+                                  creatorName: $0.owner.displayName,
+                                  image: URL(string: $0.images.first?.url ?? "-"),
+                                  description: $0.description,
+                                  isPlaylist: true)
+                    
+//                    PlaylistsModelCell(id: $0.id,
+//                                       namePlaylist: $0.name,
+//                                       playlistOwner: $0.owner.displayName,
+//                                       image: URL(string: $0.images.first?.url ?? "-"),
+//                                       description: ""
+//                    )
                 }
                 DispatchQueue.main.async {
                     self?.featureListsCell = playlist

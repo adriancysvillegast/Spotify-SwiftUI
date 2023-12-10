@@ -17,7 +17,7 @@ class PlaylistDetailViewModel: ObservableObject {
     
     // MARK: - Methods
     
-    func getDetailPlaylist(playlist: PlaylistsModelCell) {
+    func getDetailPlaylist(playlist: ItemModelCell) {
         
         APIManager.shared.getPlaylistDetail(playlistID: playlist.id) { result in
             switch result {
