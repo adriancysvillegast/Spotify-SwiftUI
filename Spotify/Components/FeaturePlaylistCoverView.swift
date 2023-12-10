@@ -10,7 +10,7 @@ import SwiftUI
 struct FeaturePlaylistCoverView: View {
     
     // MARK: - Properties
-    let item: PlaylistsModelCell
+    let item: ItemModelCell
     // MARK: - Body
     
     var body: some View {
@@ -31,11 +31,11 @@ struct FeaturePlaylistCoverView: View {
                 
                 HStack {
                     VStack(alignment: .leading) {
-                        Text(item.namePlaylist)
+                        Text(item.nameItem)
                             .foregroundColor(.primary)
                             .lineLimit(1)
                         
-                        Text(item.playlistOwner)
+                        Text(item.creatorName)
                             .foregroundColor(.secondary)
                             .lineLimit(1)
                     }
@@ -55,11 +55,12 @@ struct FeaturePlaylistCoverView: View {
 struct FeaturePlaylistCoverView_Previews: PreviewProvider {
     static let list: FeaturePlaylistResponse = Bundle.main.decode("FeaturePlaylist.json")
     static let playlist = list.playlists.items.compactMap {
-        PlaylistsModelCell(id: $0.id,
-                           namePlaylist: $0.name,
-                           playlistOwner: $0.owner.displayName,
+        ItemModelCell(id: $0.id,
+                           nameItem: $0.name,
+                           creatorName: $0.owner.displayName,
                            image: URL(string: $0.images.first?.url ?? "-"),
-                           description: ""
+                           description: "",
+                      isPlaylist: true
         )
     }
     static var previews: some View {
