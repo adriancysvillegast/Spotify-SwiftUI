@@ -74,10 +74,10 @@ final class APIManager {
     }
     // MARK: - Details
     
-    func getDetailAlbum(album: NewReleasesModelCell,
+    func getDetailAlbum(album: ItemModelCell,
                         completion: @escaping (Result<AlbumsDetailsResponse, Error>) -> Void ) {
         createBaseRequest(
-            with: URL(string: basicURL + "/albums/\(album.idAlbum)"),
+            with: URL(string: basicURL + "/albums/\(album.id)"),
             type: .GET
         ) { baseRequest in
             

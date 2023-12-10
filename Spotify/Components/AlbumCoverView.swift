@@ -10,7 +10,7 @@ import SwiftUI
 struct AlbumCoverView: View {
     
     // MARK: - Poperties
-    let item: NewReleasesModelCell
+    let item: ItemModelCell
     
     
     // MARK: - Body
@@ -19,7 +19,7 @@ struct AlbumCoverView: View {
         ZStack {
             VStack(spacing: 5) {
                 VStack {
-                    AsyncImage(url: item.urlImage) { image in
+                    AsyncImage(url: item.image) { image in
                         image
                             .resizable()
                             .modifier(ImageModifier())
@@ -33,11 +33,11 @@ struct AlbumCoverView: View {
                 
                 HStack {
                     VStack(alignment: .leading) {
-                        Text(item.nameAlbum)
+                        Text(item.nameItem)
                             .foregroundColor(.primary)
                             .lineLimit(1)
                         
-                        Text(item.nameArtist)
+                        Text(item.creatorName)
                             .foregroundColor(.secondary)
                             .lineLimit(1)
                     }
