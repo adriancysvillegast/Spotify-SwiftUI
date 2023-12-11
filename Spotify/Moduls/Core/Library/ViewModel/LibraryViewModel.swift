@@ -10,7 +10,8 @@ import Foundation
 class LibraryViewModel: ObservableObject {
     // MARK: - Poperties
     @Published var allTracks: [ItemModelCell] = []
-    
+    @Published var playlists: [ItemModelCell] = []
+    @Published var albums: [ItemModelCell] = []
     // MARK: - Methods
     
     func getPlaylist() {
@@ -27,8 +28,10 @@ class LibraryViewModel: ObservableObject {
                                   isPlaylist: true
                     )
                 }
+                
                 DispatchQueue.main.async {
                     self?.allTracks.append(contentsOf: playlists)
+                    self?.playlists = playlists
                 }
             case .failure(let failure):
                 print(failure.localizedDescription + "jjjj")
@@ -51,6 +54,7 @@ class LibraryViewModel: ObservableObject {
                 
                 DispatchQueue.main.async {
                     self?.allTracks.append(contentsOf: albums)
+                    self?.albums = albums
                 }
                 
             case .failure(let failure):
