@@ -31,6 +31,29 @@ struct AlbumDetailView: View {
                         }
                         .padding(.top, 0)
                         
+                        // MARK: - Buttons
+                        Group {
+                            // MARK: - Play Button
+                            
+                            HStack(spacing: 15) {
+                                Button {
+                                    viewModel.playAllTracks()
+                                } label: {
+                                    PlayButtonView()
+                                }
+                                
+                                Button {
+                                    viewModel.saveAlbum(album: self.album)
+                                } label: {
+                                    FavoriteButtonView()
+                                }
+
+                                
+                            }
+                            .padding(.horizontal)
+
+                        }
+                        
                         // MARK: - List of tracks
                         Group {
                             List {

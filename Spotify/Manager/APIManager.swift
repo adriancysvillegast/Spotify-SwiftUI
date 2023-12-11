@@ -298,4 +298,26 @@ final class APIManager {
         }
     }
     
+    func saveAlbum(album: ItemModelCell, completion: @escaping (Bool) -> Void ) {
+        createBaseRequest(
+            with: URL(string: basicURL + "/me/albums?ids=\(album.id)"),
+            type: .PUT) { baseRequest in
+                var request = baseRequest
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                
+                let task = URLSession.shared.dataTask(
+                    with: request) { data, response, error in
+                        guard let code = (response as? HTTPURLResponse)?.statusCode,
+                              error == nil else {
+                            completion(false)
+                            return
+                        }
+                        
+                        print(code)
+                        completion(code == 200)
+                    }
+                task.resume()
+            }
+    }
+    
 }
