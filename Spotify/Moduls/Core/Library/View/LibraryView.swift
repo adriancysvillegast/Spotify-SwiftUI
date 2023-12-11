@@ -25,13 +25,43 @@ struct LibraryView: View {
                 }else {
                     List {
                         // MARK: - List
-                        ListLibraryView()
+                        NavigationLink {
+                            ListItemsVerticalView(items: viewModel.playlists)
+                        } label: {
+                            
+                            HStack {
+                                Image(systemName: "music.note.list")
+                                    .foregroundColor(.red)
+                                    .font(.title2)
+                                
+                                Text("Playlist")
+                                    .font(.title2)
+                                
+                            }
+                            
+                        }
                         
+                        NavigationLink {
+                            ListItemsVerticalView(items: viewModel.albums)
+                        } label: {
+                            
+                            HStack {
+                                Image(systemName: "music.note.list")
+                                    .foregroundColor(.red)
+                                    .font(.title2)
+                                
+                                Text("Albums")
+                                    .font(.title2)
+                                
+                            }
+                            
+                        }
                     }
                     .navigationTitle("Library")
                     .listStyle(.plain)
                     .frame(height: 100)
                     
+                    // MARK: - all albums and playlists
                     LazyVGrid(columns: rows) {
                         ForEach(viewModel.allTracks, id: \.id) { item in
                             NavigationLink {
@@ -47,7 +77,6 @@ struct LibraryView: View {
                             }
                         }
                     }
-
                     .padding(.horizontal)
                     
                     Spacer()
@@ -56,8 +85,6 @@ struct LibraryView: View {
                 
             }
             .frame(maxHeight: .infinity)
-            
-            
         }
         .onAppear {
             viewModel.getPlaylist()
