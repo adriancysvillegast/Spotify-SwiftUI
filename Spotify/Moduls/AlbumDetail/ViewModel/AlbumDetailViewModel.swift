@@ -109,6 +109,17 @@ class AlbumDetailViewModel: ObservableObject {
         return tracks
     }
  
+    // MARK: - Play songs
+    
+    func playAllTracks() {
+        PlaybackManager.shared.startPlayback(tracks: tracks)
+    }
+    
+    func saveAlbum(album: ItemModelCell) {
+        APIManager.shared.saveAlbum(album: album) { succes in
+            print(succes)
+        }
+    }
 
 }
 
