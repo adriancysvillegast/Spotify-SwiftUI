@@ -45,7 +45,7 @@ struct AlbumDetailView: View {
                                 Button {
                                     viewModel.saveAlbum(album: self.album)
                                 } label: {
-                                    FavoriteButtonView()
+                                    FavoriteButtonView(isAdded: $viewModel.wasAdded)
                                 }
 
                                 
@@ -117,6 +117,7 @@ struct AlbumDetailView: View {
             
         }
         .onAppear {
+            viewModel.reviewIfWasAddedBefore(album: self.album)
             viewModel.getDetail(album: album)
             viewModel.getGenresRecomendation()
             viewModel.getAudioTrackRecomendations()
