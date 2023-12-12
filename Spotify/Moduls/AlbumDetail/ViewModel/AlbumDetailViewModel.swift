@@ -10,6 +10,8 @@ import SwiftUI
 
 class AlbumDetailViewModel: ObservableObject {
     // MARK: - Properties
+    @AppStorage("updateLibrary") var updateLibrary: Bool = false
+    
     @Published var albumDetailCell: AlbumDetailModelCell?
     @Published var tracks: [TrackModelCell] = []
     @Published var genre: String = "acoustic"
@@ -117,9 +119,10 @@ class AlbumDetailViewModel: ObservableObject {
     }
     
     func saveAlbum(album: ItemModelCell) {
-        APIManager.shared.saveAlbum(album: album) { success in
+        APIManager.shared.saveAlbum(album: album) { [weak self] success in
             DispatchQueue.main.async {
-                self.wasAdded = success
+                self?.wasAdded = success
+                self?.updateLibrary = success
             }
         }
     }

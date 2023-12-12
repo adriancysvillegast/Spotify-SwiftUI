@@ -87,7 +87,7 @@ struct LibraryView: View {
             .frame(maxHeight: .infinity)
         }
         .onAppear {
-            viewModel.getPlaylist()
+            viewModel.validateRefreshView()
         }
         
         

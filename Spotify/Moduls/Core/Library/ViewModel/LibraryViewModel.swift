@@ -6,15 +6,32 @@
 //
 
 import Foundation
+import SwiftUI
 
 class LibraryViewModel: ObservableObject {
     // MARK: - Poperties
+    
+    @AppStorage("updateLibrary") var updateLibrary: Bool?
+    
     @Published var allTracks: [ItemModelCell] = []
     @Published var playlists: [ItemModelCell] = []
     @Published var albums: [ItemModelCell] = []
     // MARK: - Methods
     
-    func getPlaylist() {
+    
+    func validateRefreshView() {
+        if allTracks.isEmpty {
+            getUserFavouriteTracks()
+        }else if !allTracks.isEmpty && updateLibrary == true {
+            allTracks = []
+            playlists = []
+            getUserFavouriteTracks()
+            updateLibrary = false
+        }
+    }
+    
+    func getUserFavouriteTracks() {
+        
         APIManager.shared.getCurrentUserPlaylists { [weak self] result in
             switch result {
             case .success(let success):
