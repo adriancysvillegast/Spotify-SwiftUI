@@ -14,7 +14,8 @@ class AlbumDetailViewModel: ObservableObject {
     @Published var tracks: [TrackModelCell] = []
     @Published var genre: String = "acoustic"
     @Published var recomendedTracks: [TrackModelCell] = []
-
+    @Published var wasAdded: Bool = false
+    
     @State var showError: Bool = false
     @State var errorMessage: String = "Ups we got and error\nwhen we were loading data"
     
@@ -116,8 +117,26 @@ class AlbumDetailViewModel: ObservableObject {
     }
     
     func saveAlbum(album: ItemModelCell) {
-        APIManager.shared.saveAlbum(album: album) { succes in
-            print(succes)
+        APIManager.shared.saveAlbum(album: album) { success in
+            DispatchQueue.main.async {
+                self.wasAdded = success
+            }
+        }
+    }
+    
+    // MARK: - Review if was added before
+    
+    func reviewIfWasAddedBefore(album: ItemModelCell) {
+        APIManager.shared.getCurrentUserAlbums { [weak self] result in
+            switch result {
+            case .success(let success):
+                let itemsIds = success.compactMap { $0.id }
+                DispatchQueue.main.async {
+                    self?.wasAdded = itemsIds.contains(album.id)
+                }
+            case .failure(let failure):
+                print(#function + "error")
+            }
         }
     }
 
