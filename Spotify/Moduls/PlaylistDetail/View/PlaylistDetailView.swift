@@ -13,8 +13,9 @@ struct PlaylistDetailView: View {
     @StateObject var viewModel: PlaylistDetailViewModel
     @State var trackSelected: String = "no"
     @State var showTrack: Bool = false
-    
-    
+    @State var showUserPlaylists: Bool = false
+    @State var trackPressedId: String = "no"
+    @State var trackPressedName: String = "no"
     // MARK: - Body
     
     var body: some View {
@@ -29,8 +30,31 @@ struct PlaylistDetailView: View {
                             PlaylistHeaderDetailView(playList: details)
                         }
                         
+                        // MARK: - Buttons
+                        Group {
+                            // MARK: - Play Button
+                            
+                            HStack(spacing: 15) {
+                                Button {
+                                    viewModel.playListOfTracks()
+                                } label: {
+                                    PlayButtonView()
+                                }
+                                
+                                Button {
+                                    viewModel.shufflePlaylistTracks()
+                                } label: {
+                                    ShuffleButtonView()
+                                }
+
+                                
+                            }
+                            .padding(.horizontal)
+
+                        }
                         Spacer()
                         
+                        // MARK: - List of tracks
                         Group {
                             List {
                                 ForEach(details.tracks, id: \.id) { track in
@@ -38,28 +62,28 @@ struct PlaylistDetailView: View {
                                         trackSelected = track.id
                                         self.showTrack.toggle()
                                     } label: {
-                                        VStack(alignment: .leading, spacing: 5) {
+                                        LabelTrackView(track: track)
+                                    }
+                                    .contextMenu {
+                                        Button {
+//                                            action
+                                            self.showUserPlaylists = true
+                                            trackPressedId = track.id
+                                            trackPressedName = track.name
+                                        } label: {
                                             HStack {
-                                                Text(track.name)
-                                                    .font(.title3)
-                                                    .foregroundColor(.primary)
-                                                    .lineLimit(1)
-
-                                                if track.explicit {
-                                                    Image(systemName: "e.square.fill")
-                                                        .foregroundColor(.primary)
-                                                }
+                                                Text("Add to a list")
+                                                Image(systemName: "star")
+                                                    
                                             }
-
-                                            Text(track.artists)
-                                                .font(.footnote)
-                                                .foregroundColor(.secondary)
                                         }
                                     }
+                                    
                                 }
                                 
                             }
                             .listStyle(.plain)
+                            
                         }
                         .frame(height: CGFloat(details.tracks.count) * 68)
                         
@@ -77,6 +101,17 @@ struct PlaylistDetailView: View {
                 PlayView(id: $trackSelected, viewModel: PlaySongViewModel())
                     .presentationDragIndicator(.visible)
             }
+            .sheet(isPresented: $showUserPlaylists) {
+//                show a view with the playlist by user
+                UserPlaylistView(idTrack: $trackPressedId, nameTrack: $trackPressedName)
+            }
+//            .alert(isPresented: $viewModel.errorAddingToPlaylist) {
+//                Alert(title: Text("Error"),
+//                      message: Text("We couldn't add \(trackPressedName) to the playlist"),
+//                      dismissButton: .destructive(Text("Ok"))
+//                )
+//            }
+            
         }
         .onAppear {
             viewModel.getDetailPlaylist(playlist: playlist)
