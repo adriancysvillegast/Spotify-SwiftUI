@@ -320,4 +320,48 @@ final class APIManager {
             }
     }
     
+    
+    func addTrackToPlaylist(trackId: String,
+                            playlistId: String,
+                            completion: @escaping (Bool) -> Void ) {
+        createBaseRequest(
+            with: URL(string: basicURL + "/playlists/\(playlistId)/tracks"),
+            type: .POST) { baseRequest in
+                var request = baseRequest
+                let json = [
+                    "uris": [
+                        "spotify:track:\(trackId)"
+                    ]
+                ]
+                request.httpBody = try? JSONSerialization.data(withJSONObject: json, options: .fragmentsAllowed)
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                
+                //Task
+                let task = URLSession.shared.dataTask(with: request) { data, _, error in
+                    
+                    guard let data = data, error == nil else {
+                        completion(false)
+                        return
+                    }
+                    
+                    do {
+                        let result = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                        print(result)
+                        if let response = result as? [String: Any],
+                           response["snapshot_id"] as? String != nil {
+                            
+                            completion(true)
+                        }else {
+                            completion(false)
+                        }
+                    } catch {
+                        completion(false)
+                        print("error adding new track")
+                    }
+
+                    
+                }
+                task.resume()
+            }
+    }
 }
