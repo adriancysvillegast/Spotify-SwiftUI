@@ -14,19 +14,31 @@ struct BrowseView: View {
     
     @StateObject var viewModel = BrowserViewModel()
     let newReleasesRow = [GridItem(), GridItem()]
-//    private var newReleases: [AlbumResponse] = []
+
     // MARK: - Body
     
     var body: some View {
         NavigationView {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack {
-                    if viewModel.newReleasesCell.isEmpty && viewModel.featureListsCell.isEmpty {
+                    if viewModel.newReleasesCell.isEmpty &&
+                        viewModel.featureListsCell.isEmpty &&
+                        viewModel.alternativeListCell.isEmpty &&
+                        viewModel.rockListCell.isEmpty &&
+                        viewModel.houseListCell.isEmpty {
                         ProgressView()
                             .progressViewStyle(.circular)
                     }else {
                         
-                        VStack {
+                        VStack(spacing: 10) {
+                            // MARK: - Alternative
+                            
+                            Group {
+                                TrackRecomendationView(tracks: viewModel.alternativeListCell, genreName: Constants.alternative)
+                            }
+                            .frame(height: 200)
+                            
+
                             // MARK: - NewReleasesResponse
                             Group {
                                 
@@ -51,7 +63,7 @@ struct BrowseView: View {
                                     
                                     ScrollView(.horizontal, showsIndicators: false) {
                                         LazyHGrid(rows: newReleasesRow) {
-                                            ForEach(viewModel.newReleasesCell, id: \.idAlbum) { item in
+                                            ForEach(viewModel.newReleasesCell, id: \.id) { item in
                                                 
                                                 NavigationLink {
                                                     AlbumDetailView(album: item, viewModel: AlbumDetailViewModel())
@@ -68,15 +80,24 @@ struct BrowseView: View {
                                 }
                             }
                             
+                            // MARK: - Hard Rock
+                            Group {
+                                TrackRecomendationView(tracks: viewModel.rockListCell, genreName: Constants.hardRock)
+                            }
+                            .frame(height: 200)
+                            
                             // MARK: - FeaturePlaylist
                             Group {
                                 FeaturePlaylistView(featureLists: viewModel.featureListsCell)
                             }
-                            .frame(height: 500)
+                            .frame(height: 450)
                             
+                            // MARK: - Hard Rock
+                            Group {
+                                TrackRecomendationView(tracks: viewModel.houseListCell, genreName: Constants.house)
+                            }
+                            .frame(height: 200)
                             
-                            
-                            Spacer()
 
                         }
                         .padding(.horizontal)

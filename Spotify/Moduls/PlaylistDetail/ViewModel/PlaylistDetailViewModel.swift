@@ -12,12 +12,13 @@ class PlaylistDetailViewModel: ObservableObject {
     // MARK: - Properties
     @State var showError: Bool = false
     @Published var playlistDetails: FeaturePlaylistDetailModelCell?
-    
-    
+    @Published var allTracks: [TrackModelCell] = []
+    @Published var playlistsUser: [ItemModelCell] = []
+    @Published var errorAddingToPlaylist: Bool = false //esto debo modificarlo
     
     // MARK: - Methods
     
-    func getDetailPlaylist(playlist: FeaturePlaylistModelCell) {
+    func getDetailPlaylist(playlist: ItemModelCell) {
         
         APIManager.shared.getPlaylistDetail(playlistID: playlist.id) { result in
             switch result {
@@ -33,6 +34,7 @@ class PlaylistDetailViewModel: ObservableObject {
                 )
                 DispatchQueue.main.async {
                     self.playlistDetails = details
+                    self.allTracks = track
                 }
                 
             case .failure(let failure):
@@ -60,5 +62,55 @@ class PlaylistDetailViewModel: ObservableObject {
             tracks.append(track)
         }
         return tracks
+    }
+    
+
+    // MARK: - Play Music
+    func playListOfTracks() {
+        PlaybackManager.shared.startPlayback(tracks: allTracks)
+    }
+    
+    func shufflePlaylistTracks() {
+        PlaybackManager.shared.startPlaybackShuffle(tracks: allTracks)
+    }
+    
+    // MARK: - Add to playlists
+    
+    func getUserPlaylists() {
+        APIManager.shared.getCurrentUserPlaylists { [weak self] result in
+            switch result {
+            case .success(let success):
+                let playlists = success.compactMap {
+                    ItemModelCell(id: $0.id,
+                                  nameItem: $0.name,
+                                  creatorName: $0.owner.displayName,
+                                  image: URL(string: $0.images.first?.url ?? "-"),
+                                  description: $0.description,
+                                  isPlaylist: true
+                    )
+                }
+                DispatchQueue.main.async {
+                    self?.playlistsUser = playlists
+                }
+            case .failure(let failure):
+                print(failure.localizedDescription)
+                self?.showError.toggle()
+            }
+        }
+    }
+    
+    
+    func saveItemOnPlaylist(item: String, idPlaylist: String ) {
+//        esto debo modificarlo al punto de que al tener un error poder mostrar un alert
+        APIManager.shared.addTrackToPlaylist(trackId: item,
+                                             playlistId: idPlaylist) { success in
+            DispatchQueue.main.async {
+                
+                if !success {
+                    self.errorAddingToPlaylist = true
+                }
+            }
+            
+        }
     }
 }

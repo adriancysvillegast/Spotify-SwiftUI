@@ -10,17 +10,20 @@ import SwiftUI
 
 class AlbumDetailViewModel: ObservableObject {
     // MARK: - Properties
+    @AppStorage("updateLibrary") var updateLibrary: Bool = false
+    
     @Published var albumDetailCell: AlbumDetailModelCell?
     @Published var tracks: [TrackModelCell] = []
     @Published var genre: String = "acoustic"
     @Published var recomendedTracks: [TrackModelCell] = []
-
+    @Published var wasAdded: Bool = false
+    
     @State var showError: Bool = false
     @State var errorMessage: String = "Ups we got and error\nwhen we were loading data"
     
     // MARK: - Methods
     
-    func getDetail(album: NewReleasesModelCell) {
+    func getDetail(album: ItemModelCell) {
         APIManager.shared.getDetailAlbum(
             album: album
         ) { [weak self] result in
@@ -30,12 +33,12 @@ class AlbumDetailViewModel: ObservableObject {
                 
                     let data = AlbumDetailModelCell(
                         id: value.id,
-                        image: album.urlImage,
+                        image: album.image,
                         nameAlbum: value.name,
                         nameArtist: value.artists.first?.name ?? "--",
                         tracks: value.tracks.items)
                 DispatchQueue.main.async {
-                    self?.tracks = self?.getArtist(albumImage: album.urlImage, audios: value.tracks.items) ?? []
+                    self?.tracks = self?.getArtist(albumImage: album.image, audios: value.tracks.items) ?? []
                     self?.albumDetailCell = data
                 }
             case .failure(let failure):
@@ -109,6 +112,36 @@ class AlbumDetailViewModel: ObservableObject {
         return tracks
     }
  
+    // MARK: - Play songs
+    
+    func playAllTracks() {
+        PlaybackManager.shared.startPlayback(tracks: tracks)
+    }
+    
+    func saveAlbum(album: ItemModelCell) {
+        APIManager.shared.saveAlbum(album: album) { [weak self] success in
+            DispatchQueue.main.async {
+                self?.wasAdded = success
+                self?.updateLibrary = success
+            }
+        }
+    }
+    
+    // MARK: - Review if was added before
+    
+    func reviewIfWasAddedBefore(album: ItemModelCell) {
+        APIManager.shared.getCurrentUserAlbums { [weak self] result in
+            switch result {
+            case .success(let success):
+                let itemsIds = success.compactMap { $0.id }
+                DispatchQueue.main.async {
+                    self?.wasAdded = itemsIds.contains(album.id)
+                }
+            case .failure(let failure):
+                print(#function + "error")
+            }
+        }
+    }
 
 }
 

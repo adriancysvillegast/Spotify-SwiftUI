@@ -17,6 +17,7 @@ final class AuthManager: ObservableObject {
     
     @AppStorage("accessToken") var accessToken: String?
     @AppStorage("refreshToken") var refreshToken: String?
+    
     @State var errorLogIn: Bool = false
     @State var errorLogInMessage: String?
     

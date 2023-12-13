@@ -10,7 +10,7 @@ import SwiftUI
 struct AlbumDetailView: View {
     
     // MARK: - Properties
-    var album: NewReleasesModelCell
+    var album: ItemModelCell
     @StateObject var viewModel: AlbumDetailViewModel
     @State var trackSelected: String = "no"
     @State var showTrack: Bool = false
@@ -30,6 +30,29 @@ struct AlbumDetailView: View {
                             AlbumHeaderView(albumDetail: album)
                         }
                         .padding(.top, 0)
+                        
+                        // MARK: - Buttons
+                        Group {
+                            // MARK: - Play Button
+                            
+                            HStack(spacing: 15) {
+                                Button {
+                                    viewModel.playAllTracks()
+                                } label: {
+                                    PlayButtonView()
+                                }
+                                
+                                Button {
+                                    viewModel.saveAlbum(album: self.album)
+                                } label: {
+                                    FavoriteButtonView(isAdded: $viewModel.wasAdded)
+                                }
+
+                                
+                            }
+                            .padding(.horizontal)
+
+                        }
                         
                         // MARK: - List of tracks
                         Group {
@@ -72,6 +95,7 @@ struct AlbumDetailView: View {
                         Group {
                             TrackRecomendationView(tracks: viewModel.recomendedTracks, genreName: viewModel.genre)
                         }
+                        .padding(.horizontal)
    
                     }
                 }
@@ -93,6 +117,7 @@ struct AlbumDetailView: View {
             
         }
         .onAppear {
+            viewModel.reviewIfWasAddedBefore(album: self.album)
             viewModel.getDetail(album: album)
             viewModel.getGenresRecomendation()
             viewModel.getAudioTrackRecomendations()

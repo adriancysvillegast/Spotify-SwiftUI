@@ -62,7 +62,21 @@ final class PlaybackManager: ObservableObject {
             self.playerQueue?.volume = AVAudioSession.sharedInstance().outputVolume
             self.playerQueue?.play()
         }
-        
+      
+    func startPlaybackShuffle(
+        tracks: [TrackModelCell]
+        ) {
+            self.tracks = tracks.shuffled()
+            self.track = nil
+            
+            self.playerQueue = AVQueuePlayer(items: tracks.compactMap({
+                guard let url = $0.previewUrl else { return nil }
+                return AVPlayerItem(url: url)
+            }))
+            self.playerQueue?.volume = AVAudioSession.sharedInstance().outputVolume
+            
+            self.playerQueue?.play()
+        }
     
     func tappedPlayPause() {
         if let player = player {
