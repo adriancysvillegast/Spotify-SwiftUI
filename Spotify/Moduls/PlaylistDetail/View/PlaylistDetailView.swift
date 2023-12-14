@@ -64,21 +64,21 @@ struct PlaylistDetailView: View {
                                     } label: {
                                         LabelTrackView(track: track)
                                             .contextMenu {
+                                                
                                                 Button {
-        //                                            action
-                                                    self.showUserPlaylists = true
                                                     trackPressedId = track.id
                                                     trackPressedName = track.name
+                                                    self.showUserPlaylists.toggle()
                                                 } label: {
                                                     HStack {
-                                                        Text("Add to a list")
+                                                        Text("Add to a Playlist")
                                                         Image(systemName: "star")
                                                             
                                                     }
                                                 }
+                                                
                                             }
                                     }
-                                    
                                     
                                 }
                                 
@@ -102,21 +102,17 @@ struct PlaylistDetailView: View {
                 PlayView(id: $trackSelected, viewModel: PlaySongViewModel())
                     .presentationDragIndicator(.visible)
             }
-            .sheet(isPresented: $showUserPlaylists) {
+            
+            .fullScreenCover(isPresented: $showUserPlaylists) {
 //                show a view with the playlist by user
                 UserPlaylistView(idTrack: $trackPressedId, nameTrack: $trackPressedName)
             }
-//            .alert(isPresented: $viewModel.errorAddingToPlaylist) {
-//                Alert(title: Text("Error"),
-//                      message: Text("We couldn't add \(trackPressedName) to the playlist"),
-//                      dismissButton: .destructive(Text("Ok"))
-//                )
-//            }
             
         }
         .onAppear {
             viewModel.getDetailPlaylist(playlist: playlist)
         }
+        
     }
 }
 
