@@ -63,21 +63,22 @@ struct PlaylistDetailView: View {
                                         self.showTrack.toggle()
                                     } label: {
                                         LabelTrackView(track: track)
-                                    }
-                                    .contextMenu {
-                                        Button {
-//                                            action
-                                            self.showUserPlaylists = true
-                                            trackPressedId = track.id
-                                            trackPressedName = track.name
-                                        } label: {
-                                            HStack {
-                                                Text("Add to a list")
-                                                Image(systemName: "star")
-                                                    
+                                            .contextMenu {
+                                                Button {
+        //                                            action
+                                                    self.showUserPlaylists = true
+                                                    trackPressedId = track.id
+                                                    trackPressedName = track.name
+                                                } label: {
+                                                    HStack {
+                                                        Text("Add to a list")
+                                                        Image(systemName: "star")
+                                                            
+                                                    }
+                                                }
                                             }
-                                        }
                                     }
+                                    
                                     
                                 }
                                 
