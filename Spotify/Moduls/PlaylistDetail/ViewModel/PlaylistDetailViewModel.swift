@@ -100,12 +100,10 @@ class PlaylistDetailViewModel: ObservableObject {
     }
     
     
-    func saveItemOnPlaylist(item: String, idPlaylist: String ) {
-//        esto debo modificarlo al punto de que al tener un error poder mostrar un alert
+    func saveItemOnPlaylist(item: String, idPlaylist: String ){
         APIManager.shared.addTrackToPlaylist(trackId: item,
                                              playlistId: idPlaylist) { success in
             DispatchQueue.main.async {
-                
                 if !success {
                     self.errorAddingToPlaylist = true
                 }
