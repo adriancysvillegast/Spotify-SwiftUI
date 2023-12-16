@@ -364,4 +364,87 @@ final class APIManager {
                 task.resume()
             }
     }
+    
+    
+    func createPlaylist(
+        name: String,
+        completion: @escaping (Bool) -> Void ) {
+            getUserProfile { [weak self] result in
+                switch result {
+                case .success(let data):
+                    let url = URL(string: (self?.basicURL ?? "https://api.spotify.com/v1") + "/users/\(data.id)/playlists")
+                    self?.createBaseRequest(
+                        with: url,
+                        type: .POST,
+                        completion: { baseRequest in
+                            var request = baseRequest
+                            let json = [ "name": name ]
+                            
+                            request.httpBody = try? JSONSerialization.data(
+                                withJSONObject: json,
+                                options: .fragmentsAllowed)
+                            
+                            let task = URLSession.shared.dataTask(with: request) { data, _ , error in
+                                guard let data = data, error == nil else {
+                                    completion(false)
+                                    return
+                                }
+                                
+                                do {
+                                    let decoder = JSONDecoder()
+                                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                                    let result = try JSONSerialization.jsonObject(
+                                        with: data,
+                                        options: .fragmentsAllowed)
+                                    print(result)
+                                    if let response = result as? [String: Any],
+                                       response["id"] as? String != nil {
+                                        print("created")
+                                        completion(true)
+                                    }else {
+                                        print("error -->  \(error?.localizedDescription)")
+                                        completion(false)
+                                    }
+                                    
+                                }catch {
+                                    print("something is wrong: --> \(error.localizedDescription) ")
+                                    completion(false)
+                                }
+                            }
+                            task.resume()
+                            
+                        })
+                case .failure(let failure):
+                    print("error getting user data: --> \(failure.localizedDescription)")
+                }
+            }
+    }
+    
+    
+    func getUserProfile( completion: @escaping (Result<UserProfileResponse, Error>) -> Void) {
+        createBaseRequest(
+            with: URL(string: basicURL + "/me"),
+            type: .GET) { baseRequest in
+            let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
+                //                print(self.basicURL + "/me")
+                guard let data = data, error == nil else {
+                    completion(.failure(APIError.failedToGetData))
+                    return
+                }
+                
+                do{
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let result = try decoder.decode(UserProfileResponse.self, from: data)
+                    completion(.success(result))
+                }catch {
+                    print(error.localizedDescription)
+                    completion(.failure(error))
+                }
+                
+            }
+            task.resume()
+            
+        }
+    }
 }

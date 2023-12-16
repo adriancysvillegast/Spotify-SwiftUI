@@ -64,7 +64,6 @@ struct PlaylistDetailView: View {
                                     } label: {
                                         LabelTrackView(track: track)
                                             .contextMenu {
-                                                
                                                 Button {
                                                     trackPressedId = track.id
                                                     trackPressedName = track.name
