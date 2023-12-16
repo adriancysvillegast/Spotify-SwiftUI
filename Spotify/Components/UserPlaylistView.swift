@@ -10,13 +10,18 @@ import SwiftUI
 struct UserPlaylistView: View {
     
     // MARK: - Properties
-    @StateObject var viewModel: PlaylistDetailViewModel = PlaylistDetailViewModel()
     @Environment(\.presentationMode) var presentationMode
+    @StateObject var viewModel: PlaylistDetailViewModel = PlaylistDetailViewModel()
+    
     @Binding var idTrack: String
     @Binding var nameTrack: String
+    
     @State var playlistId: String = "no"
     @State var playlistName: String = "no"
     @State var showAlert: Bool = false
+    @State var goToCreatePlaylist: Bool = false
+    
+    
     // MARK: - Body
     var body: some View {
         NavigationView {
@@ -52,6 +57,14 @@ struct UserPlaylistView: View {
                 }
                 .listStyle(.automatic)
             }
+            .onAppear {
+                    viewModel.getUserPlaylists()
+                
+            }
+            
+            .sheet(isPresented: $goToCreatePlaylist, content: {
+                CreatePlaylistsView()
+            })
             .alert(isPresented: $showAlert) {
                 
                 Alert(title: Text("Alert"),
@@ -62,25 +75,21 @@ struct UserPlaylistView: View {
                     
                 }))
             }
-            .onAppear {
-                viewModel.getUserPlaylists()
-            }
-//            .alert(isPresented: $showError) {
-//                Alert(title: Text("Error"),
-//                      message: Text("We couldn't add \(nameTrack) to the playlist"),
-//                      dismissButton: .destructive(Text("Ok"))
-//                )
-//            }
+            
+            
             .toolbar {
                 // MARK: - Add Button
                 ToolbarItem(placement: .navigationBarTrailing) {
+                    
                     Button {
-//                        navigate to another view to create a playlist or present a Alert
+                        goToCreatePlaylist.toggle()
+                        
                     } label: {
                         ZStack {
                             Rectangle()
                                 .foregroundColor(.secondary)
                                 .cornerRadius(12)
+                            
                             Image(systemName: "plus")
                                 .foregroundColor(.primary)
                         }
@@ -110,10 +119,3 @@ struct UserPlaylistView: View {
         
     }
 }
-
-//struct UserPlaylistView_Previews: PreviewProvider {
-//
-//    static var previews: some View {
-//        UserPlaylistView()
-//    }
-//}
