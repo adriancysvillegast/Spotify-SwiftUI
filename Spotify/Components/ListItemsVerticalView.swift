@@ -11,7 +11,6 @@ struct ListItemsVerticalView: View {
     // MARK: - Properties
     @State var items: [ItemModelCell] = []
     var rows = [GridItem(), GridItem()]
-    
     // MARK: - Body
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -29,6 +28,25 @@ struct ListItemsVerticalView: View {
                     }
                     
                 }
+            }
+        }
+        .toolbar {
+            // MARK: - Add playlists
+            ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationLink {
+                    CreateNewPlaylistView()
+                } label: {
+                    ZStack {
+                        Rectangle()
+                            .foregroundColor(.secondary)
+                            .cornerRadius(12)
+                        
+                        Image(systemName: "plus")
+                            .foregroundColor(.primary)
+                    }
+                    .frame(width: 30, height: 30)
+                }
+
             }
         }
     }

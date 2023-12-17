@@ -12,7 +12,6 @@ struct CreatePlaylistsView: View {
     @StateObject var viewModel: PlaylistDetailViewModel = PlaylistDetailViewModel()
     @Environment(\.presentationMode) var presentationMode
     @State var name: String = ""
-    
     // MARK: - Methods
     private func isClean() -> Bool {
         if name.count > 0 {
@@ -67,6 +66,7 @@ struct CreatePlaylistsView: View {
             
             .toolbar {
                 // MARK: - Add Button
+                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         viewModel.createNewPlaylist(name: name)
@@ -101,6 +101,7 @@ struct CreatePlaylistsView: View {
                     }
                 }
                 
+                
             }
             
         }
@@ -108,8 +109,8 @@ struct CreatePlaylistsView: View {
     }
 }
 
-struct CreatePlaylistsView_Previews: PreviewProvider {
-    static var previews: some View {
-        CreatePlaylistsView()
-    }
-}
+//struct CreatePlaylistsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CreatePlaylistsView()
+//    }
+//}
