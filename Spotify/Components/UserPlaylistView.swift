@@ -21,7 +21,6 @@ struct UserPlaylistView: View {
     @State var showAlert: Bool = false
     @State var goToCreatePlaylist: Bool = false
     
-    
     // MARK: - Body
     var body: some View {
         NavigationView {

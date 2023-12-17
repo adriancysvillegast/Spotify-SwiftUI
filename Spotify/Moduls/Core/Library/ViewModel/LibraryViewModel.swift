@@ -16,6 +16,8 @@ class LibraryViewModel: ObservableObject {
     @Published var allTracks: [ItemModelCell] = []
     @Published var playlists: [ItemModelCell] = []
     @Published var albums: [ItemModelCell] = []
+    @Published var errorCreatingPlaylist: Bool = false
+    @Published var wasAdded: Bool = false
     // MARK: - Methods
     
     
@@ -79,4 +81,19 @@ class LibraryViewModel: ObservableObject {
             }
         }
     }
+    
+    
+    func createNewPlaylist(name: String) {
+        APIManager.shared.createPlaylist(name: name) { success in
+            //add a acction
+            DispatchQueue.main.async {
+                if !success {
+                    self.errorCreatingPlaylist = true
+                }else if success {
+                    self.wasAdded = true
+                }
+            }
+        }
+    }
+    
 }

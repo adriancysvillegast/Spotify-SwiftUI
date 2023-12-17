@@ -85,6 +85,7 @@ struct LibraryView: View {
                 
             }
             .frame(maxHeight: .infinity)
+            
         }
         .onAppear {
             viewModel.validateRefreshView()
