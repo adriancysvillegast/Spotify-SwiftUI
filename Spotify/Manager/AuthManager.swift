@@ -81,7 +81,7 @@ final class AuthManager: ObservableObject {
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 let result = try decoder.decode(AuthResponse.self, from: data)
                 self.cacheToken(result: result)
-                print("SUCCESS: \(result)")
+//                print("SUCCESS: \(result)")
                 completion(true)
             }catch {
                 print(error.localizedDescription)
@@ -164,7 +164,7 @@ final class AuthManager: ObservableObject {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 let result = try decoder.decode(AuthResponse.self, from: data)
-                print(result.accessToken)
+//                print(result.accessToken)
                 self.onRefreshBlocks.forEach { $0(result.accessToken) }
                 self.onRefreshBlocks.removeAll()
                 self.cacheToken(result: result)
