@@ -1,5 +1,5 @@
 //
-//  ListItemsVerticalView.swift
+//  PlaylistVerticalView.swift
 //  Spotify
 //
 //  Created by Adriancys Jesus Villegas Toro on 11/12/23.
@@ -7,21 +7,19 @@
 
 import SwiftUI
 
-struct ListItemsVerticalView: View {
+struct PlaylistVerticalView: View {
     // MARK: - Properties
-    @State var items: [ItemModelCell] = []
+    @StateObject var viewModel: LibraryViewModel = LibraryViewModel()
+    
     var rows = [GridItem(), GridItem()]
+    
     // MARK: - Body
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVGrid(columns: rows) {
-                ForEach(items, id: \.id) { item in
+                ForEach(viewModel.playlists, id: \.id) { item in
                     NavigationLink {
-                        if item.isPlaylist {
-                            PlaylistDetailView(playlist: item, viewModel: PlaylistDetailViewModel())
-                        }else {
-                            AlbumDetailView(album: item, viewModel: AlbumDetailViewModel())
-                        }
+                        PlaylistDetailView(playlist: item, viewModel: PlaylistDetailViewModel())
                     } label: {
                         ItemCoverView(item: item)
                             .padding(.horizontal)
@@ -29,6 +27,9 @@ struct ListItemsVerticalView: View {
                     
                 }
             }
+        }
+        .onAppear {
+            viewModel.getPlaylists()
         }
         .toolbar {
             // MARK: - Add playlists
@@ -54,6 +55,6 @@ struct ListItemsVerticalView: View {
 
 struct ListItemsVerticalView_Previews: PreviewProvider {
     static var previews: some View {
-        ListItemsVerticalView()
+        PlaylistVerticalView()
     }
 }

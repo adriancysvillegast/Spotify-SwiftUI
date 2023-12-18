@@ -11,7 +11,7 @@ struct AlbumDetailView: View {
     
     // MARK: - Properties
     var album: ItemModelCell
-    @StateObject var viewModel: AlbumDetailViewModel
+    @StateObject var viewModel: AlbumDetailViewModel = AlbumDetailViewModel()
     @State var trackSelected: String = "no"
     @State var showTrack: Bool = false
     

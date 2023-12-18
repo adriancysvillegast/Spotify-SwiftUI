@@ -80,6 +80,7 @@ struct CreateNewPlaylistView: View {
                 title: Text("Success".uppercased()),
                 dismissButton: .cancel(Text("Ok"),
                                        action: {
+                                           viewModel.getPlaylists()
                                            presentationMode.wrappedValue.dismiss()
                                        })
             )

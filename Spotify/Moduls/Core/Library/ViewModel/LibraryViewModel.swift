@@ -19,21 +19,13 @@ class LibraryViewModel: ObservableObject {
     @Published var errorCreatingPlaylist: Bool = false
     @Published var wasAdded: Bool = false
     // MARK: - Methods
-    
-    
-    func validateRefreshView() {
-        if allTracks.isEmpty {
-            getUserFavouriteTracks()
-        }else if !allTracks.isEmpty && updateLibrary == true {
-            allTracks = []
-            playlists = []
-            getUserFavouriteTracks()
-            updateLibrary = false
-        }
+
+    func getUserFavouriteTracks() {
+//        show favorite tracks
     }
     
-    func getUserFavouriteTracks() {
-        
+    
+    func getPlaylists() {
         APIManager.shared.getCurrentUserPlaylists { [weak self] result in
             switch result {
             case .success(let success):
@@ -49,7 +41,6 @@ class LibraryViewModel: ObservableObject {
                 }
                 
                 DispatchQueue.main.async {
-                    self?.allTracks.append(contentsOf: playlists)
                     self?.playlists = playlists
                 }
             case .failure(let failure):
@@ -57,7 +48,9 @@ class LibraryViewModel: ObservableObject {
             }
         }
         
-        
+    }
+    
+    func getAlbums() {
         APIManager.shared.getCurrentUserAlbums { [weak self] result in
             switch result {
             case .success(let success):
@@ -72,7 +65,6 @@ class LibraryViewModel: ObservableObject {
                 }
                 
                 DispatchQueue.main.async {
-                    self?.allTracks.append(contentsOf: albums)
                     self?.albums = albums
                 }
                 
@@ -82,6 +74,7 @@ class LibraryViewModel: ObservableObject {
         }
     }
     
+
     
     func createNewPlaylist(name: String) {
         APIManager.shared.createPlaylist(name: name) { success in
