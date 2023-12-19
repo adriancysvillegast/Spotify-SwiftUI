@@ -426,7 +426,6 @@ final class APIManager {
             with: URL(string: basicURL + "/me"),
             type: .GET) { baseRequest in
             let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
-                //                print(self.basicURL + "/me")
                 guard let data = data, error == nil else {
                     completion(.failure(APIError.failedToGetData))
                     return
@@ -441,6 +440,76 @@ final class APIManager {
                     print(error.localizedDescription)
                     completion(.failure(error))
                 }
+                
+            }
+            task.resume()
+            
+        }
+    }
+    
+    func getFavoriteTracks(completion: @escaping (Result<FavoriteTracksResponse, Error>) -> Void) {
+        createBaseRequest(
+            with: URL(string: basicURL + "/me/tracks?&limit=50"),
+            type: .GET) { baseRequest in
+            let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
+                guard let data = data, error == nil else {
+                    completion(.failure(APIError.failedToGetData))
+                    return
+                }
+                
+                do{
+//                    let result = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+//                    print(result)
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let result = try decoder.decode(FavoriteTracksResponse.self, from: data)
+                    completion(.success(result))
+                }catch {
+                    print(error.localizedDescription)
+                    completion(.failure(error))
+                }
+                
+            }
+            task.resume()
+            
+        }
+    }
+    
+    func saveFavoriteTracks(trackId: String, completion: @escaping (Bool) -> Void) {
+        createBaseRequest(
+            with: URL(string: basicURL + "/me/tracks?ids=\(trackId)"),
+            type: .PUT) { baseRequest in
+                var request = baseRequest
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                let requestBody: [String: Any] = [
+                    "ids": ["\(trackId)"]
+                ]
+                
+                do {
+                    let jsonData = try JSONSerialization.data(withJSONObject: requestBody)
+                    request.httpBody = jsonData
+                } catch {
+                    print("Error creating JSON data: \(error.localizedDescription)")
+                    completion(false)
+                    return
+                }
+                
+                
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                guard let data = data, error == nil else {
+                    completion(false)
+                    return
+                }
+                guard let code = (response as? HTTPURLResponse)?.statusCode else {
+                    completion(false)
+                    return
+                }
+                if code == 200 {
+                    completion(true)
+                }else {
+                    completion(false)
+                }
+                print("code  \(code)")
                 
             }
             task.resume()

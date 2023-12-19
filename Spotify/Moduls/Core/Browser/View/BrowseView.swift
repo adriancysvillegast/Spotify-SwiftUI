@@ -19,6 +19,7 @@ struct BrowseView: View {
     
     var body: some View {
         NavigationView {
+            
             ScrollView(.vertical, showsIndicators: false) {
                 VStack {
                     if viewModel.newReleasesCell.isEmpty &&
@@ -34,7 +35,7 @@ struct BrowseView: View {
                             // MARK: - Alternative
                             
                             Group {
-                                TrackRecomendationView(tracks: viewModel.alternativeListCell, genreName: Constants.alternative)
+                                TrackRecomendationView(tracks: viewModel.alternativeListCell, genreName: Constants.alternative, title: "Because you love")
                             }
                             .frame(height: 200)
                             
@@ -64,7 +65,6 @@ struct BrowseView: View {
                                     ScrollView(.horizontal, showsIndicators: false) {
                                         LazyHGrid(rows: newReleasesRow) {
                                             ForEach(viewModel.newReleasesCell, id: \.id) { item in
-                                                
                                                 NavigationLink {
                                                     AlbumDetailView(album: item, viewModel: AlbumDetailViewModel())
                                                 } label: {
@@ -82,7 +82,7 @@ struct BrowseView: View {
                             
                             // MARK: - Hard Rock
                             Group {
-                                TrackRecomendationView(tracks: viewModel.rockListCell, genreName: Constants.hardRock)
+                                TrackRecomendationView(tracks: viewModel.rockListCell, genreName: Constants.hardRock, title: "Discover more of")
                             }
                             .frame(height: 200)
                             
@@ -92,9 +92,9 @@ struct BrowseView: View {
                             }
                             .frame(height: 450)
                             
-                            // MARK: - Hard Rock
+                            // MARK: - House
                             Group {
-                                TrackRecomendationView(tracks: viewModel.houseListCell, genreName: Constants.house)
+                                TrackRecomendationView(tracks: viewModel.houseListCell, genreName: Constants.house, title: "Top")
                             }
                             .frame(height: 200)
                             

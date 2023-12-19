@@ -22,6 +22,25 @@ class LibraryViewModel: ObservableObject {
 
     func getUserFavouriteTracks() {
 //        show favorite tracks
+        APIManager.shared.getFavoriteTracks { [weak self] result in
+            switch result {
+            case .success(let success):
+                let tracks = success.items.compactMap {
+                    ItemModelCell(id: $0.track.id,
+                                  nameItem: $0.track.name,
+                                  creatorName: $0.track.artists.first?.name ?? "-",
+                                  image: URL(string: $0.track.album?.images.first?.url ?? "-"),
+                                  description: "",
+                                  isPlaylist: false)
+                }
+                DispatchQueue.main.async{
+                    self?.allTracks = tracks
+                }
+                
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+        }
     }
     
     
