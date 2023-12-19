@@ -93,7 +93,7 @@ struct AlbumDetailView: View {
                         
                         // MARK: - Recomendation by random genre
                         Group {
-                            TrackRecomendationView(tracks: viewModel.recomendedTracks, genreName: viewModel.genre)
+                            TrackRecomendationView(tracks: viewModel.recomendedTracks, genreName: viewModel.genre, title: "More of")
                         }
                         .padding(.horizontal)
    
