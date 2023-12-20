@@ -20,7 +20,9 @@ class AlbumDetailViewModel: ObservableObject {
     
     @State var showError: Bool = false
     @State var errorMessage: String = "Ups we got and error\nwhen we were loading data"
-    
+    @Published var trackAdded: Bool = false
+    @Published var errorAddingToPlaylist: Bool = false
+    @Published var successAddingToPlaylist: Bool = false
     // MARK: - Methods
     
     func getDetail(album: ItemModelCell) {
@@ -143,5 +145,36 @@ class AlbumDetailViewModel: ObservableObject {
         }
     }
 
+    // MARK: - Add To Favorite tracks
+    func addToFavoriteTracks(trackId: String) {
+        
+//        print(trackId)
+        APIManager.shared.saveFavoriteTracks(trackId: trackId) { [weak self] success in
+            if success{
+                DispatchQueue.main.async {
+                    self?.trackAdded = success
+                }
+                
+            }
+        }
+    }
+    
+    func saveItemOnPlaylist(item: String, idPlaylist: String ){
+        APIManager.shared.addTrackToPlaylist(trackId: item,
+                                             playlistId: idPlaylist) { success in
+            DispatchQueue.main.async {
+                if !success {
+                    self.errorAddingToPlaylist.toggle()
+                }else {
+                    self.successAddingToPlaylist.toggle()
+                }
+            }
+        }
+    }
+    
+    
+    deinit {
+        print("gooood")
+    }
 }
 
