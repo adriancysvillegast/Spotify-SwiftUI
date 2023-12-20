@@ -78,24 +78,24 @@ struct UserPlaylistView: View {
             
             .toolbar {
                 // MARK: - Add Button
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    
-                    Button {
-                        goToCreatePlaylist.toggle()
-                        
-                    } label: {
-                        ZStack {
-                            Rectangle()
-                                .foregroundColor(.secondary)
-                                .cornerRadius(12)
-                            
-                            Image(systemName: "plus")
-                                .foregroundColor(.primary)
-                        }
-                        .frame(width: 30, height: 30)
-                    }
-                }
-                
+//                ToolbarItem(placement: .navigationBarTrailing) {
+//                    
+//                    Button {
+//                        goToCreatePlaylist.toggle()
+//                        
+//                    } label: {
+//                        ZStack {
+//                            Rectangle()
+//                                .foregroundColor(.secondary)
+//                                .cornerRadius(12)
+//                            
+//                            Image(systemName: "plus")
+//                                .foregroundColor(.primary)
+//                        }
+//                        .frame(width: 30, height: 30)
+//                    }
+//                }
+//                
                 // MARK: - Dismiss View
                 
                 ToolbarItem(placement: .navigationBarLeading) {
