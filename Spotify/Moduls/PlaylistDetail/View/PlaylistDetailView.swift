@@ -104,7 +104,7 @@ struct PlaylistDetailView: View {
             
             .fullScreenCover(isPresented: $showUserPlaylists) {
 //                show a view with the playlist by user
-                UserPlaylistView(idTrack: $trackPressedId, nameTrack: $trackPressedName)
+                UserPlaylistPVMView(idTrack: $trackPressedId, nameTrack: $trackPressedName)
             }
             
         }
