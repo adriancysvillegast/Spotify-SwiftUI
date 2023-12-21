@@ -16,6 +16,7 @@ class AlbumDetailViewModel: ObservableObject {
     @Published var tracks: [TrackModelCell] = []
     @Published var genre: String = "acoustic"
     @Published var recomendedTracks: [TrackModelCell] = []
+    @Published var playlistsUser: [ItemModelCell] = []
     @Published var wasAdded: Bool = false
     
     @State var showError: Bool = false
@@ -155,6 +156,33 @@ class AlbumDetailViewModel: ObservableObject {
                     self?.trackAdded = success
                 }
                 
+            }
+        }
+    }
+    
+    
+    // MARK: - Add to playlists
+
+    func getUserPlaylists() {
+        
+        APIManager.shared.getCurrentUserPlaylists { [weak self] result in
+            switch result {
+            case .success(let success):
+                let playlists = success.compactMap {
+                    ItemModelCell(id: $0.id,
+                                  nameItem: $0.name,
+                                  creatorName: $0.owner.displayName,
+                                  image: URL(string: $0.images.first?.url ?? "-"),
+                                  description: $0.description,
+                                  isPlaylist: true
+                    )
+                }
+                DispatchQueue.main.async {
+                    self?.playlistsUser = playlists
+                }
+            case .failure(let failure):
+                print(failure.localizedDescription)
+                self?.showError.toggle()
             }
         }
     }

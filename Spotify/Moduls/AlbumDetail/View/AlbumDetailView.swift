@@ -113,7 +113,7 @@ struct AlbumDetailView: View {
             }
             .fullScreenCover(isPresented: $showUserPlaylists) {
 //                show a view with the playlist by user
-                UserPlaylistView(idTrack: $trackSelectedId, nameTrack: $trackSelectedName)
+                UserPlaylistAVMView(idTrack: $trackSelectedId, nameTrack: $trackSelectedName)
             }
             .alert(Text("Error"), isPresented: $viewModel.showError) {
                 Button(role: .cancel) {
@@ -137,7 +137,6 @@ struct AlbumDetailView: View {
             } message: {
                 Text("\(trackSelectedName) wasn't added!")
             }
-            
 //            .alert(Text("Success"), isPresented: $viewModel.successAddingToPlaylist) {
 //                // MARK: - if track was added
 //                Button(role: .destructive) {

@@ -1,5 +1,5 @@
 //
-//  UserPlaylistView.swift
+//  UserPlaylistPVMView.swift
 //  Spotify
 //
 //  Created by Adriancys Jesus Villegas Toro on 13/12/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct UserPlaylistView: View {
+struct UserPlaylistPVMView: View {
     
     // MARK: - Properties
     @Environment(\.presentationMode) var presentationMode
@@ -57,8 +57,7 @@ struct UserPlaylistView: View {
                 .listStyle(.automatic)
             }
             .onAppear {
-                    viewModel.getUserPlaylists()
-                
+                viewModel.getUserPlaylists()
             }
             
             .sheet(isPresented: $goToCreatePlaylist, content: {
