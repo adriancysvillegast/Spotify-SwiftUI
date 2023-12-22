@@ -137,17 +137,6 @@ struct AlbumDetailView: View {
             } message: {
                 Text("\(trackSelectedName) wasn't added!")
             }
-//            .alert(Text("Success"), isPresented: $viewModel.successAddingToPlaylist) {
-//                // MARK: - if track was added
-//                Button(role: .destructive) {
-//                    presentationMode.wrappedValue.dismiss()
-//                } label: {
-//                    Text("Ok")
-//                }
-//
-//            }
-            
-
             
         }
         .onAppear {

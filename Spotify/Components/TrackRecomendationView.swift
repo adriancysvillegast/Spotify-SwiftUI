@@ -16,7 +16,10 @@ struct TrackRecomendationView: View {
     let cellRow = [GridItem()]
     let title: String
     @State var showTrack: Bool = false
-    @State var trackSelected: String = ""
+    @State var trackSelectedId: String = "no"
+    @State var trackSelectedName: String = "no"
+    @State var showUserPlaylists: Bool = false
+    
     
     // MARK: - Body
     
@@ -50,13 +53,15 @@ struct TrackRecomendationView: View {
                             ForEach(tracks, id: \.id) { track in
                                 Button {
                                     showTrack.toggle()
-                                    trackSelected = track.id
+                                    trackSelectedId = track.id
                                 } label: {
                                     TrackCoverView(track: track)
                                         .contextMenu {
                                             
                                             Button {
-                                                //                                               add to Playlist
+                                                trackSelectedId = track.id
+                                                trackSelectedName = track.name
+                                                self.showUserPlaylists.toggle()
                                             } label: {
                                                 HStack {
                                                     Text("Add to a Playlist")
@@ -84,7 +89,11 @@ struct TrackRecomendationView: View {
                     }
                     .frame(height: 170)
                     .sheet(isPresented: $showTrack) {
-                        PlayView(id: $trackSelected, viewModel: PlaySongViewModel())
+                        PlayView(id: $trackSelectedId, viewModel: PlaySongViewModel())
+                    }
+                    .fullScreenCover(isPresented: $showUserPlaylists) {
+        //                show a view with the playlist by user
+                        UserPlaylistAVMView(idTrack: $trackSelectedId, nameTrack: $trackSelectedName)
                     }
                     
                 }

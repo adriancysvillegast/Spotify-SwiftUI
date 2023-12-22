@@ -18,6 +18,7 @@ class BrowserViewModel: ObservableObject {
     @Published var alternativeListCell: [TrackModelCell] = []
     @Published var houseListCell: [TrackModelCell] = []
     @Published var trackAdded: Bool = false
+    @Published var errorAddingToPlaylist: Bool = false
     // MARK: - Methods
     
     func getData() {
@@ -144,6 +145,19 @@ class BrowserViewModel: ObservableObject {
                     self?.trackAdded = success
                 }
                 
+            }
+        }
+    }
+    
+    func saveItemOnPlaylist(item: String, idPlaylist: String ){
+        APIManager.shared.addTrackToPlaylist(trackId: item,
+                                             playlistId: idPlaylist) { success in
+            
+            if !success {
+                DispatchQueue.main.async {
+                    self.errorAddingToPlaylist.toggle()
+                    
+                }
             }
         }
     }
