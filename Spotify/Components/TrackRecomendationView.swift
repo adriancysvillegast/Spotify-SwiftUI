@@ -10,11 +10,17 @@ import SwiftUI
 struct TrackRecomendationView: View {
     
     // MARK: - Properties
+    @StateObject var viewModel: BrowserViewModel = BrowserViewModel()
     let tracks: [TrackModelCell]
     let genreName: String
     let cellRow = [GridItem()]
+    let title: String
     @State var showTrack: Bool = false
-    @State var trackSelected: String = ""
+    @State var trackSelectedId: String = "no"
+    @State var trackSelectedName: String = "no"
+    @State var showUserPlaylists: Bool = false
+    
+    
     // MARK: - Body
     
     var body: some View {
@@ -28,37 +34,67 @@ struct TrackRecomendationView: View {
                                 print("go to a list of songs by the genre \(genreName)")
                             } label: {
                                 HStack(spacing: 1) {
-                                    Text("Because you love \(genreName)")
-                                        .font(.title3)
+                                    Text("\(title) \(genreName.capitalized)")
+                                        .font(.title2)
                                         .foregroundColor(.primary)
                                     
                                     Image(systemName: "chevron.forward")
                                         .foregroundColor(.primary)
                                 }
+                                
                             }
                             Spacer()
                         }
                     }
-
                     
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            LazyHGrid(rows: cellRow) {
-                                ForEach(tracks, id: \.id) { track in
-                                    Button {
-                                        showTrack.toggle()
-                                        trackSelected = track.id
-                                    } label: {
-                                        TrackCoverView(track: track)
-                                    }
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        LazyHGrid(rows: cellRow) {
+                            ForEach(tracks, id: \.id) { track in
+                                Button {
+                                    showTrack.toggle()
+                                    trackSelectedId = track.id
+                                } label: {
+                                    TrackCoverView(track: track)
+                                        .contextMenu {
+                                            
+                                            Button {
+                                                trackSelectedId = track.id
+                                                trackSelectedName = track.name
+                                                self.showUserPlaylists.toggle()
+                                            } label: {
+                                                HStack {
+                                                    Text("Add to a Playlist")
+                                                    Image(systemName: "star")
+                                                }
+                                            }
+                                            
+                                            
+                                            Button {
+                                                viewModel.addToFavoriteTracks(trackId: track.id)
+                                            } label: {
+                                                HStack {
+                                                    Text("Favorite")
+                                                    Image(systemName:"heart")
+                                                        
+                                                }
+                                            }
+                                        }
+                                        
                                 }
                             }
-                            
-                            
                         }
-                        .frame(height: 170)
-                        .sheet(isPresented: $showTrack) {
-                            PlayView(id: $trackSelected, viewModel: PlaySongViewModel())
-                        }
+                        
+                        
+                    }
+                    .frame(height: 170)
+                    .sheet(isPresented: $showTrack) {
+                        PlayView(id: $trackSelectedId, viewModel: PlaySongViewModel())
+                    }
+                    .fullScreenCover(isPresented: $showUserPlaylists) {
+        //                show a view with the playlist by user
+                        UserPlaylistAVMView(idTrack: $trackSelectedId, nameTrack: $trackSelectedName)
+                    }
                     
                 }
             }
@@ -78,6 +114,6 @@ struct TrackRecomendationView_Previews: PreviewProvider {
         TrackModelCell(image: URL(string: "https://i.scdn.co/image/ab67616d0000b2737585dc8eef094d400fd3c1a6"), artists: "czczc", explicit: true, id: "sdsd", name: "fechorias", previewUrl: URL(string: "jhshf"))
     ]
     static var previews: some View {
-        TrackRecomendationView(tracks: track, genreName: "popded")
+        TrackRecomendationView(tracks: track, genreName: "popded", title: "Top")
     }
 }

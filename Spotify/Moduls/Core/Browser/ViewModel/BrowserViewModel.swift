@@ -17,6 +17,8 @@ class BrowserViewModel: ObservableObject {
     @Published var rockListCell: [TrackModelCell] = []
     @Published var alternativeListCell: [TrackModelCell] = []
     @Published var houseListCell: [TrackModelCell] = []
+    @Published var trackAdded: Bool = false
+    @Published var errorAddingToPlaylist: Bool = false
     // MARK: - Methods
     
     func getData() {
@@ -53,13 +55,6 @@ class BrowserViewModel: ObservableObject {
                                   image: URL(string: $0.images.first?.url ?? "-"),
                                   description: $0.description,
                                   isPlaylist: true)
-                    
-//                    PlaylistsModelCell(id: $0.id,
-//                                       namePlaylist: $0.name,
-//                                       playlistOwner: $0.owner.displayName,
-//                                       image: URL(string: $0.images.first?.url ?? "-"),
-//                                       description: ""
-//                    )
                 }
                 DispatchQueue.main.async {
                     self?.featureListsCell = playlist
@@ -140,7 +135,35 @@ class BrowserViewModel: ObservableObject {
         
     }
     
+    // MARK: - Add To Favorite tracks
+    func addToFavoriteTracks(trackId: String) {
+        
+//        print(trackId)
+        APIManager.shared.saveFavoriteTracks(trackId: trackId) { [weak self] success in
+            if success{
+                DispatchQueue.main.async {
+                    self?.trackAdded = success
+                }
+                
+            }
+        }
+    }
+    
+    func saveItemOnPlaylist(item: String, idPlaylist: String ){
+        APIManager.shared.addTrackToPlaylist(trackId: item,
+                                             playlistId: idPlaylist) { success in
+            
+            if !success {
+                DispatchQueue.main.async {
+                    self.errorAddingToPlaylist.toggle()
+                    
+                }
+            }
+        }
+    }
+    
+    
     deinit {
-        print("good")
+        print("gooooooood")
     }
 }

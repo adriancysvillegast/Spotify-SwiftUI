@@ -11,10 +11,12 @@ struct AlbumDetailView: View {
     
     // MARK: - Properties
     var album: ItemModelCell
-    @StateObject var viewModel: AlbumDetailViewModel
-    @State var trackSelected: String = "no"
+    @Environment(\.presentationMode) var presentationMode
+    @StateObject var viewModel: AlbumDetailViewModel = AlbumDetailViewModel()
+    @State var trackSelectedId: String = "no"
+    @State var trackSelectedName: String = "no"
     @State var showTrack: Bool = false
-    
+    @State var showUserPlaylists: Bool = false
     // MARK: - Body
     
     var body: some View {
@@ -59,30 +61,35 @@ struct AlbumDetailView: View {
                             List {
                                 ForEach(viewModel.tracks, id: \.id) { track in
                                     Button {
-//                                        Task {
-                                            trackSelected = track.id
-                                            self.showTrack.toggle()
-//                                        }
-                                        
-                                        
+                                        trackSelectedId = track.id
+                                        self.showTrack.toggle()
                                     } label: {
-                                        VStack(alignment: .leading, spacing: 5) {
-                                            HStack {
-                                                Text(track.name )
-                                                    .font(.title3)
-                                                    .foregroundColor(.primary)
-                                                    .lineLimit(1)
+                                        LabelTrackView(track: track)
+                                            .contextMenu {
+                                                
+                                                Button {
+                                                    trackSelectedId = track.id
+                                                    trackSelectedName = track.name
+                                                    self.showUserPlaylists.toggle()
+                                                } label: {
+                                                    HStack {
+                                                        Text("Add to a Playlist")
+                                                        Image(systemName: "star")
+                                                            
+                                                    }
+                                                }
+//
+//
+                                                Button {
+                                                    viewModel.addToFavoriteTracks(trackId: track.id)
+                                                } label: {
+                                                    HStack {
+                                                        Text("Favorite")
+                                                        Image(systemName:"heart")
 
-                                                if track.explicit {
-                                                    Image(systemName: "e.square.fill")
-                                                        .foregroundColor(.primary)
+                                                    }
                                                 }
                                             }
-
-                                            Text(track.artists)
-                                                .font(.footnote)
-                                                .foregroundColor(.secondary)
-                                        }
                                     }
                                 }
                                 
@@ -93,7 +100,7 @@ struct AlbumDetailView: View {
                         
                         // MARK: - Recomendation by random genre
                         Group {
-                            TrackRecomendationView(tracks: viewModel.recomendedTracks, genreName: viewModel.genre)
+                            TrackRecomendationView(tracks: viewModel.recomendedTracks, genreName: viewModel.genre, title: "More of")
                         }
                         .padding(.horizontal)
    
@@ -101,8 +108,12 @@ struct AlbumDetailView: View {
                 }
             }
             .sheet(isPresented: $showTrack) {
-                PlayView(id: $trackSelected, viewModel: PlaySongViewModel())
+                PlayView(id: $trackSelectedId, viewModel: PlaySongViewModel())
                     .presentationDragIndicator(.visible)
+            }
+            .fullScreenCover(isPresented: $showUserPlaylists) {
+//                show a view with the playlist by user
+                UserPlaylistAVMView(idTrack: $trackSelectedId, nameTrack: $trackSelectedName)
             }
             .alert(Text("Error"), isPresented: $viewModel.showError) {
                 Button(role: .cancel) {
@@ -113,6 +124,18 @@ struct AlbumDetailView: View {
 
             } message: {
                 Text(viewModel.errorMessage)
+            }
+            
+            .alert(Text("Error"), isPresented: $viewModel.errorAddingToPlaylist) {
+                // MARK: - if exist an error adding a track to a playlist
+                Button(role: .cancel) {
+                    presentationMode.wrappedValue.dismiss()
+                } label: {
+                    Text("Cancel")
+                }
+
+            } message: {
+                Text("\(trackSelectedName) wasn't added!")
             }
             
         }

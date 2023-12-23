@@ -16,11 +16,14 @@ class AlbumDetailViewModel: ObservableObject {
     @Published var tracks: [TrackModelCell] = []
     @Published var genre: String = "acoustic"
     @Published var recomendedTracks: [TrackModelCell] = []
+    @Published var playlistsUser: [ItemModelCell] = []
     @Published var wasAdded: Bool = false
     
     @State var showError: Bool = false
     @State var errorMessage: String = "Ups we got and error\nwhen we were loading data"
-    
+    @Published var trackAdded: Bool = false
+    @Published var errorAddingToPlaylist: Bool = false
+    @Published var successAddingToPlaylist: Bool = false
     // MARK: - Methods
     
     func getDetail(album: ItemModelCell) {
@@ -143,5 +146,63 @@ class AlbumDetailViewModel: ObservableObject {
         }
     }
 
+    // MARK: - Add To Favorite tracks
+    func addToFavoriteTracks(trackId: String) {
+        
+//        print(trackId)
+        APIManager.shared.saveFavoriteTracks(trackId: trackId) { [weak self] success in
+            if success{
+                DispatchQueue.main.async {
+                    self?.trackAdded = success
+                }
+                
+            }
+        }
+    }
+    
+    
+    // MARK: - Add to playlists
+
+    func getUserPlaylists() {
+        
+        APIManager.shared.getCurrentUserPlaylists { [weak self] result in
+            switch result {
+            case .success(let success):
+                let playlists = success.compactMap {
+                    ItemModelCell(id: $0.id,
+                                  nameItem: $0.name,
+                                  creatorName: $0.owner.displayName,
+                                  image: URL(string: $0.images.first?.url ?? "-"),
+                                  description: $0.description,
+                                  isPlaylist: true
+                    )
+                }
+                DispatchQueue.main.async {
+                    self?.playlistsUser = playlists
+                }
+            case .failure(let failure):
+                print(failure.localizedDescription)
+                self?.showError.toggle()
+            }
+        }
+    }
+    
+    func saveItemOnPlaylist(item: String, idPlaylist: String ){
+        APIManager.shared.addTrackToPlaylist(trackId: item,
+                                             playlistId: idPlaylist) { success in
+            DispatchQueue.main.async {
+                if !success {
+                    self.errorAddingToPlaylist.toggle()
+                }else {
+                    self.successAddingToPlaylist.toggle()
+                }
+            }
+        }
+    }
+    
+    
+    deinit {
+        print("gooood")
+    }
 }
 

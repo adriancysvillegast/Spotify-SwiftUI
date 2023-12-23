@@ -14,9 +14,11 @@ class PlaylistDetailViewModel: ObservableObject {
     @Published var playlistDetails: FeaturePlaylistDetailModelCell?
     @Published var allTracks: [TrackModelCell] = []
     @Published var playlistsUser: [ItemModelCell] = []
-    @Published var errorAddingToPlaylist: Bool = false //esto debo modificarlo
-    
+    @State var errorAddingToPlaylist: Bool = false
+    @Published var errorCreatingPlaylist: Bool = false
+    @Published var wasAdded: Bool = false
     // MARK: - Methods
+    
     
     func getDetailPlaylist(playlist: ItemModelCell) {
         
@@ -64,7 +66,7 @@ class PlaylistDetailViewModel: ObservableObject {
         return tracks
     }
     
-
+    
     // MARK: - Play Music
     func playListOfTracks() {
         PlaybackManager.shared.startPlayback(tracks: allTracks)
@@ -75,8 +77,9 @@ class PlaylistDetailViewModel: ObservableObject {
     }
     
     // MARK: - Add to playlists
-    
+
     func getUserPlaylists() {
+        
         APIManager.shared.getCurrentUserPlaylists { [weak self] result in
             switch result {
             case .success(let success):
@@ -100,17 +103,29 @@ class PlaylistDetailViewModel: ObservableObject {
     }
     
     
-    func saveItemOnPlaylist(item: String, idPlaylist: String ) {
-//        esto debo modificarlo al punto de que al tener un error poder mostrar un alert
+    func saveItemOnPlaylist(item: String, idPlaylist: String ){
         APIManager.shared.addTrackToPlaylist(trackId: item,
                                              playlistId: idPlaylist) { success in
-            DispatchQueue.main.async {
-                
-                if !success {
-                    self.errorAddingToPlaylist = true
+            
+            if !success {
+                DispatchQueue.main.async {
+                    self.errorAddingToPlaylist.toggle()
+                    
                 }
             }
-            
+        }
+    }
+    
+    func createNewPlaylist(name: String) {
+        APIManager.shared.createPlaylist(name: name) { success in
+            //add a acction
+            DispatchQueue.main.async {
+                if !success {
+                    self.errorCreatingPlaylist = true
+                }else if success {
+                    self.wasAdded = true
+                }
+            }
         }
     }
 }

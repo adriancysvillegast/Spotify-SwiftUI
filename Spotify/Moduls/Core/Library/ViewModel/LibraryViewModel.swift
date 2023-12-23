@@ -16,22 +16,35 @@ class LibraryViewModel: ObservableObject {
     @Published var allTracks: [ItemModelCell] = []
     @Published var playlists: [ItemModelCell] = []
     @Published var albums: [ItemModelCell] = []
+    @Published var errorCreatingPlaylist: Bool = false
+    @Published var wasAdded: Bool = false
     // MARK: - Methods
-    
-    
-    func validateRefreshView() {
-        if allTracks.isEmpty {
-            getUserFavouriteTracks()
-        }else if !allTracks.isEmpty && updateLibrary == true {
-            allTracks = []
-            playlists = []
-            getUserFavouriteTracks()
-            updateLibrary = false
+
+    func getUserFavouriteTracks() {
+//        show favorite tracks
+        APIManager.shared.getFavoriteTracks { [weak self] result in
+            switch result {
+            case .success(let success):
+                let tracks = success.items.compactMap {
+                    ItemModelCell(id: $0.track.id,
+                                  nameItem: $0.track.name,
+                                  creatorName: $0.track.artists.first?.name ?? "-",
+                                  image: URL(string: $0.track.album?.images.first?.url ?? "-"),
+                                  description: "",
+                                  isPlaylist: false)
+                }
+                DispatchQueue.main.async{
+                    self?.allTracks = tracks
+                }
+                
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
         }
     }
     
-    func getUserFavouriteTracks() {
-        
+    
+    func getPlaylists() {
         APIManager.shared.getCurrentUserPlaylists { [weak self] result in
             switch result {
             case .success(let success):
@@ -47,7 +60,6 @@ class LibraryViewModel: ObservableObject {
                 }
                 
                 DispatchQueue.main.async {
-                    self?.allTracks.append(contentsOf: playlists)
                     self?.playlists = playlists
                 }
             case .failure(let failure):
@@ -55,7 +67,9 @@ class LibraryViewModel: ObservableObject {
             }
         }
         
-        
+    }
+    
+    func getAlbums() {
         APIManager.shared.getCurrentUserAlbums { [weak self] result in
             switch result {
             case .success(let success):
@@ -70,7 +84,6 @@ class LibraryViewModel: ObservableObject {
                 }
                 
                 DispatchQueue.main.async {
-                    self?.allTracks.append(contentsOf: albums)
                     self?.albums = albums
                 }
                 
@@ -79,4 +92,20 @@ class LibraryViewModel: ObservableObject {
             }
         }
     }
+    
+
+    
+    func createNewPlaylist(name: String) {
+        APIManager.shared.createPlaylist(name: name) { success in
+            //add a acction
+            DispatchQueue.main.async {
+                if !success {
+                    self.errorCreatingPlaylist = true
+                }else if success {
+                    self.wasAdded = true
+                }
+            }
+        }
+    }
+    
 }
