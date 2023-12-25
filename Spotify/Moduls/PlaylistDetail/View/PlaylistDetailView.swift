@@ -76,6 +76,15 @@ struct PlaylistDetailView: View {
                                                     }
                                                 }
                                                 
+                                                Button {
+                                                    viewModel.addToFavoriteTracks(trackId: track.id)
+                                                } label: {
+                                                    HStack {
+                                                        Text("Favorite")
+                                                        Image(systemName:"heart")
+                                                    }
+                                                }
+                                                
                                             }
                                     }
                                     
