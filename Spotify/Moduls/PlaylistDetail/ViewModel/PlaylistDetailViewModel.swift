@@ -17,6 +17,7 @@ class PlaylistDetailViewModel: ObservableObject {
     @State var errorAddingToPlaylist: Bool = false
     @Published var errorCreatingPlaylist: Bool = false
     @Published var wasAdded: Bool = false
+    @Published var trackAdded: Bool = false
     // MARK: - Methods
     
     
@@ -128,4 +129,18 @@ class PlaylistDetailViewModel: ObservableObject {
             }
         }
     }
+    
+    // MARK: - Add To Favorite tracks
+    func addToFavoriteTracks(trackId: String) {
+//        print(trackId)
+        APIManager.shared.saveFavoriteTracks(trackId: trackId) { [weak self] success in
+            if success{
+                DispatchQueue.main.async {
+                    self?.trackAdded = success
+                }
+                
+            }
+        }
+    }
+    
 }
