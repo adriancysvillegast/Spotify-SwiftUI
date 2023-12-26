@@ -516,4 +516,34 @@ final class APIManager {
             
         }
     }
+    
+    
+    func getCategories(completion: @escaping (Result<CategoriesResponse, Error>) -> Void) {
+        createBaseRequest(
+            with: URL(string: basicURL + "/browse/categories?limit=50"),
+            type: .GET) { baseRequest in
+            let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
+                guard let data = data, error == nil else {
+                    completion(.failure(APIError.failedToGetData))
+                    return
+                }
+                
+                do{
+//                    let result = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+//                    print(result)
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let result = try decoder.decode(CategoriesResponse.self, from: data)
+//                    print(result)
+                    completion(.success(result))
+                }catch {
+                    print(error.localizedDescription)
+                    completion(.failure(error))
+                }
+                
+            }
+            task.resume()
+            
+        }
+    }
 }
