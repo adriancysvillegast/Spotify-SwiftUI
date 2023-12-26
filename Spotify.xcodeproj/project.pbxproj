@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0904BDA52B3A2BC6005D0FBF /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0904BDA42B3A2BC6005D0FBF /* SearchViewModel.swift */; };
+		0904BDA72B3B1B5A005D0FBF /* CardCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0904BDA62B3B1B5A005D0FBF /* CardCategoryView.swift */; };
+		0904BDA92B3B27C3005D0FBF /* CategoriesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0904BDA82B3B27C3005D0FBF /* CategoriesResponse.swift */; };
+		0904BDAB2B3B2B02005D0FBF /* CategoriesModelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0904BDAA2B3B2B02005D0FBF /* CategoriesModelCell.swift */; };
 		093A2F6F2B124A9F00ACDA95 /* BrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093A2F6E2B124A9F00ACDA95 /* BrowseView.swift */; };
 		093A2F732B124E8500ACDA95 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093A2F722B124E8500ACDA95 /* SearchView.swift */; };
 		093A2F752B124EA700ACDA95 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093A2F742B124EA700ACDA95 /* ProfileView.swift */; };
@@ -80,6 +84,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0904BDA42B3A2BC6005D0FBF /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		0904BDA62B3B1B5A005D0FBF /* CardCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCategoryView.swift; sourceTree = "<group>"; };
+		0904BDA82B3B27C3005D0FBF /* CategoriesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesResponse.swift; sourceTree = "<group>"; };
+		0904BDAA2B3B2B02005D0FBF /* CategoriesModelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesModelCell.swift; sourceTree = "<group>"; };
 		093A2F6E2B124A9F00ACDA95 /* BrowseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseView.swift; sourceTree = "<group>"; };
 		093A2F722B124E8500ACDA95 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		093A2F742B124EA700ACDA95 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -164,11 +172,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0904BD9E2B3A283F005D0FBF /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				0904BDA12B3A285C005D0FBF /* Model */,
+				0904BD9F2B3A284A005D0FBF /* View */,
+				0904BDA02B3A2850005D0FBF /* ViewModel */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		0904BD9F2B3A284A005D0FBF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				093A2F722B124E8500ACDA95 /* SearchView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0904BDA02B3A2850005D0FBF /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0904BDA42B3A2BC6005D0FBF /* SearchViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0904BDA12B3A285C005D0FBF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0904BDA82B3B27C3005D0FBF /* CategoriesResponse.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		093A2F6D2B124A4000ACDA95 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				093A2F6E2B124A9F00ACDA95 /* BrowseView.swift */,
-				093A2F722B124E8500ACDA95 /* SearchView.swift */,
 				093A2F742B124EA700ACDA95 /* ProfileView.swift */,
 				093A2F782B124F8500ACDA95 /* TabBarView.swift */,
 			);
@@ -268,6 +309,7 @@
 				09A9A9ED2B2C9CC100013EF9 /* CreatePlaylistsView.swift */,
 				097475492B2F679B00D308CC /* CreateNewPlaylistView.swift */,
 				09CE21BE2B34B35800B0CC7C /* UserPlaylistAVMView.swift */,
+				0904BDA62B3B1B5A005D0FBF /* CardCategoryView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -339,6 +381,7 @@
 		093E79312B235FD8006D072E /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				0904BD9E2B3A283F005D0FBF /* Search */,
 				093E79322B235FE3006D072E /* Library */,
 				093DD85A2B0A6A5B0017C83D /* Browser */,
 			);
@@ -468,6 +511,7 @@
 				09ADF2222B1E41100054FF3F /* PlaylistsModelCell.swift */,
 				09C42C5E2B21086800C29A94 /* FeaturePlaylistDetailModelCell.swift */,
 				093E79392B23B158006D072E /* ItemModelCell.swift */,
+				0904BDAA2B3B2B02005D0FBF /* CategoriesModelCell.swift */,
 			);
 			path = ModelCell;
 			sourceTree = "<group>";
@@ -586,6 +630,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0904BDA52B3A2BC6005D0FBF /* SearchViewModel.swift in Sources */,
 				093A2F772B124F2000ACDA95 /* LibraryView.swift in Sources */,
 				095F9C332B1E4D8A00AA8C0D /* ImageModifier.swift in Sources */,
 				099C9FBA2B14F09B00125255 /* AlbumHeaderView.swift in Sources */,
@@ -597,15 +642,18 @@
 				093DD85E2B0A6A950017C83D /* LogInView.swift in Sources */,
 				093A2F752B124EA700ACDA95 /* ProfileView.swift in Sources */,
 				09ADF21F2B1E38CD0054FF3F /* FeaturePlaylistResponse.swift in Sources */,
+				0904BDA92B3B27C3005D0FBF /* CategoriesResponse.swift in Sources */,
 				093E793C2B23B765006D072E /* ItemCoverView.swift in Sources */,
 				093E793A2B23B158006D072E /* ItemModelCell.swift in Sources */,
 				097D53942B0A86C40022E076 /* AuthManager.swift in Sources */,
 				09F7BC7B2B13B52800DE2861 /* AudioTrackResponse.swift in Sources */,
 				093A2F8E2B12B62D00ACDA95 /* AlbumCoverView.swift in Sources */,
+				0904BDAB2B3B2B02005D0FBF /* CategoriesModelCell.swift in Sources */,
 				093A2F812B1260C900ACDA95 /* APIImage.swift in Sources */,
 				09A9A9F12B2CB9B100013EF9 /* UserProfileResponse.swift in Sources */,
 				095EA4F92B24BC6000AB99C8 /* LibraryAlbumsResponse.swift in Sources */,
 				095EA5012B29FCD400AB99C8 /* ShuffleButtonView.swift in Sources */,
+				0904BDA72B3B1B5A005D0FBF /* CardCategoryView.swift in Sources */,
 				09C42C5D2B20CDF600C29A94 /* PlaylistDetailResponse.swift in Sources */,
 				093DD8642B0A7EE20017C83D /* Extensions.swift in Sources */,
 				093E79382B237208006D072E /* LibraryViewModel.swift in Sources */,
