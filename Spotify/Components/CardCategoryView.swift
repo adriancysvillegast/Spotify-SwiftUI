@@ -31,8 +31,12 @@ struct CardCategoryView: View {
                     }
                 }
             } placeholder: {
-                ProgressView()
-                    .progressViewStyle(.circular)
+                VStack {
+                    ProgressView()
+                        .progressViewStyle(.automatic)
+                    Text("Loading")
+                        .foregroundColor(.secondary)
+                }
             }
             
         }

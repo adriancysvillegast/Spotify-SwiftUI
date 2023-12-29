@@ -11,7 +11,7 @@ import MediaPlayer
 struct PlayView: View {
     // MARK: - Porperties
     @Binding var id: String
-    @StateObject var viewModel: PlaySongViewModel
+    @StateObject var viewModel: PlaySongViewModel = PlaySongViewModel()
     @State private var volume: Float = AVAudioSession.sharedInstance().outputVolume
     @State private var isPlaying: Bool = false
 //    AVAudioSession.sharedInstance().outputVolume
@@ -43,8 +43,12 @@ struct PlayView: View {
                             .cornerRadius(12)
                         
                     } placeholder: {
-                        ProgressView()
-                            .progressViewStyle(.circular)
+                        VStack {
+                            ProgressView()
+                                .progressViewStyle(.automatic)
+                            Text("Loading")
+                                .foregroundColor(.secondary)
+                        }
                     }
                     
                     

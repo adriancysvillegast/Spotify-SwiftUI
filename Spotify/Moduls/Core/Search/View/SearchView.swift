@@ -11,6 +11,7 @@ struct SearchView: View {
     // MARK: - Properties
     @StateObject private var viewModel : SearchViewModel = SearchViewModel()
     @State private var searchTerm: String = ""
+    @State private var searchWasTapped: Bool = false
     private var rows: [GridItem] = [GridItem(), GridItem()]
     
     // MARK: - Body
@@ -18,41 +19,51 @@ struct SearchView: View {
     var body: some View {
         NavigationStack {
             if viewModel.categories.isEmpty {
-                VStack {
-                    ProgressView()
-                        .progressViewStyle(.automatic)
-                    Text("Loading")
-                        .foregroundColor(.secondary)
-                }
-                
+                LoadingView()
             }else {
                 ScrollView(.vertical, showsIndicators: false) {
-                    LazyVGrid(columns: rows) {
-                        ForEach(viewModel.categories, id: \.id) { category in
-                            NavigationLink {
-                                Text(category.name)
-                            } label: {
-                                CardCategoryView(category: category)
-                                    .frame(height: 200)
+                    if searchTerm.isEmpty {
+                        LazyVGrid(columns: rows) {
+                            ForEach(viewModel.categories, id: \.id) { category in
+                                NavigationLink {
+                                    CategoryView(category: category)
+                                } label: {
+                                    CardCategoryView(category: category)
+                                        .frame(height: 200)
+                                }
                             }
                         }
+                    } else if searchWasTapped{
+                        if viewModel.tracksModel.isEmpty{
+                            Spacer()
+                            LoadingView()
+                            Spacer()
+                        }else{
+                            SearchResultView(tracks: viewModel.tracksModel, artists: viewModel.artistModel, albums: viewModel.albumsModel)
+                        }
+                    } else {
+                        EmptyView()
                     }
+                    
                 }
                 .navigationTitle("Search")
                 .searchable(text: $searchTerm, prompt: Text("Search"))
+                .onChange(of: searchTerm, perform: { newValue in
+                    viewModel.clearProperties(query: newValue)
+                })
+                .onSubmit(of: .search, {
+                    searchWasTapped = true
+                    viewModel.getSearchResult(searchTerm: searchTerm)
+                })
+                
                 .padding(.horizontal)
+                
             }
-           
+            
         }
         .task({
             viewModel.getCategories()
         })
-        .onAppear {
-            
-        }
-        
-        
-        
     }
 }
 
