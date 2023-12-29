@@ -27,8 +27,7 @@ struct BrowseView: View {
                         viewModel.alternativeListCell.isEmpty &&
                         viewModel.rockListCell.isEmpty &&
                         viewModel.houseListCell.isEmpty {
-                        ProgressView()
-                            .progressViewStyle(.circular)
+                        LoadingView()
                     }else {
                         
                         VStack(spacing: 10) {

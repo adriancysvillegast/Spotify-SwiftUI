@@ -99,8 +99,7 @@ struct PlaylistDetailView: View {
                     }
                 }else {
                     ZStack(alignment: .center) {
-                        ProgressView()
-                            .progressViewStyle(.circular)
+                        LoadingView()
                     }
                     
                 }
