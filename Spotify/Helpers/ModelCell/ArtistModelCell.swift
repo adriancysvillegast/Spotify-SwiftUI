@@ -11,4 +11,6 @@ struct ArtistModelCell {
     let id: String
     let name: String
     let artwork: URL?
+    let genres: String?
+    let followers: String?
 }

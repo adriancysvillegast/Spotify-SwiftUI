@@ -65,7 +65,7 @@ struct SearchResultView: View {
 
                             NavigationLink {
 //                                Create navigation of profile artist
-                                Text(artist.name)
+                                ArtistView(artist: artist)
                             } label: {
                                 HStack {
                                     AsyncImage(url: artist.artwork) { image in
