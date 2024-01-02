@@ -19,6 +19,11 @@ class SearchViewModel: ObservableObject {
     @Published var tracksModel: [TrackModelCell] = []
     @Published var artistModel: [ArtistModelCell] = []
     @Published var albumsModel: [ItemModelCell] = []
+    
+    @Published var artistDetail: ArtistModelCell?
+    @Published var topTracksByArtist: [TrackModelCell] = []
+    @Published var artistDone: Bool = false
+    @Published var albumsByArtist: [ItemModelCell] = []
     // MARK: - Methods
     
     func getGenres() {
@@ -130,7 +135,9 @@ class SearchViewModel: ObservableObject {
             ArtistModelCell(
                 id: $0.id,
                 name: $0.name,
-                artwork: URL(string: $0.images?.first?.url ?? "-")
+                artwork: URL(string: $0.images?.first?.url ?? "-"),
+                genres: "",
+                followers: ""
             )
         }
         return artists
@@ -147,6 +154,73 @@ class SearchViewModel: ObservableObject {
                 isPlaylist: false)
         }
         return albums
+    }
+    
+    // MARK: - ArtistDetail
+    
+    func getArtistDetail(id: String) {
+        APIManager.shared.getArtistDetail(id: id) { [weak self] result in
+            switch result {
+            case .success(let success):
+                let artistDetail = ArtistModelCell(
+                    id: success.id,
+                    name: success.name,
+                    artwork: URL(string: success.images?.first?.url ?? "-"),
+                    genres: success.genres.joined(separator: ", "),
+                    followers: String(success.followers.total)
+                )
+                DispatchQueue.main.async {
+                    self?.artistDetail = artistDetail
+                    self?.artistDone = true
+                }
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+        }
+        
+        
+        APIManager.shared.getTopTracksByArtist(id: id) { [weak self] result in
+            switch result {
+            case .success(let success):
+                let tracks = success.tracks.compactMap {
+                    TrackModelCell(
+                        image: URL(string: $0.album.images.first?.url ?? "-"),
+                        artists: $0.artists.first?.name ?? "-",
+                        explicit: $0.explicit,
+                        id: $0.id,
+                        name: $0.name,
+                        previewUrl: URL(string: $0.previewUrl ?? "-"))
+                }
+                
+                DispatchQueue.main.async {
+                    self?.topTracksByArtist = tracks
+                }
+                
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+        }
+        
+        APIManager.shared.getTopAlbumsByArtist(id: id) { [weak self] result in
+            switch result {
+            case .success(let success):
+                let albums = success.items.compactMap {
+                    ItemModelCell(
+                        id: $0.id,
+                        nameItem: $0.name,
+                        creatorName: $0.artists.first?.name ?? "-",
+                        image: URL(string: $0.images.first?.url ?? "-"),
+                        description: "",
+                        isPlaylist: false
+                    )
+                }
+                DispatchQueue.main.async {
+                    self?.albumsByArtist = albums
+                }
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+        }
     }
     
     // MARK: - deinit
