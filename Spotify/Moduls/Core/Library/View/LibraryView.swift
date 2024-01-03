@@ -36,7 +36,7 @@ struct LibraryView: View {
                     }
                     
                     NavigationLink {
-                        PlaylistVerticalView()
+                        AlbumVerticalView()
                     } label: {
                         
                         HStack {
