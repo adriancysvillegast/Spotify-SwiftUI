@@ -72,7 +72,6 @@ struct ArtistView: View {
                             
                             ScrollView(.horizontal, showsIndicators: false) {
                                 LazyHGrid(rows: rowsTrack) {
-                                    
                                     ForEach(viewModel.topTracksByArtist, id: \.id) { track in
                                         
                                         Button {

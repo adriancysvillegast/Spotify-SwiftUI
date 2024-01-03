@@ -32,15 +32,7 @@ struct SearchResultView: View {
                             } label: {
                                 LabelTrackView(track: track)
                             }
-
-//                            NavigationLink {
-//
-//                            } label: {
-//                                LabelTrackView(track: track)
-//                            }
-
-                            
-                            
+    
                         }
                     }
                     .listStyle(.plain)
