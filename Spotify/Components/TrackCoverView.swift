@@ -13,7 +13,7 @@ struct TrackCoverView: View {
     // MARK: - Body
     
     var body: some View {
-        VStack(spacing: 5) {
+        VStack(alignment: .leading, spacing: 5) {
             VStack {
                 AsyncImage(url: track.image) { image in
                     image

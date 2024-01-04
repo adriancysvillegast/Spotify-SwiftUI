@@ -39,7 +39,7 @@ struct ArtistView: View {
                         ProgressView()
                             .progressViewStyle(.circular)
                     }
-                    // MARK: - Name and Details
+                    // MARK: - Name
                     
                     VStack(spacing: 10) {
                         
