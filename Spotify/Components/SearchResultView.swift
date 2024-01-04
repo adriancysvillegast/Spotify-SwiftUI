@@ -96,7 +96,7 @@ struct SearchResultView: View {
                     List {
                         ForEach(albums, id: \.id) { album in
                             NavigationLink {
-                                Text(album.nameItem)
+                                AlbumDetailView(album: album)
                             } label: {
                                 HStack {
                                     AsyncImage(url: album.image) { image in

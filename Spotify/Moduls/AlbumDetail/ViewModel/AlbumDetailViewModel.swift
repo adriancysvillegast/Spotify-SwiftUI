@@ -47,7 +47,7 @@ class AlbumDetailViewModel: ObservableObject {
             case .failure(let failure):
                 self?.showError.toggle()
                 self?.errorMessage = failure.localizedDescription
-                print(failure.localizedDescription)
+                print(failure.localizedDescription + "hhhjhhh")
             }
             
         }
@@ -65,7 +65,7 @@ class AlbumDetailViewModel: ObservableObject {
                     //                    print(self.genre)
                 }
             case .failure(let failure):
-                print(failure.localizedDescription)
+                print(failure.localizedDescription + "genres")
             }
         }
     }
@@ -90,7 +90,7 @@ class AlbumDetailViewModel: ObservableObject {
                     })
                 }
             case .failure(let failure):
-                print(failure.localizedDescription)
+                print(failure.localizedDescription + "recomendation")
             }
         }
     }

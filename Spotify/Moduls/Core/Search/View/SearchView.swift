@@ -55,7 +55,6 @@ struct SearchView: View {
                     searchWasTapped = true
                     viewModel.getSearchResult(searchTerm: searchTerm)
                 })
-                
                 .padding(.horizontal)
                 
             }
