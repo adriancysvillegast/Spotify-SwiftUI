@@ -14,6 +14,7 @@ struct BrowseView: View {
     
     @StateObject var viewModel = BrowserViewModel()
     let newReleasesRow = [GridItem(), GridItem()]
+    @State var showProfile: Bool = false
 
     // MARK: - Body
     
@@ -105,11 +106,29 @@ struct BrowseView: View {
                     }
                 }
                 .navigationTitle("Browse")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        
+                        Button {
+                            showProfile.toggle()
+                        } label: {
+                            Image(systemName: "person.circle")
+                                .foregroundColor(.primary)
+                                .font(.largeTitle)
+                        }
+                    }
+                    
+                }
+                
+            }
+            .fullScreenCover(isPresented: $showProfile) {
+                ProfileView()
             }
         }
         .onAppear {
             viewModel.getData()
         }
+        
         
     }
 }

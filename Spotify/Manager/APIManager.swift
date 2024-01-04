@@ -404,7 +404,7 @@ final class APIManager {
                                         print("created")
                                         completion(true)
                                     }else {
-                                        print("error -->  \(error?.localizedDescription)")
+                                        print("error -->  \(error?.localizedDescription ?? "error in apimanager \(#function)")")
                                         completion(false)
                                     }
                                     
@@ -422,7 +422,7 @@ final class APIManager {
             }
     }
     
-    
+    // MARK: - User Profile
     func getUserProfile( completion: @escaping (Result<UserProfileResponse, Error>) -> Void) {
         createBaseRequest(
             with: URL(string: basicURL + "/me"),
@@ -499,7 +499,7 @@ final class APIManager {
                 
                 
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                guard let data = data, error == nil else {
+                guard let _ = data, error == nil else {
                     completion(false)
                     return
                 }

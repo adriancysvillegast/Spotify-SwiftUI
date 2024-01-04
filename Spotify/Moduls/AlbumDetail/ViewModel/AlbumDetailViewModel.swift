@@ -140,7 +140,7 @@ class AlbumDetailViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     self?.wasAdded = itemsIds.contains(album.id)
                 }
-            case .failure(let failure):
+            case .failure(_):
                 print(#function + "error")
             }
         }
