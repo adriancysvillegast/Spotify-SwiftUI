@@ -45,9 +45,10 @@ struct BrowseView: View {
                                 
                                 VStack {
                                     HStack {
-                                        Button {
-//                                            go to list releases
+                                        NavigationLink {
+                                            AlbumsListVerticalView(albums: viewModel.newReleasesCell)
                                         } label: {
+                                            
                                             HStack(spacing: 1) {
                                                 Text("New Releases")
                                                     .font(.title2)
@@ -57,6 +58,19 @@ struct BrowseView: View {
                                                     .foregroundColor(.primary)
                                             }
                                         }
+
+//                                        Button {
+////                                            go to list releases
+//                                        } label: {
+//                                            HStack(spacing: 1) {
+//                                                Text("New Releases")
+//                                                    .font(.title2)
+//                                                    .foregroundColor(.primary)
+//
+//                                                Image(systemName: "chevron.forward")
+//                                                    .foregroundColor(.primary)
+//                                            }
+//                                        }
 
                                         Spacer()
                                         
