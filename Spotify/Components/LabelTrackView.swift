@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct LabelTrackView: View {
+    
+    /**To used in playlists or albums list details because of the type of letter **/
     // MARK: - Property
     let track: TrackModelCell
+    
     // MARK: - Body
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {

@@ -1,5 +1,5 @@
 //
-//  FeaturePlaylistCoverView.swift
+//  PlaylistCoverView.swift
 //  Spotify
 //
 //  Created by Adriancys Jesus Villegas Toro on 6/12/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FeaturePlaylistCoverView: View {
+struct PlaylistCoverView: View {
     
     // MARK: - Properties
     let item: ItemModelCell
@@ -64,6 +64,6 @@ struct FeaturePlaylistCoverView_Previews: PreviewProvider {
         )
     }
     static var previews: some View {
-        FeaturePlaylistCoverView(item: playlist[0])
+        PlaylistCoverView(item: playlist[0])
     }
 }
