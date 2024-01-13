@@ -1,5 +1,5 @@
 //
-//  TrackRecomendationView.swift
+//  RecomendationScrollView.swift
 //  Spotify
 //
 //  Created by Adriancys Jesus Villegas Toro on 28/11/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TrackRecomendationView: View {
+struct RecomendationScrollView: View {
     
     // MARK: - Properties
     @StateObject var viewModel: BrowserViewModel = BrowserViewModel()
@@ -30,24 +30,25 @@ struct TrackRecomendationView: View {
                 VStack {
                     VStack(alignment: .leading) {
                         HStack {
-                            Button {
-                                print("go to a list of songs by the genre \(genreName)")
+                            // MARK: - Button
+                            NavigationLink {
+                                TracksListVerticalView(tracks: tracks, genreName: genreName)
                             } label: {
                                 HStack(spacing: 1) {
+                                    
                                     Text("\(title) \(genreName.capitalized)")
                                         .font(.title2)
                                         .foregroundColor(.primary)
-                                    
+
                                     Image(systemName: "chevron.forward")
                                         .foregroundColor(.primary)
                                 }
-                                
                             }
                             Spacer()
                         }
                     }
                     
-                    
+                    // MARK: - Cover albums or tracks
                     ScrollView(.horizontal, showsIndicators: false) {
                         LazyHGrid(rows: cellRow) {
                             ForEach(tracks, id: \.id) { track in
@@ -57,39 +58,27 @@ struct TrackRecomendationView: View {
                                 } label: {
                                     TrackCoverView(track: track)
                                         .contextMenu {
-                                            
                                             Button {
                                                 trackSelectedId = track.id
                                                 trackSelectedName = track.name
                                                 self.showUserPlaylists.toggle()
                                             } label: {
-                                                HStack {
-                                                    Text("Add to a Playlist")
-                                                    Image(systemName: "star")
-                                                }
+                                                TitleButtonContexMenuView(name: "Add to a Playlist", icon: "star")
                                             }
-                                            
-                                            
+                                        
                                             Button {
                                                 viewModel.addToFavoriteTracks(trackId: track.id)
                                             } label: {
-                                                HStack {
-                                                    Text("Favorite")
-                                                    Image(systemName:"heart")
-                                                        
-                                                }
+                                                TitleButtonContexMenuView(name: "Favorite", icon: "heart")
                                             }
                                         }
-                                        
                                 }
                             }
                         }
-                        
-                        
                     }
-                    .frame(height: 170)
+                    .frame(height: 200)
                     .sheet(isPresented: $showTrack) {
-                        PlayView(id: $trackSelectedId, viewModel: PlaySongViewModel())
+                        PlayView(id: $trackSelectedId)
                     }
                     .fullScreenCover(isPresented: $showUserPlaylists) {
         //                show a view with the playlist by user
@@ -114,6 +103,6 @@ struct TrackRecomendationView_Previews: PreviewProvider {
         TrackModelCell(image: URL(string: "https://i.scdn.co/image/ab67616d0000b2737585dc8eef094d400fd3c1a6"), artists: "czczc", explicit: true, id: "sdsd", name: "fechorias", previewUrl: URL(string: "jhshf"))
     ]
     static var previews: some View {
-        TrackRecomendationView(tracks: track, genreName: "popded", title: "Top")
+        RecomendationScrollView(tracks: track, genreName: "popded", title: "Top")
     }
 }
