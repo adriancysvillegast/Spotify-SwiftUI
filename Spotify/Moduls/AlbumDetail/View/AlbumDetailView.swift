@@ -24,12 +24,12 @@ struct AlbumDetailView: View {
             ScrollView(.vertical,showsIndicators: false) {
                 if viewModel.showError {
 //                    showErrorvIEW
-                }else if let album = viewModel.albumDetailCell{
+                }else if let albumInfo = viewModel.albumDetailCell{
                     VStack {
                         
                         // MARK: - Header
                         Group {
-                            AlbumHeaderView(albumDetail: album)
+                            AlbumHeaderView(albumDetail: albumInfo)
                         }
                         .padding(.top, 0)
                         
@@ -100,11 +100,13 @@ struct AlbumDetailView: View {
                         
                         // MARK: - Recomendation by random genre
                         Group {
-                            TrackRecomendationView(tracks: viewModel.recomendedTracks, genreName: viewModel.genre, title: "More of")
+                            RecomendationScrollView(tracks: viewModel.recomendedTracks, genreName: viewModel.genre, title: "More of")
                         }
                         .padding(.horizontal)
    
                     }
+                }else {
+                    LoadingView()
                 }
             }
             .sheet(isPresented: $showTrack) {

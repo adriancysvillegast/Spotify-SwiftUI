@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct FeaturePlaylistView: View {
+struct PlaylistScrollView: View {
     // MARK: - Properties
-    let featureLists: [ItemModelCell]
+    let playlists: [ItemModelCell]
     let featureRow = [GridItem(), GridItem()]
     // MARK: - LifeCycle
     
@@ -17,8 +17,9 @@ struct FeaturePlaylistView: View {
         
         VStack {
             HStack {
-                Button {
-//                                            go to list releases
+//
+                NavigationLink {
+                    PlaylistListVerticalView(playlists: playlists )
                 } label: {
                     HStack(spacing: 1) {
                         Text("Feature playlist")
@@ -29,18 +30,17 @@ struct FeaturePlaylistView: View {
                             .foregroundColor(.primary)
                     }
                 }
-
                 Spacer()
                 
             }
             
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHGrid(rows: featureRow) {
-                    ForEach(featureLists, id: \.id) { item in
+                    ForEach(playlists, id: \.id) { item in
                         NavigationLink {
-                            PlaylistDetailView(playlist: item, viewModel: PlaylistDetailViewModel())
+                            PlaylistDetailView(playlist: item)
                         } label: {
-                            FeaturePlaylistCoverView(item: item)
+                            PlaylistCoverView(item: item)
                         }
                     }
 
@@ -48,24 +48,23 @@ struct FeaturePlaylistView: View {
             }
             .frame(height: 400)
             
-            Spacer()
         }
     }
 }
 
-struct FeaturePlaylistView_Previews: PreviewProvider {
-    static let feature: FeaturePlaylistResponse = Bundle.main.decode("FeaturePlaylist.json")
-    
-    static let playlist = feature.playlists.items.compactMap {
-        ItemModelCell(id: $0.id,
-                      nameItem: $0.name,
-                      creatorName: $0.owner.displayName,
-                      image: URL(string: $0.images.first?.url ?? "-"),
-                      description: "",
-                      isPlaylist: true
-        )
-    }
-    static var previews: some View {
-        FeaturePlaylistView(featureLists: playlist)
-    }
-}
+//struct FeaturePlaylistView_Previews: PreviewProvider {
+//    static let feature: FeaturePlaylistResponse = Bundle.main.decode("FeaturePlaylist.json")
+//    
+//    static let playlist = feature.playlists.items.compactMap {
+//        ItemModelCell(id: $0.id,
+//                      nameItem: $0.name,
+//                      creatorName: $0.owner.displayName,
+//                      image: URL(string: $0.images.first?.url ?? "-"),
+//                      description: "",
+//                      isPlaylist: true
+//        )
+//    }
+//    static var previews: some View {
+//        PlaylistScrollView(playlists: playlist)
+//    }
+//}

@@ -14,4 +14,6 @@ struct ItemModelCell {
     let image: URL?
     let description: String?
     let isPlaylist: Bool
+    let wasAddedToFavoriteAlbums: Bool
+    let wasAddedToFavoritePlaylist: Bool
 }

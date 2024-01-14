@@ -12,139 +12,232 @@ import SwiftUI
 
 class BrowserViewModel: ObservableObject {
     // MARK: - Properties
+    
+    @AppStorage("updateLibrary") var updateLibrary: Bool = false
+    
     @Published var newReleasesCell: [ItemModelCell] = []
     @Published var featureListsCell: [ItemModelCell] = []
     @Published var rockListCell: [TrackModelCell] = []
     @Published var alternativeListCell: [TrackModelCell] = []
     @Published var houseListCell: [TrackModelCell] = []
-    @Published var trackAdded: Bool = false
+    
+    private var albumIdsAdded: [String] = []
+    
     @Published var errorAddingToPlaylist: Bool = false
+    @Published var errorData: Bool = false
+    
+//    tap acctions
+    @Published var trackAdded: Bool = false
+    @State var wasAddedAlbum: Bool = false
+    @State var wasAddedPlaylist: Bool = false
+    
     // MARK: - Methods
     
     func getData() {
+        errorData = false
+        let group = DispatchGroup()
         
+        var albumsResponse: [AlbumResponse]?
+        var idAlbumsAdded: [String]?
+        var playlistResponse: [Playlist]?
+        var alternativeResponse: [AudioTrackResponse]?
+        var rockResponse: [AudioTrackResponse]?
+        var houseResponse: [AudioTrackResponse]?
+        
+        //User favorite albums ids
+        group.enter()
+        APIManager.shared.getCurrentUserAlbums { [weak self] result in
+            defer {
+                group.leave()
+            }
+            
+            switch result {
+            case .success(let item):
+                idAlbumsAdded = item.compactMap({ $0.id })
+            case .failure(let error):
+                print(" ERROR GETTING ALBUMS ADDED FOR USER\(error)")
+            }
+        }
+//        Albums
+        group.enter()
         APIManager.shared.getNewRelease { [weak self] response in
+            defer {
+                group.leave()
+            }
+            
             switch response {
             case .success(let result):
-                
-                let data = result.albums.items.compactMap {
-                    ItemModelCell(id: $0.id,
-                                  nameItem: $0.name,
-                                  creatorName: $0.artists.first?.name ?? "-",
-                                  image: URL(string: $0.images.first?.url ?? "-"),
-                                  description: "",
-                                  isPlaylist: false)
-
-                }
-                DispatchQueue.main.async {
-                    self?.newReleasesCell = data
-                }
+                albumsResponse = result.albums.items
             case .failure(let error):
-                print(error)
+                print("getNewRelease error\(error)")
             }
         }
-        
+//        Playlists
+        group.enter()
         APIManager.shared.getFeaturePlaylist { [weak self] response in
+            defer {
+                group.leave()
+            }
+            
             switch response {
             case .success(let success):
-                let playlist = success.playlists.items.compactMap {
-                    
-                    ItemModelCell(id: $0.id,
-                                  nameItem: $0.name,
-                                  creatorName: $0.owner.displayName,
-                                  image: URL(string: $0.images.first?.url ?? "-"),
-                                  description: $0.description,
-                                  isPlaylist: true)
-                }
-                DispatchQueue.main.async {
-                    self?.featureListsCell = playlist
-                }
+                playlistResponse = success.playlists.items
             case .failure(let failure):
-                print(failure.localizedDescription)
+                print(" playlist error \(failure.localizedDescription)")
             }
         }
         
-//        alternative
+        //        Alternative
+        group.enter()
         APIManager.shared.getRecomendationWithAGenre(
             genre: Constants.alternative) { [weak self] result in
+                defer {
+                    group.leave()
+                }
+                
                 switch result {
                 case .success(let success):
-//                    print("Alternative: \(success.tracks)")
-                    let tracks = success.tracks.compactMap {
-                        TrackModelCell(
-                            image: URL(string: $0.album?.images.first?.url ?? "-"),
-                            artists: $0.artists.first?.name ?? "-",
-                            explicit: $0.explicit,
-                            id: $0.id,
-                            name: $0.name,
-                            previewUrl: URL(string: $0.previewUrl ?? "-"))
-                    }
-                    DispatchQueue.main.async {
-                        self?.alternativeListCell = tracks
-                    }
+                    alternativeResponse = success.tracks
                 case .failure(let failure):
-                    print(failure.localizedDescription)
+                    print(" getRecomendationWithAGenre \(failure.localizedDescription)")
                 }
-        }
+            }
         
-//        hard-rock
+        
+//        Hard-rock
+        group.enter()
         APIManager.shared.getRecomendationWithAGenre(
             genre: Constants.hardRock) { [weak self] result in
+                defer {
+                    group.leave()
+                }
+                
                 switch result {
                 case .success(let success):
-//                    print("hard-rock: \(success.tracks)")
-                    let tracks = success.tracks.compactMap {
-                        TrackModelCell(
-                            image: URL(string: $0.album?.images.first?.url ?? "-"),
-                            artists: $0.artists.first?.name ?? "-",
-                            explicit: $0.explicit,
-                            id: $0.id,
-                            name: $0.name,
-                            previewUrl: URL(string: $0.previewUrl ?? "-"))
-                    }
-                    DispatchQueue.main.async {
-                        self?.rockListCell = tracks
-                    }
+                    rockResponse = success.tracks
                 case .failure(let failure):
                     print(failure.localizedDescription)
                 }
-        }
-//        house
-        
+            }
+//        House
+        group.enter()
         APIManager.shared.getRecomendationWithAGenre(
             genre: Constants.house) { [weak self] result in
+                defer {
+                    group.leave()
+                }
+                
                 switch result {
                 case .success(let success):
-//                    print("house: \(success.tracks)")
-                    let tracks = success.tracks.compactMap {
-                        TrackModelCell(
-                            image: URL(string: $0.album?.images.first?.url ?? "-"),
-                            artists: $0.artists.first?.name ?? "-",
-                            explicit: $0.explicit,
-                            id: $0.id,
-                            name: $0.name,
-                            previewUrl: URL(string: $0.previewUrl ?? "-"))
-                    }
-                    DispatchQueue.main.async {
-                        self?.houseListCell = tracks
-                    }
+                    houseResponse = success.tracks
                 case .failure(let failure):
                     print(failure.localizedDescription)
                 }
-        }
+            }
         
+        
+        group.notify(queue: .main) {
+            guard let albums = albumsResponse, let idsAlbumsAdded = idAlbumsAdded, let playlists = playlistResponse, let rock = rockResponse, let alternative = alternativeResponse, let house = houseResponse else {
+                self.errorData = true
+                return
+            }
+            self.configureData(albums: albums, idAlbumAdded: idsAlbumsAdded, playlist: playlists, rock: rock, alternative: alternative, house: house)
+        }
     }
     
-    // MARK: - Add To Favorite tracks
-    func addToFavoriteTracks(trackId: String) {
+    private func configureData(
+        albums: [AlbumResponse],
+        idAlbumAdded: [String],
+        playlist: [Playlist],
+        rock: [AudioTrackResponse],
+        alternative: [AudioTrackResponse],
+        house: [AudioTrackResponse]
+    ) {
         
-//        print(trackId)
+//        Albums
+        let albumCell = albums.compactMap {
+            ItemModelCell(
+                id: $0.id,
+                nameItem: $0.name,
+                creatorName: $0.artists.first?.name ?? "-",
+                image: URL(string: $0.images.first?.url ?? "-"),
+                description: "",
+                isPlaylist: false,
+                wasAddedToFavoriteAlbums: false,
+                wasAddedToFavoritePlaylist: false //idAlbumAdded.contains($0.id)
+            )
+        }
+        
+        albumIdsAdded = idAlbumAdded
+//        playlist
+        let playlistsCell = playlist.compactMap {
+            ItemModelCell(
+                id: $0.id,
+                nameItem: $0.name,
+                creatorName: $0.owner.displayName,
+                image: URL(string: $0.images.first?.url ?? "-"),
+                description: $0.description,
+                isPlaylist: true,
+                wasAddedToFavoriteAlbums: false,
+                wasAddedToFavoritePlaylist: false
+            )
+        }
+        
+//        Rock
+        let rockCell = rock.compactMap {
+            TrackModelCell(
+                image: URL(string: $0.album?.images.first?.url ?? "-"),
+                artists: $0.artists.first?.name ?? "-",
+                explicit: $0.explicit,
+                id: $0.id,
+                name: $0.name,
+                previewUrl: URL(string: $0.previewUrl ?? "-")
+            )
+        }
+        
+//        House
+        let houseCell = house.compactMap {
+            TrackModelCell(
+                image: URL(string: $0.album?.images.first?.url ?? "-"),
+                artists: $0.artists.first?.name ?? "-",
+                explicit: $0.explicit,
+                id: $0.id,
+                name: $0.name,
+                previewUrl: URL(string: $0.previewUrl ?? "-")
+            )
+        }
+//        Alternative
+        let alternativeCell = alternative.compactMap {
+            TrackModelCell(
+                image: URL(string: $0.album?.images.first?.url ?? "-"),
+                artists: $0.artists.first?.name ?? "-",
+                explicit: $0.explicit,
+                id: $0.id,
+                name: $0.name,
+                previewUrl: URL(string: $0.previewUrl ?? "-")
+            )
+        }
+        
+        DispatchQueue.main.async {
+            self.newReleasesCell = albumCell
+            self.featureListsCell = playlistsCell
+            self.rockListCell = rockCell
+            self.alternativeListCell = alternativeCell
+            self.houseListCell = houseCell
+        }
+        
+        
+    }
+                
+    
+    // MARK: - Add To Favorite tracks
+    
+    func addToFavoriteTracks(trackId: String) {
         APIManager.shared.saveFavoriteTracks(trackId: trackId) { [weak self] success in
             if success{
                 DispatchQueue.main.async {
                     self?.trackAdded = success
                 }
-                
             }
         }
     }
@@ -162,6 +255,31 @@ class BrowserViewModel: ObservableObject {
         }
     }
     
+    // MARK: - Add album to favorite
+    
+    func addAlbumTofavorite(album: ItemModelCell) {
+        APIManager.shared.saveAlbum(album: album) { [weak self] success in
+            DispatchQueue.main.async {
+                self?.wasAddedAlbum = success
+                self?.updateLibrary = success
+                self?.updateAlbum(album: album)
+            }
+        }
+    }
+    
+    func updateAlbum(album: ItemModelCell) {
+//        self.newReleasesCell.forEach { value in
+//            if value.id == album.id {
+//                value.wasAddedToFavoriteAlbums.toggle()
+//            }
+//        }
+    }
+    
+    func albumWasAdded(album: ItemModelCell) -> Bool {
+        self.albumIdsAdded.contains { id in
+            id == album.id
+        }
+    }
     
     deinit {
         print("gooooooood")

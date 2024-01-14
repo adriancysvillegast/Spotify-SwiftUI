@@ -10,7 +10,7 @@ import SwiftUI
 struct PlaylistDetailView: View {
     // MARK: - Propeties
     var playlist: ItemModelCell
-    @StateObject var viewModel: PlaylistDetailViewModel
+    @StateObject var viewModel: PlaylistDetailViewModel = PlaylistDetailViewModel()
     @State var trackSelected: String = "no"
     @State var showTrack: Bool = false
     @State var showUserPlaylists: Bool = false
@@ -76,6 +76,15 @@ struct PlaylistDetailView: View {
                                                     }
                                                 }
                                                 
+                                                Button {
+                                                    viewModel.addToFavoriteTracks(trackId: track.id)
+                                                } label: {
+                                                    HStack {
+                                                        Text("Favorite")
+                                                        Image(systemName:"heart")
+                                                    }
+                                                }
+                                                
                                             }
                                     }
                                     
@@ -90,8 +99,7 @@ struct PlaylistDetailView: View {
                     }
                 }else {
                     ZStack(alignment: .center) {
-                        ProgressView()
-                            .progressViewStyle(.circular)
+                        LoadingView()
                     }
                     
                 }

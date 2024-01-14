@@ -13,7 +13,7 @@ struct TrackCoverView: View {
     // MARK: - Body
     
     var body: some View {
-        VStack(spacing: 5) {
+        VStack(alignment: .center, spacing: 5) {
             VStack {
                 AsyncImage(url: track.image) { image in
                     image
@@ -25,27 +25,30 @@ struct TrackCoverView: View {
                         .progressViewStyle(.circular)
                 }
             }
+            .frame(height: 150)
             
-            
-            VStack(alignment: .leading) {
-                HStack {
-                    Text(track.name)
-                        .foregroundColor(.primary)
-                        .lineLimit(1)
-                    
-                    if track.explicit {
-                        Image(systemName: "e.square.fill")
+            HStack {
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text(track.name)
                             .foregroundColor(.primary)
+                            .lineLimit(1)
+
+                        if track.explicit {
+                            Image(systemName: "e.square.fill")
+                                .foregroundColor(.primary)
+                        }
                     }
+
+                    Text(track.artists)
+                        .foregroundColor(.secondary)
+                        .lineLimit(1)
                 }
-                
-                Text(track.artists)
-                    .foregroundColor(.secondary)
-                    .lineLimit(1)
+                Spacer()
             }
             
         }
-        .frame(width: 125, height: 160)
+        .frame(width: 150, height: 200)
         
         
     }

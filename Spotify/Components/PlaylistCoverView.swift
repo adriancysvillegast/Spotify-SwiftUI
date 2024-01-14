@@ -1,5 +1,5 @@
 //
-//  FeaturePlaylistCoverView.swift
+//  PlaylistCoverView.swift
 //  Spotify
 //
 //  Created by Adriancys Jesus Villegas Toro on 6/12/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FeaturePlaylistCoverView: View {
+struct PlaylistCoverView: View {
     
     // MARK: - Properties
     let item: ItemModelCell
@@ -52,18 +52,18 @@ struct FeaturePlaylistCoverView: View {
     }
 }
 
-struct FeaturePlaylistCoverView_Previews: PreviewProvider {
-    static let list: FeaturePlaylistResponse = Bundle.main.decode("FeaturePlaylist.json")
-    static let playlist = list.playlists.items.compactMap {
-        ItemModelCell(id: $0.id,
-                           nameItem: $0.name,
-                           creatorName: $0.owner.displayName,
-                           image: URL(string: $0.images.first?.url ?? "-"),
-                           description: "",
-                      isPlaylist: true
-        )
-    }
-    static var previews: some View {
-        FeaturePlaylistCoverView(item: playlist[0])
-    }
-}
+//struct FeaturePlaylistCoverView_Previews: PreviewProvider {
+//    static let list: FeaturePlaylistResponse = Bundle.main.decode("FeaturePlaylist.json")
+//    static let playlist = list.playlists.items.compactMap {
+//        ItemModelCell(id: $0.id,
+//                           nameItem: $0.name,
+//                           creatorName: $0.owner.displayName,
+//                           image: URL(string: $0.images.first?.url ?? "-"),
+//                           description: "",
+//                      isPlaylist: true
+//        )
+//    }
+//    static var previews: some View {
+//        PlaylistCoverView(item: playlist[0])
+//    }
+//}

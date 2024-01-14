@@ -47,7 +47,7 @@ class AlbumDetailViewModel: ObservableObject {
             case .failure(let failure):
                 self?.showError.toggle()
                 self?.errorMessage = failure.localizedDescription
-                print(failure.localizedDescription)
+                print(failure.localizedDescription + "hhhjhhh")
             }
             
         }
@@ -65,7 +65,7 @@ class AlbumDetailViewModel: ObservableObject {
                     //                    print(self.genre)
                 }
             case .failure(let failure):
-                print(failure.localizedDescription)
+                print(failure.localizedDescription + "genres")
             }
         }
     }
@@ -90,7 +90,7 @@ class AlbumDetailViewModel: ObservableObject {
                     })
                 }
             case .failure(let failure):
-                print(failure.localizedDescription)
+                print(failure.localizedDescription + "recomendation")
             }
         }
     }
@@ -140,7 +140,7 @@ class AlbumDetailViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     self?.wasAdded = itemsIds.contains(album.id)
                 }
-            case .failure(let failure):
+            case .failure(_):
                 print(#function + "error")
             }
         }
@@ -174,7 +174,9 @@ class AlbumDetailViewModel: ObservableObject {
                                   creatorName: $0.owner.displayName,
                                   image: URL(string: $0.images.first?.url ?? "-"),
                                   description: $0.description,
-                                  isPlaylist: true
+                                  isPlaylist: true,
+                                  wasAddedToFavoriteAlbums: false,
+                                  wasAddedToFavoritePlaylist: false
                     )
                 }
                 DispatchQueue.main.async {

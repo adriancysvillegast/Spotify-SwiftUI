@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 final class APIManager {
     // MARK: - Properties
@@ -23,6 +24,7 @@ final class APIManager {
     }
     
     private var basicURL: String = ProcessInfo.processInfo.environment["baseURL"] ?? "https://api.spotify.com/v1"
+    @AppStorage("country") var country: String?
     
     // MARK: - Methods
     
@@ -136,7 +138,7 @@ final class APIManager {
             with: URL(string: basicURL + "/recommendations?limit=30&seed_genres=\(genre)"),
             type: .GET
         ) { baseRequest in
-            
+        
             let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
                 guard let data = data, error == nil else {
                     completion(.failure(APIError.failedToGetData))
@@ -144,12 +146,13 @@ final class APIManager {
                 }
                 
                 do {
-                    
+//                                        let json = try JSONSerialization.jsonObject(with: data)
+//                                        print(json)
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
                     let response = try decoder.decode(RecomendationsResponse.self, from: data)
                     completion(.success(response))
-                    
+
                 } catch {
                     completion(.failure(error))
                 }
@@ -273,7 +276,7 @@ final class APIManager {
     
     func getCurrentUserAlbums(completion: @escaping (Result<[AlbumResponse], Error>) -> Void) {
         createBaseRequest(
-            with: URL(string: basicURL + "/me/albums?limit=50"),
+            with: URL(string: basicURL + "/me/albums?limit=2"),
             type: .GET
         ) { baseRequest in
             
@@ -402,7 +405,7 @@ final class APIManager {
                                         print("created")
                                         completion(true)
                                     }else {
-                                        print("error -->  \(error?.localizedDescription)")
+                                        print("error -->  \(error?.localizedDescription ?? "error in apimanager \(#function)")")
                                         completion(false)
                                     }
                                     
@@ -420,7 +423,7 @@ final class APIManager {
             }
     }
     
-    
+    // MARK: - User Profile
     func getUserProfile( completion: @escaping (Result<UserProfileResponse, Error>) -> Void) {
         createBaseRequest(
             with: URL(string: basicURL + "/me"),
@@ -435,6 +438,7 @@ final class APIManager {
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
                     let result = try decoder.decode(UserProfileResponse.self, from: data)
+                    self.country = result.country
                     completion(.success(result))
                 }catch {
                     print(error.localizedDescription)
@@ -496,7 +500,7 @@ final class APIManager {
                 
                 
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                guard let data = data, error == nil else {
+                guard let _ = data, error == nil else {
                     completion(false)
                     return
                 }
@@ -510,6 +514,193 @@ final class APIManager {
                     completion(false)
                 }
                 print("code  \(code)")
+                
+            }
+            task.resume()
+            
+        }
+    }
+    
+    // MARK: - Categories
+    
+    func getCategories(completion: @escaping (Result<CategoriesResponse, Error>) -> Void) {
+        createBaseRequest(
+            with: URL(string: basicURL + "/browse/categories?limit=50"),
+            type: .GET) { baseRequest in
+            let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
+                guard let data = data, error == nil else {
+                    completion(.failure(APIError.failedToGetData))
+                    return
+                }
+                
+                do{
+//                    let result = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+//                    print(result)
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let result = try decoder.decode(CategoriesResponse.self, from: data)
+//                    print(result)
+                    completion(.success(result))
+                }catch {
+                    print(error.localizedDescription)
+                    completion(.failure(error))
+                }
+                
+            }
+            task.resume()
+            
+        }
+    }
+    
+    
+    func getCategoryDetail(id: String, completion: @escaping (Result<ItemsCategoryResponse, Error>) -> Void) {
+        createBaseRequest(
+            with: URL(string: basicURL + "/browse/categories/\(id)"),
+            type: .GET) { baseRequest in
+            let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
+                guard let data = data, error == nil else {
+                    completion(.failure(APIError.failedToGetData))
+                    return
+                }
+                
+                do{
+//                    let result = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+//                    print(" Result   -> \(result)")
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let result = try decoder.decode(ItemsCategoryResponse.self, from: data)
+//                    print(result)
+                    completion(.success(result))
+                }catch {
+                    print(error.localizedDescription)
+                    completion(.failure(error))
+                }
+                
+            }
+            task.resume()
+            
+        }
+    }
+    
+    // MARK: - Search
+    
+    
+    func getSearch(query: String, completion: @escaping (Result<SearchResultResponse, Error>) -> Void) {
+        createBaseRequest(
+            with: URL(string: basicURL + "/search?limit=10&type=album,artist,playlist,track&q=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "" )"),
+            type: .GET) { baseRequest in
+            let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
+                guard let data = data, error == nil else {
+                    completion(.failure(APIError.failedToGetData))
+                    return
+                }
+                
+                do{
+//                    let result = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+//                    print(" Result   -> \(result)")
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let result = try decoder.decode(SearchResultResponse.self, from: data)
+//                    print(result)
+                    completion(.success(result))
+                }catch {
+                    print(error.localizedDescription)
+                    completion(.failure(error))
+                }
+                
+            }
+            task.resume()
+            
+        }
+    }
+    
+    
+    
+    // MARK: - Artists
+    
+    
+    func getArtistDetail(id: String, completion: @escaping (Result<ArtistDetailResponse, Error>) -> Void) {
+        createBaseRequest(
+            with: URL(string: basicURL + "/artists/\(id)"),
+            type: .GET) { baseRequest in
+            let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
+                guard let data = data, error == nil else {
+                    completion(.failure(APIError.failedToGetData))
+                    return
+                }
+                
+                do{
+//                    let result = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+//                    print(" Result   -> \(result)")
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let result = try decoder.decode(ArtistDetailResponse.self, from: data)
+//                    print(result)
+                    completion(.success(result))
+                }catch {
+                    print(error.localizedDescription)
+                    completion(.failure(error))
+                }
+                
+            }
+            task.resume()
+            
+        }
+    }
+    
+    
+    func getTopTracksByArtist(id: String, completion: @escaping (Result<TopTracksArtistsResponse, Error>) -> Void) {
+        createBaseRequest(
+            with: URL(string: basicURL + "/artists/\(id)/top-tracks?market=\(country ?? "ES")"),
+            type: .GET) { baseRequest in
+            let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
+                guard let data = data, error == nil else {
+                    completion(.failure(APIError.failedToGetData))
+                    return
+                }
+                
+                do{
+//                    let result = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+//                    print(" Result   -> \(result)")
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let result = try decoder.decode(TopTracksArtistsResponse.self, from: data)
+//                    print(result)
+                    completion(.success(result))
+                }catch {
+                    print(error.localizedDescription)
+                    completion(.failure(error))
+                }
+                
+            }
+            task.resume()
+            
+        }
+    }
+    
+    
+    func getTopAlbumsByArtist(id: String, completion: @escaping (Result<AlbumsResponse, Error>) -> Void) {
+        createBaseRequest(
+            with: URL(string: basicURL + "/artists/\(id)/albums?limit=50"),
+            type: .GET) { baseRequest in
+            let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
+                guard let data = data, error == nil else {
+                    completion(.failure(APIError.failedToGetData))
+                    return
+                }
+                
+                do{
+//                    let result = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+//                    print(" Result   -> \(result)")
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let result = try decoder.decode(AlbumsResponse.self, from: data)
+//                    print(result)
+                    completion(.success(result))
+                }catch {
+                    print(error.localizedDescription)
+                    completion(.failure(error))
+                }
                 
             }
             task.resume()
