@@ -151,7 +151,10 @@ class SearchViewModel: ObservableObject {
                 creatorName: $0.artists.first?.name ?? "-",
                 image: URL(string: $0.images.first?.url ?? "-"),
                 description: "",
-                isPlaylist: false)
+                isPlaylist: false,
+                wasAddedToFavoriteAlbums: false,
+                wasAddedToFavoritePlaylist: false
+            )
         }
         return albums
     }
@@ -211,7 +214,9 @@ class SearchViewModel: ObservableObject {
                         creatorName: $0.artists.first?.name ?? "-",
                         image: URL(string: $0.images.first?.url ?? "-"),
                         description: "",
-                        isPlaylist: false
+                        isPlaylist: false,
+                        wasAddedToFavoriteAlbums: false,
+                        wasAddedToFavoritePlaylist: false
                     )
                 }
                 DispatchQueue.main.async {

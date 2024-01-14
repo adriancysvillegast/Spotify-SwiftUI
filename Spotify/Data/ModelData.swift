@@ -33,6 +33,14 @@ extension Bundle {
         return loaded
     }
 }
+
+
+struct DataApp{
+    
+    
+}
+
+
 //let previewNewReleases: NewReleasesResponse =
 //let value = load("NewReleases.json")
 
