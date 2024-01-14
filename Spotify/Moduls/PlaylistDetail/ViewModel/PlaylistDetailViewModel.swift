@@ -90,7 +90,9 @@ class PlaylistDetailViewModel: ObservableObject {
                                   creatorName: $0.owner.displayName,
                                   image: URL(string: $0.images.first?.url ?? "-"),
                                   description: $0.description,
-                                  isPlaylist: true
+                                  isPlaylist: true,
+                                  wasAddedToFavoriteAlbums: false,
+                                  wasAddedToFavoritePlaylist: true
                     )
                 }
                 DispatchQueue.main.async {

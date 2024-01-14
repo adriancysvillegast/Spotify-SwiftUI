@@ -10,6 +10,8 @@ import SwiftUI
 struct AlbumsListVerticalView: View {
     
     // MARK: - Properties
+    @StateObject var viewModel: BrowserViewModel = BrowserViewModel()
+    
     let albums: [ItemModelCell]
     let newReleasesRow = [GridItem(), GridItem()]
     
@@ -25,6 +27,17 @@ struct AlbumsListVerticalView: View {
                             AlbumDetailView(album: item)
                         } label: {
                             AlbumCoverView(item: item)
+                                .contextMenu {
+                                    Button {
+                                        viewModel.addAlbumTofavorite(album: item)
+                                    } label: {
+                                        if item.wasAddedToFavoriteAlbums{
+                                            TitleButtonContexMenuView(name: "Undo Favorite", icon: "heart.slash")
+                                        }else{
+                                            TitleButtonContexMenuView(name: "Favorite", icon: "heart")
+                                        }
+                                    }
+                                }
                         }
                     }
                 }

@@ -31,7 +31,10 @@ class LibraryViewModel: ObservableObject {
                                   creatorName: $0.track.artists.first?.name ?? "-",
                                   image: URL(string: $0.track.album?.images.first?.url ?? "-"),
                                   description: "",
-                                  isPlaylist: false)
+                                  isPlaylist: false,
+                                  wasAddedToFavoriteAlbums: false,
+                                  wasAddedToFavoritePlaylist: false
+                    )
                 }
                 DispatchQueue.main.async{
                     self?.allTracks = tracks
@@ -55,7 +58,10 @@ class LibraryViewModel: ObservableObject {
                                   creatorName: $0.owner.displayName,
                                   image: URL(string: $0.images.first?.url ?? "-"),
                                   description: $0.description,
-                                  isPlaylist: true
+                                  isPlaylist: true,
+                                  wasAddedToFavoriteAlbums: false,
+                                  wasAddedToFavoritePlaylist: true
+                                  
                     )
                 }
                 
@@ -79,7 +85,9 @@ class LibraryViewModel: ObservableObject {
                                   creatorName: $0.artists.first?.name ?? "-",
                                   image: URL(string: $0.images.first?.url ?? "-"),
                                   description: "",
-                                  isPlaylist: false
+                                  isPlaylist: false,
+                                  wasAddedToFavoriteAlbums: true,
+                                  wasAddedToFavoritePlaylist: false
                     )
                 }
                 

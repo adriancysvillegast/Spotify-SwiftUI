@@ -52,19 +52,19 @@ struct PlaylistScrollView: View {
     }
 }
 
-struct FeaturePlaylistView_Previews: PreviewProvider {
-    static let feature: FeaturePlaylistResponse = Bundle.main.decode("FeaturePlaylist.json")
-    
-    static let playlist = feature.playlists.items.compactMap {
-        ItemModelCell(id: $0.id,
-                      nameItem: $0.name,
-                      creatorName: $0.owner.displayName,
-                      image: URL(string: $0.images.first?.url ?? "-"),
-                      description: "",
-                      isPlaylist: true
-        )
-    }
-    static var previews: some View {
-        PlaylistScrollView(playlists: playlist)
-    }
-}
+//struct FeaturePlaylistView_Previews: PreviewProvider {
+//    static let feature: FeaturePlaylistResponse = Bundle.main.decode("FeaturePlaylist.json")
+//    
+//    static let playlist = feature.playlists.items.compactMap {
+//        ItemModelCell(id: $0.id,
+//                      nameItem: $0.name,
+//                      creatorName: $0.owner.displayName,
+//                      image: URL(string: $0.images.first?.url ?? "-"),
+//                      description: "",
+//                      isPlaylist: true
+//        )
+//    }
+//    static var previews: some View {
+//        PlaylistScrollView(playlists: playlist)
+//    }
+//}

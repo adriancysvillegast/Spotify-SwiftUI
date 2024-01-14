@@ -174,7 +174,9 @@ class AlbumDetailViewModel: ObservableObject {
                                   creatorName: $0.owner.displayName,
                                   image: URL(string: $0.images.first?.url ?? "-"),
                                   description: $0.description,
-                                  isPlaylist: true
+                                  isPlaylist: true,
+                                  wasAddedToFavoriteAlbums: false,
+                                  wasAddedToFavoritePlaylist: false
                     )
                 }
                 DispatchQueue.main.async {
