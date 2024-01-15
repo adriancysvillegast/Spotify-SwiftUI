@@ -23,7 +23,7 @@ struct AlbumDetailView: View {
         NavigationView {
             ScrollView(.vertical,showsIndicators: false) {
                 if viewModel.showError {
-//                    showErrorvIEW
+                    Text("error getting data")
                 }else if let albumInfo = viewModel.albumDetailCell{
                     VStack {
                         

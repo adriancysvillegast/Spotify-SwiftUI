@@ -33,7 +33,6 @@ class AlbumDetailViewModel: ObservableObject {
             
             switch result {
             case .success(let value):
-                
                     let data = AlbumDetailModelCell(
                         id: value.id,
                         image: album.image,

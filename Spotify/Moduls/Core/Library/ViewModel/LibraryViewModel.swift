@@ -18,6 +18,8 @@ class LibraryViewModel: ObservableObject {
     @Published var albums: [ItemModelCell] = []
     @Published var errorCreatingPlaylist: Bool = false
     @Published var wasAdded: Bool = false
+    @Published var trackWasDeleted: Bool = false
+    
     // MARK: - Methods
 
     func getUserFavouriteTracks() {
@@ -114,6 +116,29 @@ class LibraryViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    
+    // MARK: - Delete Methods
+    
+    func deleteUserTrack(track: ItemModelCell) {
+        APIManager.shared.removeUserTracks(track: track) { [weak self] success in
+            DispatchQueue.main.async {
+                self?.trackWasDeleted = success
+                if success{
+                    self?.deleteTrack(track: track)
+                }
+            }
+            
+        }
+    }
+    
+    func deleteTrack(track: ItemModelCell ) {
+        self.allTracks.removeAll { $0.id == track.id }
+    }
+    
+    deinit {
+        print("LibraryViewModel without memory leak")
     }
     
 }

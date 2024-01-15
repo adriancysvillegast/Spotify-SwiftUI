@@ -25,6 +25,7 @@ struct ItemCoverView: View {
                             .progressViewStyle(.circular)
                     }
                 }
+                .frame(height: 150)
                 
                 HStack {
                     VStack(alignment: .leading) {
@@ -42,6 +43,7 @@ struct ItemCoverView: View {
                 .frame(minWidth: 0, maxWidth: .infinity)
 
             }
+            .frame(width: 150, height: 200)
             
             
         }
