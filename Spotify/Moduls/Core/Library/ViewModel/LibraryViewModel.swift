@@ -18,7 +18,6 @@ class LibraryViewModel: ObservableObject {
     @Published var albums: [ItemModelCell] = []
     @Published var errorCreatingPlaylist: Bool = false
     @Published var wasAdded: Bool = false
-    @Published var trackWasDeleted: Bool = false
     
     // MARK: - Methods
 
@@ -123,9 +122,8 @@ class LibraryViewModel: ObservableObject {
     
     func deleteUserTrack(track: ItemModelCell) {
         APIManager.shared.removeUserTracks(track: track) { [weak self] success in
-            DispatchQueue.main.async {
-                self?.trackWasDeleted = success
-                if success{
+            if success{
+                DispatchQueue.main.async {
                     self?.deleteTrack(track: track)
                 }
             }
@@ -133,8 +131,22 @@ class LibraryViewModel: ObservableObject {
         }
     }
     
+    func deleteUserPlaylist(playlist: ItemModelCell) {
+        APIManager.shared.removeUserPlaylist(playlist: playlist) { [weak self] success in
+            if success {
+                DispatchQueue.main.async {
+                    self?.deletePlaylist(playlist: playlist)
+                }
+            }
+        }
+    }
+    
     func deleteTrack(track: ItemModelCell ) {
         self.allTracks.removeAll { $0.id == track.id }
+    }
+    
+    func deletePlaylist(playlist: ItemModelCell ) {
+        self.playlists.removeAll { $0.id == playlist.id }
     }
     
     deinit {

@@ -278,7 +278,7 @@ final class APIManager {
     
     func getCurrentUserAlbums(completion: @escaping (Result<[AlbumResponse], Error>) -> Void) {
         createBaseRequest(
-            with: URL(string: basicURL + "/me/albums?limit=2"),
+            with: URL(string: basicURL + "/me/albums?limit=50"),
             type: .GET
         ) { baseRequest in
             
@@ -538,9 +538,7 @@ final class APIManager {
             request.httpBody = try? JSONSerialization.data(withJSONObject: json, options: .fragmentsAllowed)
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             
-            
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                
 
                 if let response = response as? HTTPURLResponse {
                     if response.statusCode == 200 {
@@ -549,14 +547,30 @@ final class APIManager {
                 }else {
                     completion(false)
                 }
-                
-                
-//                completion(true)
-                
             }
             task.resume()
         }
     }
+    
+    func removeUserPlaylist(playlist: ItemModelCell ,
+                          completion: @escaping (Bool) -> Void
+    ) {
+        createBaseRequest(with: URL(string: basicURL + "/playlists/\(playlist.id)/followers"), type: .DELETE) { baseRequest in
+            
+            let task = URLSession.shared.dataTask(with: baseRequest) { data, response, error in
+                
+                if let response = response as? HTTPURLResponse {
+                    if response.statusCode == 200 {
+                        completion(true)
+                    }
+                }else {
+                    completion(false)
+                }
+            }
+            task.resume()
+        }
+    }
+    
     // MARK: - Categories
     
     func getCategories(completion: @escaping (Result<CategoriesResponse, Error>) -> Void) {

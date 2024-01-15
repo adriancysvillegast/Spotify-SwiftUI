@@ -68,10 +68,6 @@ struct LibraryView: View {
                                 .contextMenu {
                                     Button {
                                         viewModel.deleteUserTrack(track: item)
-                                        if viewModel.trackWasDeleted{
-                                            print("sdsd")
-                                            viewModel.getUserFavouriteTracks()
-                                        }
                                     } label: {
                                         TitleButtonContexMenuView(name: "Delete", icon: "delete.left")
                                     }

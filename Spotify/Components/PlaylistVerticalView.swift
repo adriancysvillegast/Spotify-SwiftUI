@@ -22,7 +22,13 @@ struct PlaylistVerticalView: View {
                         PlaylistDetailView(playlist: item, viewModel: PlaylistDetailViewModel())
                     } label: {
                         ItemCoverView(item: item)
-                            .padding(.horizontal)
+                            .contextMenu {
+                                Button {
+                                    viewModel.deleteUserPlaylist(playlist: item)
+                                } label: {
+                                    TitleButtonContexMenuView(name: "Delete", icon: "delete.left")
+                                }
+                            }
                     }
                     
                 }
