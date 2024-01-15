@@ -104,6 +104,8 @@ final class APIManager {
         }
     }
     
+    
+    
     func getGenres(completion: @escaping (Result<GenreResponse, Error>) -> Void) {
         createBaseRequest(
             with: URL(string: basicURL + "/recommendations/available-genre-seeds"),
@@ -521,6 +523,40 @@ final class APIManager {
         }
     }
     
+    func removeUserTracks(track: ItemModelCell,
+                          completion: @escaping (Bool) -> Void
+    ) {
+        createBaseRequest(with: URL(string: basicURL + "/me/tracks?ids=\(track.id)"), type: .DELETE) { baseRequest in
+            var request = baseRequest
+            let json: [String: Any] = [
+                "tracks": [
+                    [
+                        "\(track.id)"
+                    ]
+                ]
+            ]
+            request.httpBody = try? JSONSerialization.data(withJSONObject: json, options: .fragmentsAllowed)
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                
+
+                if let response = response as? HTTPURLResponse {
+                    if response.statusCode == 200 {
+                        completion(true)
+                    }
+                }else {
+                    completion(false)
+                }
+                
+                
+//                completion(true)
+                
+            }
+            task.resume()
+        }
+    }
     // MARK: - Categories
     
     func getCategories(completion: @escaping (Result<CategoriesResponse, Error>) -> Void) {
