@@ -15,18 +15,28 @@ struct AlbumVerticalView: View {
     // MARK: - Body
     
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            LazyVGrid(columns: rows) {
-                ForEach(viewModel.albums, id: \.id) { item in
-                    NavigationLink {
-                        AlbumDetailView(album: item)
-                    } label: {
-                        ItemCoverView(item: item)
-                            .padding(.horizontal)
+        ZStack {
+            ScrollView(.vertical, showsIndicators: false) {
+                LazyVGrid(columns: rows) {
+                    ForEach(viewModel.albums, id: \.id) { item in
+                        NavigationLink {
+                            AlbumDetailView(album: item)
+                        } label: {
+                            ItemCoverView(item: item)
+                                .contextMenu {
+                                    Button {
+                                        viewModel.deleteUserAlbum(album: item)
+                                    } label: {
+                                        TitleButtonContexMenuView(name: "Delete", icon: "delete.left")
+                                    }
+                                }
+                        }
+                        
                     }
-
                 }
             }
+            .navigationTitle("Albums")
+            .navigationBarTitleDisplayMode(.inline)
         }
         .onAppear {
             viewModel.getAlbums()
