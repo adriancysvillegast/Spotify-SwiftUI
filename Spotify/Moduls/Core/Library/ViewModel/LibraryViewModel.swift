@@ -141,12 +141,26 @@ class LibraryViewModel: ObservableObject {
         }
     }
     
+    func deleteUserAlbum(album: ItemModelCell) {
+        APIManager.shared.removeUserAlbums(album: album) { [weak self] success in
+            if success {
+                DispatchQueue.main.async {
+                    self?.deleteAlbum(album: album)
+                }
+            }
+        }
+    }
+    
     func deleteTrack(track: ItemModelCell ) {
         self.allTracks.removeAll { $0.id == track.id }
     }
     
     func deletePlaylist(playlist: ItemModelCell ) {
         self.playlists.removeAll { $0.id == playlist.id }
+    }
+    
+    func deleteAlbum(album: ItemModelCell ) {
+        self.albums.removeAll { $0.id == album.id }
     }
     
     deinit {

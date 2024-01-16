@@ -571,6 +571,35 @@ final class APIManager {
         }
     }
     
+    func removeUserAlbums(album: ItemModelCell,
+                          completion: @escaping (Bool) -> Void
+    ) {
+        createBaseRequest(with: URL(string: basicURL + "/me/albums?ids=\(album.id)"), type: .DELETE) { baseRequest in
+            var request = baseRequest
+            let json: [String: Any] = [
+                "ids": [
+                    [
+                        "\(album.id)"
+                    ]
+                ]
+            ]
+            request.httpBody = try? JSONSerialization.data(withJSONObject: json, options: .fragmentsAllowed)
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+
+                if let response = response as? HTTPURLResponse {
+                    if response.statusCode == 200 {
+                        completion(true)
+                    }
+                }else {
+                    completion(false)
+                }
+            }
+            task.resume()
+        }
+    }
+    
     // MARK: - Categories
     
     func getCategories(completion: @escaping (Result<CategoriesResponse, Error>) -> Void) {

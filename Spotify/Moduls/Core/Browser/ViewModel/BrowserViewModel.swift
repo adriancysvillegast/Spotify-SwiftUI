@@ -46,7 +46,7 @@ class BrowserViewModel: ObservableObject {
         
         //User favorite albums ids
         group.enter()
-        APIManager.shared.getCurrentUserAlbums { [weak self] result in
+        APIManager.shared.getCurrentUserAlbums { result in
             defer {
                 group.leave()
             }
@@ -60,7 +60,7 @@ class BrowserViewModel: ObservableObject {
         }
 //        Albums
         group.enter()
-        APIManager.shared.getNewRelease { [weak self] response in
+        APIManager.shared.getNewRelease { response in
             defer {
                 group.leave()
             }
@@ -74,7 +74,7 @@ class BrowserViewModel: ObservableObject {
         }
 //        Playlists
         group.enter()
-        APIManager.shared.getFeaturePlaylist { [weak self] response in
+        APIManager.shared.getFeaturePlaylist { response in
             defer {
                 group.leave()
             }
@@ -90,7 +90,7 @@ class BrowserViewModel: ObservableObject {
         //        Alternative
         group.enter()
         APIManager.shared.getRecomendationWithAGenre(
-            genre: Constants.alternative) { [weak self] result in
+            genre: Constants.alternative) { result in
                 defer {
                     group.leave()
                 }
@@ -107,7 +107,7 @@ class BrowserViewModel: ObservableObject {
 //        Hard-rock
         group.enter()
         APIManager.shared.getRecomendationWithAGenre(
-            genre: Constants.hardRock) { [weak self] result in
+            genre: Constants.hardRock) { result in
                 defer {
                     group.leave()
                 }
@@ -122,7 +122,7 @@ class BrowserViewModel: ObservableObject {
 //        House
         group.enter()
         APIManager.shared.getRecomendationWithAGenre(
-            genre: Constants.house) { [weak self] result in
+            genre: Constants.house) { result in
                 defer {
                     group.leave()
                 }
