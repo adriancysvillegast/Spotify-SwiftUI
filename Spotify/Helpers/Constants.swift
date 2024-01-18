@@ -42,4 +42,8 @@ struct Constants {
     static let alternative = "alternative"
     static let hardRock = "hard-rock"
     static let house = "house"
+    
+    
+//    colors
+    static let colorsArray: [[Color]] = [Color.blueBackground, Color.aquaBackground, Color.greenBackground, Color.samaritaBackground, Color.redBackground, Color.yellowBackground, Color.melonBackground]
 }

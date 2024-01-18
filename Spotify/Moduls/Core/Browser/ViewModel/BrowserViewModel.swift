@@ -20,11 +20,15 @@ class BrowserViewModel: ObservableObject {
     @Published var rockListCell: [TrackModelCell] = []
     @Published var alternativeListCell: [TrackModelCell] = []
     @Published var houseListCell: [TrackModelCell] = []
+    @Published var genres: [String] = []
+    @Published var trackfForGenre: [TrackModelCell] = []
     
     private var albumIdsAdded: [String] = []
     
     @Published var errorAddingToPlaylist: Bool = false
     @Published var errorData: Bool = false
+    @Published var errorNameGenres: Bool = false
+    @Published var errorTracksByGenres: Bool = false
     
 //    tap acctions
     @Published var trackAdded: Bool = false
@@ -278,6 +282,46 @@ class BrowserViewModel: ObservableObject {
     func albumWasAdded(album: ItemModelCell) -> Bool {
         self.albumIdsAdded.contains { id in
             id == album.id
+        }
+    }
+    
+    // MARK: - More to Explore
+    
+    func getGenres() {
+        APIManager.shared.getGenres { [weak self] result in
+            switch result {
+            case .success(let success):
+                DispatchQueue.main.async {
+                    self?.genres = success.genres
+                }
+            case .failure(let failure):
+                print(failure.localizedDescription)
+                self?.errorNameGenres.toggle()
+            }
+        }
+    }
+    
+    func getTracksByGenre(genre: String) {
+        APIManager.shared.getRecomendationWithAGenre(genre: genre) { [weak self] result in
+            switch result {
+            case .success(let success):
+                
+                let tracks = success.tracks.compactMap {
+                    TrackModelCell(
+                        image: URL(string: $0.album?.images.first?.url ?? "-"),
+                        artists: $0.artists.first?.name ?? "-",
+                        explicit: $0.explicit,
+                        id: $0.id,
+                        name: $0.name,
+                        previewUrl: URL(string: $0.previewUrl ?? "-"))
+                }
+                DispatchQueue.main.async {
+                    self?.trackfForGenre =  tracks
+                }
+            case .failure(let failure):
+                print(failure.localizedDescription)
+                self?.errorTracksByGenres.toggle()
+            }
         }
     }
     
