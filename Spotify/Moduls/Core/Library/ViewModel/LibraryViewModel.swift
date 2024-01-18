@@ -18,6 +18,7 @@ class LibraryViewModel: ObservableObject {
     @Published var albums: [ItemModelCell] = []
     @Published var errorCreatingPlaylist: Bool = false
     @Published var wasAdded: Bool = false
+    
     // MARK: - Methods
 
     func getUserFavouriteTracks() {
@@ -114,6 +115,56 @@ class LibraryViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    
+    // MARK: - Delete Methods
+    
+    func deleteUserTrack(track: ItemModelCell) {
+        APIManager.shared.removeUserTracks(track: track) { [weak self] success in
+            if success{
+                DispatchQueue.main.async {
+                    self?.deleteTrack(track: track)
+                }
+            }
+            
+        }
+    }
+    
+    func deleteUserPlaylist(playlist: ItemModelCell) {
+        APIManager.shared.removeUserPlaylist(playlist: playlist) { [weak self] success in
+            if success {
+                DispatchQueue.main.async {
+                    self?.deletePlaylist(playlist: playlist)
+                }
+            }
+        }
+    }
+    
+    func deleteUserAlbum(album: ItemModelCell) {
+        APIManager.shared.removeUserAlbums(album: album) { [weak self] success in
+            if success {
+                DispatchQueue.main.async {
+                    self?.deleteAlbum(album: album)
+                }
+            }
+        }
+    }
+    
+    func deleteTrack(track: ItemModelCell ) {
+        self.allTracks.removeAll { $0.id == track.id }
+    }
+    
+    func deletePlaylist(playlist: ItemModelCell ) {
+        self.playlists.removeAll { $0.id == playlist.id }
+    }
+    
+    func deleteAlbum(album: ItemModelCell ) {
+        self.albums.removeAll { $0.id == album.id }
+    }
+    
+    deinit {
+        print("LibraryViewModel without memory leak")
     }
     
 }

@@ -104,6 +104,8 @@ final class APIManager {
         }
     }
     
+    
+    
     func getGenres(completion: @escaping (Result<GenreResponse, Error>) -> Void) {
         createBaseRequest(
             with: URL(string: basicURL + "/recommendations/available-genre-seeds"),
@@ -276,7 +278,7 @@ final class APIManager {
     
     func getCurrentUserAlbums(completion: @escaping (Result<[AlbumResponse], Error>) -> Void) {
         createBaseRequest(
-            with: URL(string: basicURL + "/me/albums?limit=2"),
+            with: URL(string: basicURL + "/me/albums?limit=50"),
             type: .GET
         ) { baseRequest in
             
@@ -518,6 +520,83 @@ final class APIManager {
             }
             task.resume()
             
+        }
+    }
+    
+    func removeUserTracks(track: ItemModelCell,
+                          completion: @escaping (Bool) -> Void
+    ) {
+        createBaseRequest(with: URL(string: basicURL + "/me/tracks?ids=\(track.id)"), type: .DELETE) { baseRequest in
+            var request = baseRequest
+            let json: [String: Any] = [
+                "tracks": [
+                    [
+                        "\(track.id)"
+                    ]
+                ]
+            ]
+            request.httpBody = try? JSONSerialization.data(withJSONObject: json, options: .fragmentsAllowed)
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+
+                if let response = response as? HTTPURLResponse {
+                    if response.statusCode == 200 {
+                        completion(true)
+                    }
+                }else {
+                    completion(false)
+                }
+            }
+            task.resume()
+        }
+    }
+    
+    func removeUserPlaylist(playlist: ItemModelCell ,
+                          completion: @escaping (Bool) -> Void
+    ) {
+        createBaseRequest(with: URL(string: basicURL + "/playlists/\(playlist.id)/followers"), type: .DELETE) { baseRequest in
+            
+            let task = URLSession.shared.dataTask(with: baseRequest) { data, response, error in
+                
+                if let response = response as? HTTPURLResponse {
+                    if response.statusCode == 200 {
+                        completion(true)
+                    }
+                }else {
+                    completion(false)
+                }
+            }
+            task.resume()
+        }
+    }
+    
+    func removeUserAlbums(album: ItemModelCell,
+                          completion: @escaping (Bool) -> Void
+    ) {
+        createBaseRequest(with: URL(string: basicURL + "/me/albums?ids=\(album.id)"), type: .DELETE) { baseRequest in
+            var request = baseRequest
+            let json: [String: Any] = [
+                "ids": [
+                    [
+                        "\(album.id)"
+                    ]
+                ]
+            ]
+            request.httpBody = try? JSONSerialization.data(withJSONObject: json, options: .fragmentsAllowed)
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+
+                if let response = response as? HTTPURLResponse {
+                    if response.statusCode == 200 {
+                        completion(true)
+                    }
+                }else {
+                    completion(false)
+                }
+            }
+            task.resume()
         }
     }
     

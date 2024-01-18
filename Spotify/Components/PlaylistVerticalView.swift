@@ -15,14 +15,43 @@ struct PlaylistVerticalView: View {
     
     // MARK: - Body
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            LazyVGrid(columns: rows) {
-                ForEach(viewModel.playlists, id: \.id) { item in
+        ZStack {
+            ScrollView(.vertical, showsIndicators: false) {
+                LazyVGrid(columns: rows) {
+                    ForEach(viewModel.playlists, id: \.id) { item in
+                        NavigationLink {
+                            PlaylistDetailView(playlist: item, viewModel: PlaylistDetailViewModel())
+                        } label: {
+                            ItemCoverView(item: item)
+                                .contextMenu {
+                                    Button {
+                                        viewModel.deleteUserPlaylist(playlist: item)
+                                    } label: {
+                                        TitleButtonContexMenuView(name: "Delete", icon: "delete.left")
+                                    }
+                                }
+                        }
+                        
+                    }
+                }
+            }
+            .navigationTitle("Playlists")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                // MARK: - Add playlists
+                ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
-                        PlaylistDetailView(playlist: item, viewModel: PlaylistDetailViewModel())
+                        CreateNewPlaylistView()
                     } label: {
-                        ItemCoverView(item: item)
-                            .padding(.horizontal)
+                        ZStack {
+                            Rectangle()
+                                .foregroundColor(.secondary)
+                                .cornerRadius(12)
+                            
+                            Image(systemName: "plus")
+                                .foregroundColor(.primary)
+                        }
+                        .frame(width: 30, height: 30)
                     }
                     
                 }
@@ -30,25 +59,6 @@ struct PlaylistVerticalView: View {
         }
         .onAppear {
             viewModel.getPlaylists()
-        }
-        .toolbar {
-            // MARK: - Add playlists
-            ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink {
-                    CreateNewPlaylistView()
-                } label: {
-                    ZStack {
-                        Rectangle()
-                            .foregroundColor(.secondary)
-                            .cornerRadius(12)
-                        
-                        Image(systemName: "plus")
-                            .foregroundColor(.primary)
-                    }
-                    .frame(width: 30, height: 30)
-                }
-
-            }
         }
     }
 }

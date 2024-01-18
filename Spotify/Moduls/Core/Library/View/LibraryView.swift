@@ -11,7 +11,8 @@ struct LibraryView: View {
     // MARK: - Properties
     @ObservedObject var viewModel: LibraryViewModel = LibraryViewModel()
     private var rows = [GridItem(), GridItem()]
-    
+    @State var trackWasTapped: Bool = false
+    @State var trackTappedId: String = ""
     // MARK: - Body
     
     var body: some View {
@@ -58,34 +59,38 @@ struct LibraryView: View {
                 // MARK: - all albums and playlists
                 LazyVGrid(columns: rows) {
                     ForEach(viewModel.allTracks, id: \.id) { item in
-                        NavigationLink {
-                            if item.isPlaylist {
-                                PlaylistDetailView(playlist: item, viewModel: PlaylistDetailViewModel())
-                                
-                            }else {
-                                AlbumDetailView(album: item, viewModel: AlbumDetailViewModel())
-                            }
+        
+                        Button {
+                            self.trackTappedId = item.id
+                            trackWasTapped.toggle()
                         } label: {
                             ItemCoverView(item: item)
-                                .frame(height: 240)
+                                .contextMenu {
+                                    Button {
+                                        viewModel.deleteUserTrack(track: item)
+                                    } label: {
+                                        TitleButtonContexMenuView(name: "Delete", icon: "delete.left")
+                                    }
+                                }
                         }
                     }
                 }
                 .padding(.horizontal)
                 
+                
                 Spacer()
             }
-            .frame(maxHeight: .infinity)
+            .sheet(isPresented: $trackWasTapped) {
+                PlayView(id: $trackTappedId)
+            }
             
         }
         .onAppear {
             viewModel.getUserFavouriteTracks()
         }
+        
+        
+        
     }
 }
 
-struct LibraryView_Previews: PreviewProvider {
-    static var previews: some View {
-        LibraryView()
-    }
-}
