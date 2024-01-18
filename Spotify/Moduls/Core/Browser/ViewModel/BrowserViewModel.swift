@@ -282,6 +282,6 @@ class BrowserViewModel: ObservableObject {
     }
     
     deinit {
-        print("gooooooood")
+        print("BrowserViewModel withOut memory leak")
     }
 }

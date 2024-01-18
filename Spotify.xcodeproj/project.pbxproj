@@ -584,6 +584,7 @@
 		09A77CBD2B47265200353F25 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				09A9A9F02B2CB9B100013EF9 /* UserProfileResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -599,7 +600,6 @@
 		09A9A9EF2B2CB96600013EF9 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				09A9A9F02B2CB9B100013EF9 /* UserProfileResponse.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";

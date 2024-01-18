@@ -39,8 +39,7 @@ struct PlayView: View {
                         
                         image
                             .resizable()
-                            .scaledToFit()
-                            .cornerRadius(12)
+                            .modifier(ImageModifier())
                         
                     } placeholder: {
                         VStack {

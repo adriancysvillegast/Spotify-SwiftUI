@@ -41,4 +41,8 @@ class ProfileViewModel: ObservableObject {
             }
         }
     }
+    
+    deinit {
+        print("ProfileViewModel without memory leak")
+    }
 }
