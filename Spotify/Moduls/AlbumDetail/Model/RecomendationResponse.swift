@@ -9,6 +9,5 @@ import Foundation
 import SwiftUI
 
 struct RecomendationsResponse: Codable{
-    
     let tracks: [AudioTrackResponse]
 }

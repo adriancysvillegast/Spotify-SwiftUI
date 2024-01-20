@@ -9,8 +9,7 @@ import SwiftUI
 
 struct GenresListView: View {
     // MARK: - Properties
-    
-    var genres = ["Rock", "pop","joropo", "salsawewewew","bachata", "raspa canilla"]
+
     @StateObject var viewModel: BrowserViewModel = BrowserViewModel()
     private var rows: [GridItem] = [GridItem(), GridItem()]
     
@@ -18,25 +17,32 @@ struct GenresListView: View {
     
     var body: some View {
         ZStack {
-            VStack {
-                List {
-                    ForEach(viewModel.genres, id: \.self) { genre in
-                        
-                        NavigationLink {
-                            TrackByGenresView(genreName: genre)
-                        } label: {
-                            Text(genre)
-                                .font(.title3)
-                                .foregroundColor(.primary)
-                                .fontWeight(.medium)
-                        }
+            if viewModel.genres.isEmpty && !viewModel.errorNameGenres {
+                LoadingView()
+            }else if viewModel.errorNameGenres{
+                ErrorLoadingView()
+            }else {
+                VStack {
+                    List {
+                        ForEach(viewModel.genres, id: \.self) { genre in
+                            
+                            NavigationLink {
+                                TrackByGenresView(genreName: genre)
+                            } label: {
+                                Text(genre)
+                                    .font(.title3)
+                                    .foregroundColor(.primary)
+                                    .fontWeight(.medium)
+                            }
 
-                        
+                            
+                        }
                     }
+                    .listStyle(.plain)
                 }
-                .listStyle(.plain)
+                .navigationTitle("Genres")
             }
-            .navigationTitle("Genres")
+            
         }
         .onAppear {
             viewModel.getGenres()

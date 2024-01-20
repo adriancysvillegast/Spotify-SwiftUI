@@ -98,7 +98,7 @@ class BrowserViewModel: ObservableObject {
                 defer {
                     group.leave()
                 }
-                
+
                 switch result {
                 case .success(let success):
                     alternativeResponse = success.tracks
@@ -106,8 +106,8 @@ class BrowserViewModel: ObservableObject {
                     print(" getRecomendationWithAGenre \(failure.localizedDescription)")
                 }
             }
-        
-        
+
+
 //        Hard-rock
         group.enter()
         APIManager.shared.getRecomendationWithAGenre(
@@ -115,7 +115,7 @@ class BrowserViewModel: ObservableObject {
                 defer {
                     group.leave()
                 }
-                
+
                 switch result {
                 case .success(let success):
                     rockResponse = success.tracks
@@ -130,7 +130,7 @@ class BrowserViewModel: ObservableObject {
                 defer {
                     group.leave()
                 }
-                
+
                 switch result {
                 case .success(let success):
                     houseResponse = success.tracks
@@ -141,7 +141,12 @@ class BrowserViewModel: ObservableObject {
         
         
         group.notify(queue: .main) {
-            guard let albums = albumsResponse, let idsAlbumsAdded = idAlbumsAdded, let playlists = playlistResponse, let rock = rockResponse, let alternative = alternativeResponse, let house = houseResponse else {
+            guard let albums = albumsResponse,
+                  let idsAlbumsAdded = idAlbumsAdded,
+                  let playlists = playlistResponse,
+                  let rock = rockResponse,
+                  let alternative = alternativeResponse,
+                  let house = houseResponse else {
                 self.errorData = true
                 return
             }
@@ -198,7 +203,7 @@ class BrowserViewModel: ObservableObject {
                 previewUrl: URL(string: $0.previewUrl ?? "-")
             )
         }
-        
+
 //        House
         let houseCell = house.compactMap {
             TrackModelCell(
@@ -274,7 +279,7 @@ class BrowserViewModel: ObservableObject {
     func updateAlbum(album: ItemModelCell) {
 //        self.newReleasesCell.forEach { value in
 //            if value.id == album.id {
-//                value.wasAddedToFavoriteAlbums.toggle()
+//                value.wasAddedToFavoriteAlbums = true
 //            }
 //        }
     }
@@ -296,7 +301,10 @@ class BrowserViewModel: ObservableObject {
                 }
             case .failure(let failure):
                 print(failure.localizedDescription)
-                self?.errorNameGenres.toggle()
+                DispatchQueue.main.async {
+                    self?.errorNameGenres.toggle()
+                }
+                
             }
         }
     }

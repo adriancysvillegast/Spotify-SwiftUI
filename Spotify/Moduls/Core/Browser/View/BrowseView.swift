@@ -23,7 +23,7 @@ struct BrowseView: View {
     
     var body: some View {
         NavigationView {
-            if viewModel.newReleasesCell.isEmpty && viewModel.featureListsCell.isEmpty && viewModel.houseListCell.isEmpty && viewModel.alternativeListCell.isEmpty && viewModel.rockListCell.isEmpty {
+            if viewModel.newReleasesCell.isEmpty && viewModel.featureListsCell.isEmpty && !viewModel.errorData {
                 LoadingView()
             }else if viewModel.errorData {
                 VStack {
@@ -75,11 +75,7 @@ struct BrowseView: View {
                     Group {
                         OptionsListBrowserView()
                     }
-                    .frame(height: 100)
-                    
-                    
-                    
-                    
+                    .frame(height: 100)   
                     
                 }
                 .padding(.horizontal)
@@ -114,7 +110,6 @@ struct BrowseView: View {
 // MARK: - Preview
 
 struct BrowseView_Previews: PreviewProvider {
-    
     
     static var previews: some View {
         BrowseView()
