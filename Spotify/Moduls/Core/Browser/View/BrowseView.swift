@@ -11,11 +11,8 @@ struct BrowseView: View {
     
     
     // MARK: - Properties
-    
     @StateObject var viewModel = BrowserViewModel()
-    
     @State var showError: Bool = true
-    
     let newReleasesRow = [GridItem(), GridItem()]
     @State var showProfile: Bool = false
     

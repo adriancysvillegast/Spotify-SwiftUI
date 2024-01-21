@@ -19,7 +19,13 @@ struct RecomendationScrollView: View {
     @State var trackSelectedId: String = "no"
     @State var trackSelectedName: String = "no"
     @State var showUserPlaylists: Bool = false
+    @State var tappedTrack: Bool = false
     
+    func hiddenIcon() {
+        DispatchQueue.global().asyncAfter(deadline: .now() + 0.6) {
+            tappedTrack.toggle()
+        }
+    }
     
     // MARK: - Body
     
@@ -68,6 +74,8 @@ struct RecomendationScrollView: View {
                                         
                                             Button {
                                                 viewModel.addToFavoriteTracks(trackId: track.id)
+                                                tappedTrack.toggle()
+                                                hiddenIcon()
                                             } label: {
                                                 TitleButtonContexMenuView(name: "Favorite", icon: "heart")
                                             }
@@ -86,6 +94,15 @@ struct RecomendationScrollView: View {
                     }
                     
                 }
+            }
+        }
+        .overlay {
+            ZStack {
+                Image(systemName: "heart")
+                    .font(.largeTitle)
+                    .fontWeight(.heavy)
+                    .opacity(tappedTrack ? 1.0 : 0.0)
+                    .animation(.easeOut(duration: 0.4), value: tappedTrack)   
             }
         }
         
