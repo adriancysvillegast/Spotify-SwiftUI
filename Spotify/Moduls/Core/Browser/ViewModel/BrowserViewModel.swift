@@ -43,6 +43,7 @@ class BrowserViewModel: ObservableObject {
         
         var albumsResponse: [AlbumResponse]?
         var idAlbumsAdded: [String]?
+        var idtracksAdded: [String]?
         var playlistResponse: [Playlist]?
         var alternativeResponse: [AudioTrackResponse]?
         var rockResponse: [AudioTrackResponse]?
@@ -62,6 +63,23 @@ class BrowserViewModel: ObservableObject {
                 print(" ERROR GETTING ALBUMS ADDED FOR USER\(error)")
             }
         }
+        group.enter()
+        APIManager.shared.getFavoriteTracks { result in
+            defer {
+                group.leave()
+            }
+            
+            switch result {
+            case .success(let success):
+                idtracksAdded = success.items.compactMap({
+                    $0.track.id
+                })
+            case .failure(let failure):
+                print(" ERROR GETTING TACKS ADDED FOR USER\(failure)")
+            }
+        }
+        
+        
 //        Albums
         group.enter()
         APIManager.shared.getNewRelease { response in
@@ -143,6 +161,7 @@ class BrowserViewModel: ObservableObject {
         group.notify(queue: .main) {
             guard let albums = albumsResponse,
                   let idsAlbumsAdded = idAlbumsAdded,
+                  let idsTracksAdded = idtracksAdded,
                   let playlists = playlistResponse,
                   let rock = rockResponse,
                   let alternative = alternativeResponse,
@@ -150,13 +169,14 @@ class BrowserViewModel: ObservableObject {
                 self.errorData = true
                 return
             }
-            self.configureData(albums: albums, idAlbumAdded: idsAlbumsAdded, playlist: playlists, rock: rock, alternative: alternative, house: house)
+            self.configureData(albums: albums, idAlbumAdded: idsAlbumsAdded, idTracksAdded: idsTracksAdded, playlist: playlists, rock: rock, alternative: alternative, house: house)
         }
     }
     
     private func configureData(
         albums: [AlbumResponse],
         idAlbumAdded: [String],
+        idTracksAdded: [String],
         playlist: [Playlist],
         rock: [AudioTrackResponse],
         alternative: [AudioTrackResponse],
@@ -193,37 +213,46 @@ class BrowserViewModel: ObservableObject {
         }
         
 //        Rock
-        let rockCell = rock.compactMap {
+        let rockCell = rock.compactMap { track in
             TrackModelCell(
-                image: URL(string: $0.album?.images.first?.url ?? "-"),
-                artists: $0.artists.first?.name ?? "-",
-                explicit: $0.explicit,
-                id: $0.id,
-                name: $0.name,
-                previewUrl: URL(string: $0.previewUrl ?? "-")
+                image: URL(string: track.album?.images.first?.url ?? "-"),
+                artists: track.artists.first?.name ?? "-",
+                explicit: track.explicit,
+                id: track.id,
+                name: track.name,
+                previewUrl: URL(string: track.previewUrl ?? "-"),
+                wasAdded: idTracksAdded.contains(where: { idFvoriteTracks in
+                    track.id == idFvoriteTracks
+                })
             )
         }
 
 //        House
-        let houseCell = house.compactMap {
+        let houseCell = house.compactMap { track in
             TrackModelCell(
-                image: URL(string: $0.album?.images.first?.url ?? "-"),
-                artists: $0.artists.first?.name ?? "-",
-                explicit: $0.explicit,
-                id: $0.id,
-                name: $0.name,
-                previewUrl: URL(string: $0.previewUrl ?? "-")
+                image: URL(string: track.album?.images.first?.url ?? "-"),
+                artists: track.artists.first?.name ?? "-",
+                explicit: track.explicit,
+                id: track.id,
+                name: track.name,
+                previewUrl: URL(string: track.previewUrl ?? "-"),
+                wasAdded: idTracksAdded.contains(where: { idFvoriteTracks in
+                    track.id == idFvoriteTracks
+                })
             )
         }
 //        Alternative
-        let alternativeCell = alternative.compactMap {
+        let alternativeCell = alternative.compactMap { track in
             TrackModelCell(
-                image: URL(string: $0.album?.images.first?.url ?? "-"),
-                artists: $0.artists.first?.name ?? "-",
-                explicit: $0.explicit,
-                id: $0.id,
-                name: $0.name,
-                previewUrl: URL(string: $0.previewUrl ?? "-")
+                image: URL(string: track.album?.images.first?.url ?? "-"),
+                artists: track.artists.first?.name ?? "-",
+                explicit: track.explicit,
+                id: track.id,
+                name: track.name,
+                previewUrl: URL(string: track.previewUrl ?? "-"),
+                wasAdded: idTracksAdded.contains(where: { idFvoriteTracks in
+                    track.id == idFvoriteTracks
+                })
             )
         }
         
