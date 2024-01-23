@@ -74,7 +74,14 @@ struct UserPlaylistPVMView: View {
                 }))
             }
             
-            
+            .alert(Text("Success"), isPresented: $viewModel.addedToPlaylist) {
+                // MARK: - if track was added
+                Button(role: .destructive) {
+                    presentationMode.wrappedValue.dismiss()
+                } label: {
+                    Text("Ok")
+                }
+            }
             .toolbar {
                 // MARK: - Add Button
 //                ToolbarItem(placement: .navigationBarTrailing) {

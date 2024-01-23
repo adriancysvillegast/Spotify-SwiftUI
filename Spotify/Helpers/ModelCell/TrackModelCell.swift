@@ -15,4 +15,5 @@ struct TrackModelCell: Hashable {
     let id: String
     let name: String
     let previewUrl: URL?
+    var wasAdded: Bool = false
 }

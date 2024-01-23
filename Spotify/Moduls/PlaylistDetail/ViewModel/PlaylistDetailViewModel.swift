@@ -15,6 +15,7 @@ class PlaylistDetailViewModel: ObservableObject {
     @Published var allTracks: [TrackModelCell] = []
     @Published var playlistsUser: [ItemModelCell] = []
     @State var errorAddingToPlaylist: Bool = false
+    @Published var addedToPlaylist: Bool = false
     @Published var errorCreatingPlaylist: Bool = false
     @Published var wasAdded: Bool = false
     @Published var trackAdded: Bool = false
@@ -109,12 +110,12 @@ class PlaylistDetailViewModel: ObservableObject {
     func saveItemOnPlaylist(item: String, idPlaylist: String ){
         APIManager.shared.addTrackToPlaylist(trackId: item,
                                              playlistId: idPlaylist) { success in
-            
-            if !success {
-                DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                self.addedToPlaylist = success
+                if !success {
                     self.errorAddingToPlaylist.toggle()
-                    
                 }
+                
             }
         }
     }

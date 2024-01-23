@@ -74,6 +74,36 @@ struct ProfileView: View {
                             Spacer()
                         }
                         
+                        Spacer()
+                        
+                        Button {
+                            viewModel.logOut()
+                        } label: {
+                            ZStack {
+                                Rectangle()
+                                    .foregroundStyle(
+                                        LinearGradient(
+                                            colors:
+                                                [
+                                                Color.red.opacity(0.6),
+                                                Color.red],
+                                            startPoint: .top,
+                                            endPoint: .bottom)
+                                    )
+                                
+                                Text("Log Out")
+                                    .font(.title2)
+                                    .fontWeight(.heavy)
+                                    .foregroundColor(.white)
+                                    
+                                
+                            }
+                            .frame(width: 120, height: 60)
+                            .cornerRadius(12)
+                           
+                        }
+
+                        
                     }
                     
                     Spacer()

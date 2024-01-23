@@ -31,7 +31,6 @@
 		093DD85E2B0A6A950017C83D /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093DD85D2B0A6A950017C83D /* LogInView.swift */; };
 		093DD8602B0A6ACF0017C83D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093DD85F2B0A6ACF0017C83D /* Constants.swift */; };
 		093DD8622B0A7B610017C83D /* CustomButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093DD8612B0A7B610017C83D /* CustomButtonModifier.swift */; };
-		093DD8642B0A7EE20017C83D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093DD8632B0A7EE20017C83D /* Extensions.swift */; };
 		093E79382B237208006D072E /* LibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093E79372B237208006D072E /* LibraryViewModel.swift */; };
 		093E793A2B23B158006D072E /* ItemModelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093E79392B23B158006D072E /* ItemModelCell.swift */; };
 		093E793C2B23B765006D072E /* ItemCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093E793B2B23B765006D072E /* ItemCoverView.swift */; };
@@ -56,6 +55,9 @@
 		097D53922B0A85C50022E076 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097D53912B0A85C50022E076 /* AuthViewController.swift */; };
 		097D53942B0A86C40022E076 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097D53932B0A86C40022E076 /* AuthManager.swift */; };
 		097D53972B0A89480022E076 /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097D53962B0A89480022E076 /* AuthResponse.swift */; };
+		09828ADA2B599AC700330A2B /* OptionsListBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09828AD92B599AC700330A2B /* OptionsListBrowserView.swift */; };
+		09828ADC2B59A19200330A2B /* GenresListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09828ADB2B59A19200330A2B /* GenresListView.swift */; };
+		09828ADE2B59BC3600330A2B /* TrackByGenresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09828ADD2B59BC3600330A2B /* TrackByGenresView.swift */; };
 		099C9FB22B14DD8C00125255 /* NewReleasesModelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099C9FB12B14DD8C00125255 /* NewReleasesModelCell.swift */; };
 		099C9FB42B14E61E00125255 /* AlbumDetailModelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099C9FB32B14E61E00125255 /* AlbumDetailModelCell.swift */; };
 		099C9FB82B14EB2C00125255 /* AlbumDetail.json in Resources */ = {isa = PBXBuildFile; fileRef = 099C9FB72B14EB2C00125255 /* AlbumDetail.json */; };
@@ -125,7 +127,6 @@
 		093DD85D2B0A6A950017C83D /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		093DD85F2B0A6ACF0017C83D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		093DD8612B0A7B610017C83D /* CustomButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonModifier.swift; sourceTree = "<group>"; };
-		093DD8632B0A7EE20017C83D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		093E79372B237208006D072E /* LibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewModel.swift; sourceTree = "<group>"; };
 		093E79392B23B158006D072E /* ItemModelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemModelCell.swift; sourceTree = "<group>"; };
 		093E793B2B23B765006D072E /* ItemCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCoverView.swift; sourceTree = "<group>"; };
@@ -150,6 +151,9 @@
 		097D53912B0A85C50022E076 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		097D53932B0A86C40022E076 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		097D53962B0A89480022E076 /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
+		09828AD92B599AC700330A2B /* OptionsListBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsListBrowserView.swift; sourceTree = "<group>"; };
+		09828ADB2B59A19200330A2B /* GenresListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresListView.swift; sourceTree = "<group>"; };
+		09828ADD2B59BC3600330A2B /* TrackByGenresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackByGenresView.swift; sourceTree = "<group>"; };
 		099C9FB12B14DD8C00125255 /* NewReleasesModelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReleasesModelCell.swift; sourceTree = "<group>"; };
 		099C9FB32B14E61E00125255 /* AlbumDetailModelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailModelCell.swift; sourceTree = "<group>"; };
 		099C9FB72B14EB2C00125255 /* AlbumDetail.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AlbumDetail.json; sourceTree = "<group>"; };
@@ -354,6 +358,9 @@
 				09A8E9EA2B5301D800C192BF /* PlaylistListVerticalView.swift */,
 				09A8E9EC2B53080600C192BF /* AlbumsScrollView.swift */,
 				09D940952B5377FB0094AB37 /* ErrorLoadingView.swift */,
+				09828AD92B599AC700330A2B /* OptionsListBrowserView.swift */,
+				09828ADB2B59A19200330A2B /* GenresListView.swift */,
+				09828ADD2B59BC3600330A2B /* TrackByGenresView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -364,7 +371,6 @@
 				099C9FB02B14DD0E00125255 /* ModelCell */,
 				093DD85F2B0A6ACF0017C83D /* Constants.swift */,
 				093DD8612B0A7B610017C83D /* CustomButtonModifier.swift */,
-				093DD8632B0A7EE20017C83D /* Extensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -584,6 +590,7 @@
 		09A77CBD2B47265200353F25 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				09A9A9F02B2CB9B100013EF9 /* UserProfileResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -599,7 +606,6 @@
 		09A9A9EF2B2CB96600013EF9 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				09A9A9F02B2CB9B100013EF9 /* UserProfileResponse.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -736,10 +742,10 @@
 				09A9A9F12B2CB9B100013EF9 /* UserProfileResponse.swift in Sources */,
 				095EA4F92B24BC6000AB99C8 /* LibraryAlbumsResponse.swift in Sources */,
 				095EA5012B29FCD400AB99C8 /* ShuffleButtonView.swift in Sources */,
+				09828ADC2B59A19200330A2B /* GenresListView.swift in Sources */,
 				0904BDA72B3B1B5A005D0FBF /* CardCategoryView.swift in Sources */,
 				09A8E9ED2B53080600C192BF /* AlbumsScrollView.swift in Sources */,
 				09C42C5D2B20CDF600C29A94 /* PlaylistDetailResponse.swift in Sources */,
-				093DD8642B0A7EE20017C83D /* Extensions.swift in Sources */,
 				093E79382B237208006D072E /* LibraryViewModel.swift in Sources */,
 				093DD84B2B0A675C0017C83D /* ContentView.swift in Sources */,
 				09C42C5F2B21086800C29A94 /* FeaturePlaylistDetailModelCell.swift in Sources */,
@@ -766,6 +772,7 @@
 				09ECA0EE2B19057400C84DAE /* VolumenManager.swift in Sources */,
 				09572DAC2B3CE5040042C85B /* ArtistModelCell.swift in Sources */,
 				095EA4FD2B276F2700AB99C8 /* PlayButtonView.swift in Sources */,
+				09828ADA2B599AC700330A2B /* OptionsListBrowserView.swift in Sources */,
 				094D58E02B13A6B20083CFC6 /* AlbumDetailView.swift in Sources */,
 				0954F6512B169C45008B0377 /* TrackModelCell.swift in Sources */,
 				095EA5032B2A0E9F00AB99C8 /* UserPlaylistPVMView.swift in Sources */,
@@ -789,6 +796,7 @@
 				09572DAA2B3C9A700042C85B /* SearchResultResponse.swift in Sources */,
 				099C9FB22B14DD8C00125255 /* NewReleasesModelCell.swift in Sources */,
 				09D940962B5377FB0094AB37 /* ErrorLoadingView.swift in Sources */,
+				09828ADE2B59BC3600330A2B /* TrackByGenresView.swift in Sources */,
 				09CE21BF2B34B35800B0CC7C /* UserPlaylistAVMView.swift in Sources */,
 				09C42C5A2B20C93100C29A94 /* PlaylistDetailView.swift in Sources */,
 				093DD8622B0A7B610017C83D /* CustomButtonModifier.swift in Sources */,
@@ -929,8 +937,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -958,8 +965,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

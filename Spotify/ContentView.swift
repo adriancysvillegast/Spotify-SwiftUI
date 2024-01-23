@@ -9,8 +9,9 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var authManager = AuthManager.shared
+    
     var body: some View {
-        
+
         if authManager.accessToken != nil{
             TabBarView()
         }else {

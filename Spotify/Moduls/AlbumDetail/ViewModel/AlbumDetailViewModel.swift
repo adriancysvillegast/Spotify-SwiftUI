@@ -203,7 +203,7 @@ class AlbumDetailViewModel: ObservableObject {
     
     
     deinit {
-        print("gooood")
+        print("AlbumDetailViewModel without memory leak")
     }
 }
 

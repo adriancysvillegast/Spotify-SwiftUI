@@ -16,12 +16,15 @@ struct CustomButtonModifier: ButtonStyle {
             .padding(.horizontal, 30)
             .background {
                 configuration.isPressed ? LinearGradient(
-                    colors: [.customGrayMedium,
-                             .customGrayLight],
+                    colors: [
+                        Color.green,
+                        Color.green.opacity(0.6)
+                    ],
                     startPoint: .top, endPoint: .bottom) :
                 LinearGradient(
-                    colors: [.customGrayLight,
-                             .customGrayMedium],
+                    colors: [
+                        Color.green.opacity(0.6),
+                        Color.green],
                     startPoint: .top, endPoint: .bottom)
                 
             }

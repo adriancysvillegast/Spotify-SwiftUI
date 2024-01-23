@@ -11,19 +11,16 @@ struct BrowseView: View {
     
     
     // MARK: - Properties
-    
     @StateObject var viewModel = BrowserViewModel()
-    
     @State var showError: Bool = true
-    
     let newReleasesRow = [GridItem(), GridItem()]
     @State var showProfile: Bool = false
-
+    
     // MARK: - Body
     
     var body: some View {
         NavigationView {
-            if viewModel.newReleasesCell.isEmpty && viewModel.featureListsCell.isEmpty && viewModel.houseListCell.isEmpty && viewModel.alternativeListCell.isEmpty && viewModel.rockListCell.isEmpty {
+            if viewModel.newReleasesCell.isEmpty && viewModel.featureListsCell.isEmpty && !viewModel.errorData {
                 LoadingView()
             }else if viewModel.errorData {
                 VStack {
@@ -39,37 +36,44 @@ struct BrowseView: View {
                         }
                         .frame(width: 140, height: 40)
                         .cornerRadius(12)
-                            
+                        
                     }
-
+                    
                 }
             }else {
                 
                 ScrollView(.vertical, showsIndicators: false) {
-                        // MARK: - Alternative
-                        Group {
-                            RecomendationScrollView(tracks: viewModel.alternativeListCell, genreName: Constants.alternative, title: "Because you love")
-                        }
+                    // MARK: - Alternative
+                    Group {
+                        RecomendationScrollView(tracks: viewModel.alternativeListCell, genreName: Constants.alternative, title: "Because you love")
+                    }
                     
-                        // MARK: - NewReleasesResponse
-                        Group {
-                            AlbumsScrollView(albums: viewModel.newReleasesCell)
-                        }
-                        
-                        // MARK: - Hard Rock
-                        Group {
-                            RecomendationScrollView(tracks: viewModel.rockListCell, genreName: Constants.hardRock, title: "Discover more of")
-                        }
-                       // MARK: - FeaturePlaylist
-                        Group {
-                            PlaylistScrollView(playlists: viewModel.featureListsCell)
-                        }
+                    // MARK: - NewReleasesResponse
+                    Group {
+                        AlbumsScrollView(albums: viewModel.newReleasesCell)
+                    }
                     
-                        // MARK: - House
-                        Group {
-                            RecomendationScrollView(tracks: viewModel.houseListCell, genreName: Constants.house, title: "Top")
-                        }
-
+                    // MARK: - Hard Rock
+                    Group {
+                        RecomendationScrollView(tracks: viewModel.rockListCell, genreName: Constants.hardRock, title: "Discover more of")
+                    }
+                    // MARK: - FeaturePlaylist
+                    Group {
+                        PlaylistScrollView(playlists: viewModel.featureListsCell)
+                    }
+                    
+                    // MARK: - House
+                    Group {
+                        RecomendationScrollView(tracks: viewModel.houseListCell, genreName: Constants.house, title: "Top")
+                    }
+                    
+                    // MARK: - List
+                    
+                    Group {
+                        OptionsListBrowserView()
+                    }
+                    .frame(height: 100)   
+                    
                 }
                 .padding(.horizontal)
                 .navigationBarTitle("Browser")
@@ -103,7 +107,6 @@ struct BrowseView: View {
 // MARK: - Preview
 
 struct BrowseView_Previews: PreviewProvider {
-
     
     static var previews: some View {
         BrowseView()

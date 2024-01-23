@@ -41,4 +41,14 @@ class ProfileViewModel: ObservableObject {
             }
         }
     }
+    
+    func logOut() {
+        AuthManager.shared.signOut { success in
+            print("success \(success)")
+        }
+    }
+    
+    deinit {
+        print("ProfileViewModel without memory leak")
+    }
 }

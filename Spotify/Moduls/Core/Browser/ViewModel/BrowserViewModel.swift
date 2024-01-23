@@ -20,11 +20,15 @@ class BrowserViewModel: ObservableObject {
     @Published var rockListCell: [TrackModelCell] = []
     @Published var alternativeListCell: [TrackModelCell] = []
     @Published var houseListCell: [TrackModelCell] = []
+    @Published var genres: [String] = []
+    @Published var trackfForGenre: [TrackModelCell] = []
     
     private var albumIdsAdded: [String] = []
     
     @Published var errorAddingToPlaylist: Bool = false
     @Published var errorData: Bool = false
+    @Published var errorNameGenres: Bool = false
+    @Published var errorTracksByGenres: Bool = false
     
 //    tap acctions
     @Published var trackAdded: Bool = false
@@ -39,6 +43,7 @@ class BrowserViewModel: ObservableObject {
         
         var albumsResponse: [AlbumResponse]?
         var idAlbumsAdded: [String]?
+        var idtracksAdded: [String]?
         var playlistResponse: [Playlist]?
         var alternativeResponse: [AudioTrackResponse]?
         var rockResponse: [AudioTrackResponse]?
@@ -58,6 +63,23 @@ class BrowserViewModel: ObservableObject {
                 print(" ERROR GETTING ALBUMS ADDED FOR USER\(error)")
             }
         }
+        group.enter()
+        APIManager.shared.getFavoriteTracks { result in
+            defer {
+                group.leave()
+            }
+            
+            switch result {
+            case .success(let success):
+                idtracksAdded = success.items.compactMap({
+                    $0.track.id
+                })
+            case .failure(let failure):
+                print(" ERROR GETTING TACKS ADDED FOR USER\(failure)")
+            }
+        }
+        
+        
 //        Albums
         group.enter()
         APIManager.shared.getNewRelease { response in
@@ -94,7 +116,7 @@ class BrowserViewModel: ObservableObject {
                 defer {
                     group.leave()
                 }
-                
+
                 switch result {
                 case .success(let success):
                     alternativeResponse = success.tracks
@@ -102,8 +124,8 @@ class BrowserViewModel: ObservableObject {
                     print(" getRecomendationWithAGenre \(failure.localizedDescription)")
                 }
             }
-        
-        
+
+
 //        Hard-rock
         group.enter()
         APIManager.shared.getRecomendationWithAGenre(
@@ -111,7 +133,7 @@ class BrowserViewModel: ObservableObject {
                 defer {
                     group.leave()
                 }
-                
+
                 switch result {
                 case .success(let success):
                     rockResponse = success.tracks
@@ -126,7 +148,7 @@ class BrowserViewModel: ObservableObject {
                 defer {
                     group.leave()
                 }
-                
+
                 switch result {
                 case .success(let success):
                     houseResponse = success.tracks
@@ -137,17 +159,24 @@ class BrowserViewModel: ObservableObject {
         
         
         group.notify(queue: .main) {
-            guard let albums = albumsResponse, let idsAlbumsAdded = idAlbumsAdded, let playlists = playlistResponse, let rock = rockResponse, let alternative = alternativeResponse, let house = houseResponse else {
+            guard let albums = albumsResponse,
+                  let idsAlbumsAdded = idAlbumsAdded,
+                  let idsTracksAdded = idtracksAdded,
+                  let playlists = playlistResponse,
+                  let rock = rockResponse,
+                  let alternative = alternativeResponse,
+                  let house = houseResponse else {
                 self.errorData = true
                 return
             }
-            self.configureData(albums: albums, idAlbumAdded: idsAlbumsAdded, playlist: playlists, rock: rock, alternative: alternative, house: house)
+            self.configureData(albums: albums, idAlbumAdded: idsAlbumsAdded, idTracksAdded: idsTracksAdded, playlist: playlists, rock: rock, alternative: alternative, house: house)
         }
     }
     
     private func configureData(
         albums: [AlbumResponse],
         idAlbumAdded: [String],
+        idTracksAdded: [String],
         playlist: [Playlist],
         rock: [AudioTrackResponse],
         alternative: [AudioTrackResponse],
@@ -184,37 +213,46 @@ class BrowserViewModel: ObservableObject {
         }
         
 //        Rock
-        let rockCell = rock.compactMap {
+        let rockCell = rock.compactMap { track in
             TrackModelCell(
-                image: URL(string: $0.album?.images.first?.url ?? "-"),
-                artists: $0.artists.first?.name ?? "-",
-                explicit: $0.explicit,
-                id: $0.id,
-                name: $0.name,
-                previewUrl: URL(string: $0.previewUrl ?? "-")
+                image: URL(string: track.album?.images.first?.url ?? "-"),
+                artists: track.artists.first?.name ?? "-",
+                explicit: track.explicit,
+                id: track.id,
+                name: track.name,
+                previewUrl: URL(string: track.previewUrl ?? "-"),
+                wasAdded: idTracksAdded.contains(where: { idFvoriteTracks in
+                    track.id == idFvoriteTracks
+                })
             )
         }
-        
+
 //        House
-        let houseCell = house.compactMap {
+        let houseCell = house.compactMap { track in
             TrackModelCell(
-                image: URL(string: $0.album?.images.first?.url ?? "-"),
-                artists: $0.artists.first?.name ?? "-",
-                explicit: $0.explicit,
-                id: $0.id,
-                name: $0.name,
-                previewUrl: URL(string: $0.previewUrl ?? "-")
+                image: URL(string: track.album?.images.first?.url ?? "-"),
+                artists: track.artists.first?.name ?? "-",
+                explicit: track.explicit,
+                id: track.id,
+                name: track.name,
+                previewUrl: URL(string: track.previewUrl ?? "-"),
+                wasAdded: idTracksAdded.contains(where: { idFvoriteTracks in
+                    track.id == idFvoriteTracks
+                })
             )
         }
 //        Alternative
-        let alternativeCell = alternative.compactMap {
+        let alternativeCell = alternative.compactMap { track in
             TrackModelCell(
-                image: URL(string: $0.album?.images.first?.url ?? "-"),
-                artists: $0.artists.first?.name ?? "-",
-                explicit: $0.explicit,
-                id: $0.id,
-                name: $0.name,
-                previewUrl: URL(string: $0.previewUrl ?? "-")
+                image: URL(string: track.album?.images.first?.url ?? "-"),
+                artists: track.artists.first?.name ?? "-",
+                explicit: track.explicit,
+                id: track.id,
+                name: track.name,
+                previewUrl: URL(string: track.previewUrl ?? "-"),
+                wasAdded: idTracksAdded.contains(where: { idFvoriteTracks in
+                    track.id == idFvoriteTracks
+                })
             )
         }
         
@@ -270,7 +308,7 @@ class BrowserViewModel: ObservableObject {
     func updateAlbum(album: ItemModelCell) {
 //        self.newReleasesCell.forEach { value in
 //            if value.id == album.id {
-//                value.wasAddedToFavoriteAlbums.toggle()
+//                value.wasAddedToFavoriteAlbums = true
 //            }
 //        }
     }
@@ -281,7 +319,50 @@ class BrowserViewModel: ObservableObject {
         }
     }
     
+    // MARK: - More to Explore
+    
+    func getGenres() {
+        APIManager.shared.getGenres { [weak self] result in
+            switch result {
+            case .success(let success):
+                DispatchQueue.main.async {
+                    self?.genres = success.genres
+                }
+            case .failure(let failure):
+                print(failure.localizedDescription)
+                DispatchQueue.main.async {
+                    self?.errorNameGenres.toggle()
+                }
+                
+            }
+        }
+    }
+    
+    func getTracksByGenre(genre: String) {
+        APIManager.shared.getRecomendationWithAGenre(genre: genre) { [weak self] result in
+            switch result {
+            case .success(let success):
+                
+                let tracks = success.tracks.compactMap {
+                    TrackModelCell(
+                        image: URL(string: $0.album?.images.first?.url ?? "-"),
+                        artists: $0.artists.first?.name ?? "-",
+                        explicit: $0.explicit,
+                        id: $0.id,
+                        name: $0.name,
+                        previewUrl: URL(string: $0.previewUrl ?? "-"))
+                }
+                DispatchQueue.main.async {
+                    self?.trackfForGenre =  tracks
+                }
+            case .failure(let failure):
+                print(failure.localizedDescription)
+                self?.errorTracksByGenres.toggle()
+            }
+        }
+    }
+    
     deinit {
-        print("gooooooood")
+        print("BrowserViewModel withOut memory leak")
     }
 }
