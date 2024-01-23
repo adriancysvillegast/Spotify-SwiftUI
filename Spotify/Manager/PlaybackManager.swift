@@ -24,7 +24,7 @@ final class PlaybackManager: ObservableObject {
     private var currentTrack: TrackModelCell? {
         if let track = track, tracks.isEmpty {
             return track
-        }else if let player = self.playerQueue, !tracks.isEmpty {
+        }else if let _ = self.playerQueue, !tracks.isEmpty {
             return tracks[index]
         }
         return nil
@@ -35,7 +35,7 @@ final class PlaybackManager: ObservableObject {
     
     func startPlayback(track: TrackModelCell) {
             //playSong
-            print(track.previewUrl)
+//            print(track.previewUrl)
             guard let url = track.previewUrl else {
                 return
             }
