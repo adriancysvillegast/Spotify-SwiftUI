@@ -181,7 +181,6 @@ final class AuthManager: ObservableObject {
     private func cacheToken(result: AuthResponse) {
         DispatchQueue.main.async {
             self.accessToken = result.accessToken
-            
             UserDefaults.standard.set(Date().addingTimeInterval(TimeInterval(result.expiresIn)), forKey: "expires_in")
             if let refresh = result.refreshToken{
                 self.refreshToken = refresh
@@ -193,6 +192,7 @@ final class AuthManager: ObservableObject {
     }
     
     public func signOut(completion: (Bool) -> Void ) {
+        accessToken = nil
         UserDefaults.standard.set(nil, forKey: "access_token")
         UserDefaults.standard.set(nil, forKey: "expires_in")
         UserDefaults.standard.set(nil, forKey: "refresh_token")

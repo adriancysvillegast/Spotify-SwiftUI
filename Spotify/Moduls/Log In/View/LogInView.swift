@@ -56,8 +56,8 @@ struct LogInView: View {
                         .foregroundStyle(
                             LinearGradient(
                                 colors: [
-                                    .customGrayLight,
-                                    .customGrayMedium], startPoint: .top, endPoint: .bottom)
+                                    Color.green.opacity(0.6),
+                                    Color.green], startPoint: .top, endPoint: .bottom)
                         )
                         .shadow(color: .black.opacity(0.25), radius: 0.25, x: 1, y: 2)
                 }
